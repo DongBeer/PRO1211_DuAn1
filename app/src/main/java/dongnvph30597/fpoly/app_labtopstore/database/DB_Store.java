@@ -29,10 +29,59 @@ public class DB_Store extends SQLiteOpenHelper {
                 "diaChi text NOT NULL)";
         sqLiteDatabase.execSQL(createTableKH);
 
+        String createTableLoaiSP = "create table ThuongHieu (" +
+                "maTH INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "tenTH text NOT NULL," +
+                "imgTH INTEGER NOT NULL)";
+        sqLiteDatabase.execSQL(createTableLoaiSP);
+
+        String createTableSP = "create table SanPham (" +
+                "maSP INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "tenSP text NOT NULL, " +
+                "moTa text NOT NULL,"+
+                "maTH INTEGER REFERENCES ThuongHieu(maTH),"+
+                "giaSP INTEGER NOT NULL,"+
+                "loaiSP text NOT NULL, " +  //ví dụ như: Gaming, Sinh Viên - Văn Phòng, Đồ Họa ....
+                "soLuong INTEGER NOT NULL)";
+        sqLiteDatabase.execSQL(createTableSP);
+
+
+        String createTableHD = "create table HoaDon (" +
+                "maHD INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "maKH INTEGER REFERENCES KhachHang(maKH)," +
+                "maNV text REFERENCES QuanLy(maNV)," +
+                "ngay date NOT NULL," +
+                "tongTien INTEGER NOT NULL," +
+                "trangThai INTEGER NOT NULL)";
+        sqLiteDatabase.execSQL(createTableHD);
+
+        String createTableHDCT = "create table HoaDonChiTiet (" +
+                "maHDCT INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "maHD INTEGER REFERENCES HoaDon(maHD)," +
+                "maSP INTEGER REFERENCES SanPham(maSP)," +
+                "ghiChu text NOT NULL)";
+        sqLiteDatabase.execSQL(createTableHDCT);
+
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        String dropTableQL = "drop table if exists QuanLy";
+        sqLiteDatabase.execSQL(dropTableQL);
+        String dropTableKH = "drop table if exists KhachHang";
+        sqLiteDatabase.execSQL(dropTableKH);
+        String dropTableLoaiSP = "drop table if exists ThuongHieu";
+        sqLiteDatabase.execSQL(dropTableLoaiSP);
+        String dropTableLSP = "drop table if exists SanPham";
+        sqLiteDatabase.execSQL(dropTableLSP);
+        String dropTableHD = "drop table if exists HoaDon";
+        sqLiteDatabase.execSQL(dropTableHD);
+        String dropTableHDCT = "drop table if exists HoaDonChiTiet";
+        sqLiteDatabase.execSQL(dropTableHDCT);
 
+
+        onCreate(sqLiteDatabase);
     }
 }
