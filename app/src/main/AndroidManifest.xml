@@ -13,7 +13,29 @@
         android:theme="@style/Theme.App_LabtopStore"
         tools:targetApi="31">
         <activity
+            android:name=".activity.Register_activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.Login_Activity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".manhinhcho.Manhinhcho1"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
