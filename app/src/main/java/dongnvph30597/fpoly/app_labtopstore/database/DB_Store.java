@@ -17,14 +17,19 @@ public class DB_Store extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
+        String createTableAdmin = "create table Admin ("+
+                "maAdmin text PRIMARY KEY, " +
+                "hoTen text NOT NULL, " +
+                "mkAdmin text NOT NULL)";
+        sqLiteDatabase.execSQL(createTableAdmin);
+
         String createTableUser= "create table User (" +
                 "maUser INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "hoTen text NOT NULL, " +
                 "tkUser text NOT NULL, " +
                 "mkUser text NOT NULL, " +
                 "soDT text NOT NULL,"+
-                "diaChi text NOT NULL,"+
-                "chucNang INTEGER NOT NULL)";
+                "diaChi text NOT NULL)";
         sqLiteDatabase.execSQL(createTableUser);
 
         String createTableThuonghieu = "create table ThuongHieu (" +
@@ -40,13 +45,14 @@ public class DB_Store extends SQLiteOpenHelper {
                 "maTH INTEGER REFERENCES ThuongHieu(maTH),"+
                 "giaSP INTEGER NOT NULL,"+
                 "loaiSP text NOT NULL, " +  //ví dụ như: Gaming, Sinh Viên - Văn Phòng, Đồ Họa ....
-                "soLuong INTEGER NOT NULL)";
+                "soLuong INTEGER NOT NULL, " +
+                "imgSP INTEGER NOT NULL)";
         sqLiteDatabase.execSQL(createTableSP);
 
         String createTableHD = "create table HoaDon (" +
                 "maHD INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "maKH INTEGER REFERENCES User(maUser)," +
-                "maAdmin text REFERENCES User(maUser)," +
+                "maUser INTEGER REFERENCES User(maUser)," +
+                "maAdmin text REFERENCES Admin(maAdmin)," +
                 "ngay date NOT NULL," +
                 "tongTien INTEGER NOT NULL)";
         sqLiteDatabase.execSQL(createTableHD);
