@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ic_home"
+        android:title="Quản lí đơn hàng"
+        android:icon="@drawable/ic_nav_home"
+        />
+
+    <item
+        android:id="@+id/ic_type_product"
+        android:icon="@drawable/product_type_ic2"
+        android:title="Quản lí loại sản phẩm"/>
+    <item
+        android:id="@+id/ic_product"
+        android:icon="@drawable/product_laptop_icon"
+        android:title="Quản lí sản phẩm"/>
+    <item
+        android:id="@+id/ic_client"
+        android:icon="@drawable/client_ic"
+        android:title="Quản lí khách hàng"/>
+
+    <item android:title="Thống kê"
+        >
+        <menu>
+            <item
+                android:id="@+id/ic_top"
+                android:icon="@drawable/top_ic"
+                android:title="Top sản phẩm bán chạy nhất"
+                />
+            <item
+                android:id="@+id/ic_revenue"
+                android:icon="@drawable/ic_revenue"
+                android:title="Doanh thu"
+                />
+        </menu>
+    </item>
+    <item android:title="Người dùng">
+        <menu>
+            <item
+                android:id="@+id/ic_change_pass"
+                android:icon="@drawable/ic_change_pass"
+                android:title="Đổi mật khẩu"
+                />
+            <item
+                android:id="@+id/ic_exit"
+                android:icon="@drawable/ic_exit"
+                android:title="Đăng xuất"
+                />
+        </menu>
+    </item>
+
+
+</menu>
