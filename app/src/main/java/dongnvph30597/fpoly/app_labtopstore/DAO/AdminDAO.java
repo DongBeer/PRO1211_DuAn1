@@ -1,4 +1,4 @@
-package dongnvph30597.fpoly.app_labtopstore.DAOO;
+package dongnvph30597.fpoly.app_labtopstore.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import dongnvph30597.fpoly.app_labtopstore.DAOO.AdminDAO;
-import dongnvph30597.fpoly.app_labtopstore.DAOO.UserDAO;
+import dongnvph30597.fpoly.app_labtopstore.DAO.AdminDAO;
+import dongnvph30597.fpoly.app_labtopstore.DAO.UserDAO;
 import dongnvph30597.fpoly.app_labtopstore.MainActivity;
 import dongnvph30597.fpoly.app_labtopstore.R;
 

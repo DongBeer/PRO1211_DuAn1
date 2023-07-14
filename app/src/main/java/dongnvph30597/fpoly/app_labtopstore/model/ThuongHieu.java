@@ -3,12 +3,13 @@ package dongnvph30597.fpoly.app_labtopstore.model;
 public class ThuongHieu {
     public int maTH;
     public String tenTH;
-    public int imgTH;
+    public String imgTH;
 
     public ThuongHieu() {
     }
 
-    public ThuongHieu(int maTH, String tenTH, int imgTH) {
+
+    public ThuongHieu(int maTH, String tenTH, String imgTH) {
         this.maTH = maTH;
         this.tenTH = tenTH;
         this.imgTH = imgTH;
@@ -30,11 +31,11 @@ public class ThuongHieu {
         this.tenTH = tenTH;
     }
 
-    public int getImgTH() {
+    public String getImgTH() {
         return imgTH;
     }
 
-    public void setImgTH(int imgTH) {
+    public void setImgTH(String imgTH) {
         this.imgTH = imgTH;
     }
 }
