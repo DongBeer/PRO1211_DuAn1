@@ -38,7 +38,7 @@ public class UserDAO {
         return db.update("User",values,"maUser=?",new String[]{String.valueOf(user.maUser)});
     }
 
-    public ArrayList<User> getAllTV(){
+    public ArrayList<User> getAllUser(){
         String sql = "SELECT * FROM User";
         return getData(sql);
     }

@@ -1,9 +1,11 @@
 package dongnvph30597.fpoly.app_labtopstore;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,5 +55,20 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Thoát ứng dụng");
+        builder.setMessage("Bạn có muốn thoát khỏi ứng dụng không?");
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("Không",null);
+        builder.show();
     }
 }

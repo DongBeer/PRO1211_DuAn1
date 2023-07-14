@@ -1,7 +1,9 @@
 package dongnvph30597.fpoly.app_labtopstore.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -31,14 +33,8 @@ public class Login_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        edTendangnhap = findViewById(R.id.edTendangnhap);
-        edPass = findViewById(R.id.edPass);
-        btnLogin = findViewById(R.id.btn_login);
-        tvRegister = findViewById(R.id.tvRegister);
-        ckbSavepass = findViewById(R.id.ckbSavepass);
 
-        adminDAO = new AdminDAO(Login_Activity.this);
-        userDAO = new UserDAO(Login_Activity.this);
+        FindbyID();
 
         SharedPreferences pref = getSharedPreferences("USER_FILE",MODE_PRIVATE);
         edTendangnhap.setText(pref.getString("USERNAME",""));
@@ -65,11 +61,22 @@ public class Login_Activity extends AppCompatActivity {
                         // Trở về màu cũ của TextView
                         tvRegister.setTextColor(Color.parseColor("#7230B3"));
                     }
-                }, 10); // Thời gian chờ (đơn vị: milliseconds)
+                }, 15); // Thời gian chờ (đơn vị: milliseconds)
                 Intent mIntent = new Intent(Login_Activity.this, Register_activity.class);
                 startActivity(mIntent);
             }
         });
+    }
+
+    private void FindbyID(){
+        edTendangnhap = findViewById(R.id.edTendangnhap);
+        edPass = findViewById(R.id.edPass);
+        btnLogin = findViewById(R.id.btn_login);
+        tvRegister = findViewById(R.id.tvRegister);
+        ckbSavepass = findViewById(R.id.ckbSavepass);
+
+        adminDAO = new AdminDAO(Login_Activity.this);
+        userDAO = new UserDAO(Login_Activity.this);
     }
     public void checkLogin(){
         String strUser = edTendangnhap.getText().toString();
@@ -102,5 +109,21 @@ public class Login_Activity extends AppCompatActivity {
             editor.putBoolean("REMEMBER",status);
         }
         editor.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Thoát ứng dụng");
+        builder.setMessage("Bạn có muốn thoát khỏi ứng dụng không?");
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finishAffinity();
+            }
+        });
+        builder.setNegativeButton("Không",null);
+        builder.show();
     }
 }
