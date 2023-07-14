@@ -35,7 +35,7 @@ public class DB_Store extends SQLiteOpenHelper {
         String createTableThuonghieu = "create table ThuongHieu (" +
                 "maTH INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "tenTH text NOT NULL," +
-                "imgTH INTEGER NOT NULL)";
+                "imgTH Text NOT NULL)";
         sqLiteDatabase.execSQL(createTableThuonghieu);
 
         String createTableSP = "create table SanPham (" +
