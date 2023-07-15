@@ -42,4 +42,14 @@ public class ThuongHieuDao {
         values.put("imgTH", obj.getImgTH());
         return db.insert("ThuongHieu", null, values);
     }
+    public int update(ThuongHieu obj){
+        ContentValues values = new ContentValues();
+        values.put("tenTH", obj.getTenTH());
+        values.put("imgTH", obj.getImgTH());
+        return db.update("ThuongHieu", values, "maTH=?", new String[]{String.valueOf(obj.getMaTH())});
+    }
+
+    public int delete(String id){
+        return db.delete("ThuongHieu","maTH=?", new String[]{id});
+    }
 }

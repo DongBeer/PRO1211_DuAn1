@@ -22,9 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -35,6 +38,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
 import dongnvph30597.fpoly.app_labtopstore.R;
 import dongnvph30597.fpoly.app_labtopstore.adapter.LoaiSanPhamAdapter;
 import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
@@ -59,6 +63,7 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
     public Fragment_QuanLyLoaiSp() {
         // Required empty public constructor
     }
+
     public static Fragment_QuanLyLoaiSp newInstance() {
         Fragment_QuanLyLoaiSp fragment = new Fragment_QuanLyLoaiSp();
         return fragment;
@@ -85,7 +90,7 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
         dao = new ThuongHieuDao(getContext());
         list = new ArrayList<>();
         list = dao.selectAll();
-        adapter= new LoaiSanPhamAdapter(getContext());
+        adapter = new LoaiSanPhamAdapter(getContext(),dao);
         adapter.setData(list);
         rcv.setAdapter(adapter);
         fabAdd.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +142,58 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
             }
         });
 
+        //sửa
+        adapter.setOnItemClickSelected(new LoaiSanPhamAdapter.onItemClickSelected() {
+            @Override
+            public void onItemClick(int position) {
+                Dialog dialog = new Dialog(getContext());
+                dialog.setContentView(R.layout.layout_add_loaisp);
+                Window window = dialog.getWindow();
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                EditText edtName = dialog.findViewById(R.id.edit_name);
+                img = dialog.findViewById(R.id.btn_add_image);
+                CardView btnAdd = dialog.findViewById(R.id.btn_add);
+
+                ThuongHieu obj = list.get(position);
+                img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            // Nếu quyền chưa được cấp, yêu cầu quyền
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                        } else {
+                            // Nếu quyền đã được cấp, mở thư viện ảnh
+                            openImagePicker();
+                        }
+                    }
+                });
+
+                imagePath = obj.getImgTH();
+                edtName.setText(obj.getTenTH());
+                Glide.with(getContext())
+                        .load(obj.getImgTH())
+                        .into(img);
+                btnAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String name = edtName.getText().toString();
+                        obj.setTenTH(name);
+                        obj.setImgTH(imagePath);
+                        dao.update(obj);
+                        adapter.notifyDataSetChanged();
+                        dialog.dismiss();
+
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+        //sửa
+
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -152,7 +208,7 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
     }
 
     private String getRealPathFromUri(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
+        String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
         int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
@@ -180,4 +236,11 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        list= dao.selectAll();
+        adapter.setData(list);
+        adapter.notifyDataSetChanged();
+    }
 }
