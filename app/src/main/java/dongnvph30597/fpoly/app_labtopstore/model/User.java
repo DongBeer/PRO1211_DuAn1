@@ -1,20 +1,31 @@
 package dongnvph30597.fpoly.app_labtopstore.model;
 
 public class User {
+    public int maUser;
     public String hoTen;
     public String tenDangnhap;
     public String matkhau;
     public String soDT;
     public String diaChi;
-    public int chucnang;
 
-    public User(String hoTen, String tenDangnhap, String matkhau, String soDT, String diaChi, int chucnang) {
+    public User(int maUser, String hoTen, String tenDangnhap, String matkhau, String soDT, String diaChi) {
+        this.maUser = maUser;
         this.hoTen = hoTen;
         this.tenDangnhap = tenDangnhap;
         this.matkhau = matkhau;
         this.soDT = soDT;
         this.diaChi = diaChi;
-        this.chucnang = chucnang;
+    }
+
+    public User() {
+    }
+
+    public int getMaUser() {
+        return maUser;
+    }
+
+    public void setMaUser(int maUser) {
+        this.maUser = maUser;
     }
 
     public String getHoTen() {
@@ -57,11 +68,4 @@ public class User {
         this.diaChi = diaChi;
     }
 
-    public int getChucnang() {
-        return chucnang;
-    }
-
-    public void setChucnang(int chucnang) {
-        this.chucnang = chucnang;
-    }
 }
