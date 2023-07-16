@@ -2,7 +2,9 @@ package dongnvph30597.fpoly.app_labtopstore.Fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -21,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +33,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
+import dongnvph30597.fpoly.app_labtopstore.MainActivity;
 import dongnvph30597.fpoly.app_labtopstore.R;
 import dongnvph30597.fpoly.app_labtopstore.adapter.LoaiSanPhamAdapter;
 import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
@@ -54,14 +59,14 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
     private LoaiSanPhamAdapter adapter;
 
     private ThuongHieuDao dao;
-    ImageView img;
+    ImageView img, imgloaisp;
     private String imagePath;
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int PERMISSION_REQUEST_CODE = 2;
 
     public Fragment_QuanLyLoaiSp() {
-        // Required empty public constructor
+
     }
 
     public static Fragment_QuanLyLoaiSp newInstance() {
@@ -93,6 +98,15 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
         adapter = new LoaiSanPhamAdapter(getContext(),dao);
         adapter.setData(list);
         rcv.setAdapter(adapter);
+        imgloaisp = view.findViewById(R.id.imgHome_qlkh);
+        imgloaisp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+
+
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,10 +114,13 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
                 dialog.setContentView(R.layout.layout_add_loaisp);
                 Window window = dialog.getWindow();
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
                 EditText edtName = dialog.findViewById(R.id.edit_name);
                 img = dialog.findViewById(R.id.btn_add_image);
                 CardView btnAdd = dialog.findViewById(R.id.btn_add);
+                CardView btnDelete = dialog.findViewById(R.id.btn_delete);
+                btnDelete.setVisibility(View.GONE);
 
                 ThuongHieu obj = new ThuongHieu();
                 img.setOnClickListener(new View.OnClickListener() {
@@ -150,10 +167,16 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
                 dialog.setContentView(R.layout.layout_add_loaisp);
                 Window window = dialog.getWindow();
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                TextView tvId = dialog.findViewById(R.id.tv_id_dialog);
+                TextView tvbtn = dialog.findViewById(R.id.btn_txt_addd);
                 EditText edtName = dialog.findViewById(R.id.edit_name);
                 img = dialog.findViewById(R.id.btn_add_image);
                 CardView btnAdd = dialog.findViewById(R.id.btn_add);
+                CardView btnDelete = dialog.findViewById(R.id.btn_delete);
+
+                tvId.setVisibility(View.VISIBLE);
+                tvbtn.setText("Update");
 
                 ThuongHieu obj = list.get(position);
                 img.setOnClickListener(new View.OnClickListener() {
@@ -169,6 +192,7 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
                     }
                 });
 
+                tvId.setText("mã loại: "+obj.maTH);
                 imagePath = obj.getImgTH();
                 edtName.setText(obj.getTenTH());
                 Glide.with(getContext())
@@ -187,11 +211,38 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
                     }
                 });
 
+                btnDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("bạn muốn xóa "+ obj.getTenTH()+" ?");
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                list.remove(obj);
+                                dao.delete(obj.getMaTH()+"");
+                                adapter.notifyDataSetChanged();
+                                Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        builder.show();
+                        dialog.dismiss();
+                    }
+                });
+
                 dialog.show();
             }
         });
         //sửa
-
+        //---------------copy-------------------
     }
 
     @Override

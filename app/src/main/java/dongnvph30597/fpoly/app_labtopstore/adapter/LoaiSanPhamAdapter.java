@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
 import dongnvph30597.fpoly.app_labtopstore.R;
 import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
 import dongnvph30597.fpoly.app_labtopstore.model.ThuongHieu;
@@ -73,10 +74,9 @@ public class LoaiSanPhamAdapter extends RecyclerView.Adapter<LoaiSanPhamAdapter.
         }
         Glide.with(context).load(obj.getImgTH()).error(R.drawable.signup).into(holder.img);
         holder.name.setText(obj.getTenTH());
-        holder.id.setText("mã loại: "+obj.getMaTH());
 
-        //------------sửa--------------------
-        holder.icEdit.setOnClickListener(new View.OnClickListener() {
+
+        holder.layoutSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
@@ -84,35 +84,7 @@ public class LoaiSanPhamAdapter extends RecyclerView.Adapter<LoaiSanPhamAdapter.
                 }
             }
         });
-        //------------sửa--------------------
 
-        //------------xóa--------------------
-        holder.icDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("bạn muốn xóa "+ obj.getTenTH()+" ?");
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        list.remove(obj);
-                        dao.delete(obj.getMaTH()+"");
-                        notifyDataSetChanged();
-                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                builder.show();
-            }
-        });
-        //------------xóa--------------------
     }
 
     @Override
@@ -128,11 +100,8 @@ public class LoaiSanPhamAdapter extends RecyclerView.Adapter<LoaiSanPhamAdapter.
 
         public LoaiSanPhamViewHolder(@NonNull View itemView) {
             super(itemView);
-            id = itemView.findViewById(R.id.tv_id);
             name = itemView.findViewById(R.id.tv_name);
             img = itemView.findViewById(R.id.img_logo);
-            icEdit = itemView.findViewById(R.id.ic_edit);
-            icDelete = itemView.findViewById(R.id.ic_delete);
             layoutSelected = itemView.findViewById(R.id.layout_selected);
         }
     }
