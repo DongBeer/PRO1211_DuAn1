@@ -26,6 +26,7 @@ public class UserDAO {
         values.put("mkUser",user.matkhau);
         values.put("soDT",user.soDT);
         values.put("diaChi",user.diaChi);
+        values.put("imgUser",user.imgUser);
         return db.insert("User",null,values);
     }
     public long update(User user){
@@ -35,6 +36,7 @@ public class UserDAO {
         values.put("mkUser",user.matkhau);
         values.put("soDT",user.soDT);
         values.put("diaChi",user.diaChi);
+        values.put("imgUser",user.imgUser);
         return db.update("User",values,"maUser=?",new String[]{String.valueOf(user.maUser)});
     }
 
@@ -55,6 +57,7 @@ public class UserDAO {
                 user.setMatkhau(cursor.getString(3));
                 user.setSoDT(cursor.getString(4));
                 user.setDiaChi(cursor.getString(5));
+                user.setImgUser(cursor.getString(6));
                 arr.add(user);
                 cursor.moveToNext();
             }
@@ -69,6 +72,12 @@ public class UserDAO {
             return -1;
         }
         return 1;
+    }
+
+    public User getID(String id){
+        String sql = "SELECT * FROM User WHERE maUser=?";
+        List<User> list = getData(sql,id);
+        return list.get(0);
     }
 
 }

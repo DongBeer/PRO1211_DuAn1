@@ -83,15 +83,23 @@ public class Login_Activity extends AppCompatActivity {
         String strPass = edPass.getText().toString();
         if (strUser.isEmpty() || strPass.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_SHORT).show();
+            return;
         }
-        if ((adminDAO.checkLogin(strUser, strPass) > 0) || (userDAO.checkLogin(strUser,strPass) > 0)) {
+
+        if ((adminDAO.checkLogin(strUser, strPass) > 0) ) {
             Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
             rememberUser(strUser, strPass, ckbSavepass.isChecked());
-
             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-            intent.putExtra("user",strUser);
-            intent.putExtra("pass",strPass);
+            intent.putExtra("maAdmin", strUser);
             startActivity(intent);
+            finish();
+
+        }else if((userDAO.checkLogin(strUser,strPass) > 0)){
+            Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
+            rememberUser(strUser, strPass, ckbSavepass.isChecked());
+            Intent mIntent = new Intent(Login_Activity.this,KhachHang_Activity.class);
+            mIntent.putExtra("nameUser",strUser);
+            startActivity(mIntent);
             finish();
         }else {
             Toast.makeText(this, "Tên đăng nhập hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
@@ -125,5 +133,16 @@ public class Login_Activity extends AppCompatActivity {
         });
         builder.setNegativeButton("Không",null);
         builder.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean resetLoginState = getIntent().getBooleanExtra("RESET_LOGIN_STATE", false);
+        if (resetLoginState) {
+            edTendangnhap.setText("");
+            edPass.setText("");
+            ckbSavepass.setChecked(false);
+        }
     }
 }

@@ -7,6 +7,9 @@ public class User {
     public String matkhau;
     public String soDT;
     public String diaChi;
+    public String imgUser;
+
+    public static final String COL_PHOTO = "imgUser";
 
     public User(int maUser, String hoTen, String tenDangnhap, String matkhau, String soDT, String diaChi) {
         this.maUser = maUser;
@@ -15,6 +18,16 @@ public class User {
         this.matkhau = matkhau;
         this.soDT = soDT;
         this.diaChi = diaChi;
+    }
+
+    public User(int maUser, String hoTen, String tenDangnhap, String matkhau, String soDT, String diaChi, String imgUser) {
+        this.maUser = maUser;
+        this.hoTen = hoTen;
+        this.tenDangnhap = tenDangnhap;
+        this.matkhau = matkhau;
+        this.soDT = soDT;
+        this.diaChi = diaChi;
+        this.imgUser = imgUser;
     }
 
     public User() {
@@ -68,4 +81,11 @@ public class User {
         this.diaChi = diaChi;
     }
 
+    public String getImgUser() {
+        return imgUser;
+    }
+
+    public void setImgUser(String imgUser) {
+        this.imgUser = imgUser;
+    }
 }

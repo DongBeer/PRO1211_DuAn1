@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import dongnvph30597.fpoly.app_labtopstore.R;
+import dongnvph30597.fpoly.app_labtopstore.model.User;
+
 public class DB_Store extends SQLiteOpenHelper {
     public static final String NAME = "db_store";
     public static final int VERSION = 1;
@@ -29,7 +32,8 @@ public class DB_Store extends SQLiteOpenHelper {
                 "tkUser text NOT NULL, " +
                 "mkUser text NOT NULL, " +
                 "soDT text NOT NULL,"+
-                "diaChi text NOT NULL)";
+                "diaChi text NOT NULL," +
+                "imgUser text NOT NULL)";
         sqLiteDatabase.execSQL(createTableUser);
 
         String createTableThuonghieu = "create table ThuongHieu (" +
@@ -54,7 +58,8 @@ public class DB_Store extends SQLiteOpenHelper {
                 "maUser INTEGER REFERENCES User(maUser)," +
                 "maAdmin text REFERENCES Admin(maAdmin)," +
                 "ngay date NOT NULL," +
-                "tongTien INTEGER NOT NULL)";
+                "tongTien INTEGER NOT NULL," +
+                "trangThai INTEGER NOT NULL)";
         sqLiteDatabase.execSQL(createTableHD);
 
         String createTableHDCT = "create table HoaDonChiTiet (" +
@@ -72,6 +77,23 @@ public class DB_Store extends SQLiteOpenHelper {
                 "danhGia INTEGER NOT NULL, " +
                 "nhanXet TEXT not null)";
         sqLiteDatabase.execSQL(createTableDanhGia);
+
+        String addHD = "INSERT INTO Admin (maAdmin, hoTen,mkAdmin) VALUES "
+                + "('admin1','Admin1','admin1')";
+        sqLiteDatabase.execSQL(addHD);
+
+        String addPM = "INSERT INTO User (maUser, hoTen,tkUser, mkUser, soDT, diaChi," + User.COL_PHOTO +") VALUES "
+                + "(1, 'Nguyễn Đông','kh01','a','0988171166','59 Mễ Trì'," + R.drawable.background05+ "), "
+                + "(2, 'Nguyễn Luân','kh02','b','0356642354','31 Di Trạch'," + R.drawable.background05+ ")";
+        sqLiteDatabase.execSQL(addPM);
+
+        String addADM = "INSERT INTO HoaDon (maHD, maUser,maAdmin, ngay, tongTien, trangThai) VALUES "
+                + "(1, 1,'admin1','2023-07-18',20000,0), "
+                + "(2, 2,'admin1','2023-07-18',20000,0)";
+
+        sqLiteDatabase.execSQL(addADM);
+
+
 
 
     }

@@ -8,12 +8,25 @@
     android:background="#ECF4F8"
     tools:context=".activity.Register_activity">
 
-    <ImageView
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:src="@drawable/signup"/>
+    <LinearLayout
+        android:background="#fff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/design_register1"/>
+
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:src="@drawable/signup"/>
+    </LinearLayout>
+
+
 
     <ScrollView
         android:layout_width="match_parent"

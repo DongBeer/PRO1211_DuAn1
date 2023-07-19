@@ -6,17 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_DangXuat;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanLyLoaiSp;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanlyDonHang;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanlyKhachHang;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanlySanPham;
+import dongnvph30597.fpoly.app_labtopstore.activity.Login_Activity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +56,17 @@ public class MainActivity extends AppCompatActivity {
                 }else if(it == R.id.ic_client){
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_main,new Fragment_QuanlyKhachHang()).commit();
                     drawerLayout.close();
+                }else if(it == R.id.ic_exit){
+                    drawerLayout.close();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent mIntent = new Intent(MainActivity.this, Login_Activity.class);
+                            mIntent.putExtra("RESET_LOGIN_STATE", true);
+                            startActivity(mIntent);
+                        }
+                    },1000);
+
                 }
                 return true;
             }

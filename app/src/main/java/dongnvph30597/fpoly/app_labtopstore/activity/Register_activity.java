@@ -142,6 +142,7 @@ public class Register_activity extends AppCompatActivity {
         u.setMatkhau(pass);
         u.setSoDT(sdt);
         u.setDiaChi(dc);
+        u.setImgUser(String.valueOf(R.drawable.user_login));
         if (userDAO.insert(u) > 0) {
             Toast.makeText(Register_activity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
             Intent mIntent = new Intent(Register_activity.this, Login_Activity.class);
