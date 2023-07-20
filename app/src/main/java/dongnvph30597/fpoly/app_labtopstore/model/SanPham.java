@@ -8,12 +8,12 @@ public class SanPham {
     public int giaSP;
     public String loaiSP;
     public int soLuong;
-    public int imgSP;
+    public String imgSP;
 
     public SanPham() {
     }
 
-    public SanPham(int maSP, String tenSP, String moTa, int maTH, int giaSP, String loaiSP, int soLuong, int imgSP) {
+    public SanPham(int maSP, String tenSP, String moTa, int maTH, int giaSP, String loaiSP, int soLuong, String imgSP) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.moTa = moTa;
@@ -80,11 +80,11 @@ public class SanPham {
         this.soLuong = soLuong;
     }
 
-    public int getImgSP() {
+    public String getImgSP() {
         return imgSP;
     }
 
-    public void setImgSP(int imgSP) {
+    public void setImgSP(String imgSP) {
         this.imgSP = imgSP;
     }
 }
