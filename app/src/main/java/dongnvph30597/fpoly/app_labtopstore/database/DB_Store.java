@@ -50,7 +50,7 @@ public class DB_Store extends SQLiteOpenHelper {
                 "giaSP INTEGER NOT NULL,"+
                 "loaiSP text NOT NULL, " +  //ví dụ như: Gaming, Sinh Viên - Văn Phòng, Đồ Họa ....
                 "soLuong INTEGER NOT NULL, " +
-                "imgSP INTEGER NOT NULL)";
+                "imgSP Text NOT NULL)";
         sqLiteDatabase.execSQL(createTableSP);
 
         String createTableHD = "create table HoaDon (" +
