@@ -1,9 +1,11 @@
 package dongnvph30597.fpoly.app_labtopstore.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ import dongnvph30597.fpoly.app_labtopstore.model.User;
 
 public class UserDAO {
     private SQLiteDatabase db;
+    public static int idUser;
 
     public UserDAO(Context context) {
         DB_Store db_store = new DB_Store(context);
@@ -69,6 +72,7 @@ public class UserDAO {
         String sql = "SELECT * FROM User WHERE tkUser=? AND mkUser=?";
         List<User> list = getData(sql,tk,password);
         if (list.size()==0){
+
             return -1;
         }
         return 1;
@@ -78,6 +82,49 @@ public class UserDAO {
         String sql = "SELECT * FROM User WHERE maUser=?";
         List<User> list = getData(sql,id);
         return list.get(0);
+    }
+
+    public User getUserByCredentials(String username) {
+        String sql = "SELECT * FROM User WHERE tkUser=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            User user = new User();
+            user.setMaUser(cursor.getInt(0));
+            user.setHoTen(cursor.getString(1));
+            user.setTenDangnhap(cursor.getString(2));
+            user.setMatkhau(cursor.getString(3));
+            user.setSoDT(cursor.getString(4));
+            user.setDiaChi(cursor.getString(5));
+            user.setImgUser(cursor.getString(6));
+            cursor.close();
+            return user;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM User WHERE maUser=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            User user = new User();
+            user.setMaUser(cursor.getInt(0));
+            user.setHoTen(cursor.getString(1));
+            user.setTenDangnhap(cursor.getString(2));
+            user.setMatkhau(cursor.getString(3));
+            user.setSoDT(cursor.getString(4));
+            user.setDiaChi(cursor.getString(5));
+            user.setImgUser(cursor.getString(6));
+            cursor.close();
+            cursor.close();
+            return user;
+        }
+
+        cursor.close();
+        return null;
     }
 
 }
