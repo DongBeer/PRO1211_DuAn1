@@ -68,7 +68,9 @@ public class UserFragment_Thongtin extends Fragment {
         dao = new UserDAO(getContext());
         user = dao.getUserById(UserDAO.idUser);
 
-        Glide.with(this).load(user.getImgUser()).error(R.drawable.signup).into(img);
+        if (user.getImgUser() != null ){
+            Glide.with(this).load(user.getImgUser()).error(R.drawable.signup).into(img);
+        }
         tvName.setText(user.getHoTen());
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

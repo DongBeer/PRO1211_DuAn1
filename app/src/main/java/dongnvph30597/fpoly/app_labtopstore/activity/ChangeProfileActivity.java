@@ -92,8 +92,16 @@ public class ChangeProfileActivity extends AppCompatActivity {
             user.setSoDT(phoneNumber);
             user.setDiaChi(address);
             Log.d("BBB", user.toString());
-            dao.update(user);
-            Toast.makeText(this, "update user information successfully", Toast.LENGTH_SHORT).show();
+            if(imagePath == null){
+                Toast.makeText(this, ""+ imagePath, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(dao.update(user) > 0){
+                Toast.makeText(this, "update user information successfully", Toast.LENGTH_SHORT).show();
+
+            }else {
+                Toast.makeText(this, "false " , Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
