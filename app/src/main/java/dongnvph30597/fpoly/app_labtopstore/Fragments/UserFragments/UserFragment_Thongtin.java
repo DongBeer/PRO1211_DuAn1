@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -99,5 +100,13 @@ public class UserFragment_Thongtin extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        dao = new UserDAO(getContext());
+        user = dao.getUserById(UserDAO.idUser);
+
+        if (user.getImgUser() != null ){
+            Glide.with(this).load(user.getImgUser()).error(R.drawable.signup).into(img);
+        }
+        tvName.setText(user.getHoTen());
+        Toast.makeText(getContext(), "AAAA", Toast.LENGTH_SHORT).show();
     }
 }

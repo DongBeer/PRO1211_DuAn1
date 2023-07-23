@@ -86,6 +86,11 @@ public class ChangeProfileActivity extends AppCompatActivity {
             String username = edtUsername.getText().toString();
             String phoneNumber = edtPhoneNumber.getText().toString();
             String address = edtAddress.getText().toString();
+            //todo: sửa ở đây
+            if (imagePath == null){
+                imagePath = user.getImgUser();
+            }
+            //-----------------------------
             user.setImgUser(imagePath);
             user.setTenDangnhap(username);
             user.setHoTen(fullName);
@@ -97,8 +102,8 @@ public class ChangeProfileActivity extends AppCompatActivity {
                 return;
             }
             if(dao.update(user) > 0){
-                Toast.makeText(this, "update user information successfully", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(this, "thay đổi thông tin thành công", Toast.LENGTH_SHORT).show();
+                finish();
             }else {
                 Toast.makeText(this, "false " , Toast.LENGTH_SHORT).show();
             }

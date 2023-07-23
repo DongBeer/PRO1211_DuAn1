@@ -42,6 +42,12 @@ public class LoaiSanPhamAdapter extends RecyclerView.Adapter<LoaiSanPhamAdapter.
         notifyDataSetChanged();
     }
 
+    public void updateList(List<ThuongHieu> newList) {
+        list.clear();
+        list.addAll(newList);
+        notifyDataSetChanged();
+    }
+
     public void setOnItemClickSelected(onItemClickSelected listener){
         this.mListener = listener;
     }

@@ -159,7 +159,7 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
             }
         });
 
-        //sửa
+
         adapter.setOnItemClickSelected(new LoaiSanPhamAdapter.onItemClickSelected() {
             @Override
             public void onItemClick(int position) {
@@ -206,6 +206,8 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
                         obj.setImgTH(imagePath);
                         dao.update(obj);
                         adapter.notifyDataSetChanged();
+                        List<ThuongHieu> updatedList = dao.selectAll();
+                        adapter.updateList(updatedList);
                         dialog.dismiss();
 
                     }
@@ -241,8 +243,7 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
                 dialog.show();
             }
         });
-        //sửa
-        //---------------copy-------------------
+
     }
 
     @Override
@@ -290,8 +291,10 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        list= dao.selectAll();
+        list = dao.selectAll();
         adapter.setData(list);
+        List<ThuongHieu> updatedList = dao.selectAll();
+        adapter.updateList(updatedList);
         adapter.notifyDataSetChanged();
     }
 }

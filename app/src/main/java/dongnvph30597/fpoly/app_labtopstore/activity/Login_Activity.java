@@ -90,9 +90,18 @@ public class Login_Activity extends AppCompatActivity {
             return;
         }
         User user = userDAO.getUserByCredentials(strUser);
-        UserDAO.idUser = user.getMaUser();
-        Log.d("AAA", ""+UserDAO.idUser);
-        if ((adminDAO.checkLogin(strUser, strPass) > 0)) {
+        if (user != null) {
+            UserDAO.idUser = user.getMaUser();
+            Log.d("AAA", "" + UserDAO.idUser);
+            if ((userDAO.checkLogin(strUser, strPass) > 0)) {
+                Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
+                rememberUser(strUser, strPass, ckbSavepass.isChecked());
+                Intent mIntent = new Intent(Login_Activity.this, KhachHang_Activity.class);
+                mIntent.putExtra("nameUser", strUser);
+                startActivity(mIntent);
+                finish();
+            }
+        } else if ((adminDAO.checkLogin(strUser, strPass) > 0)) {
             Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
             rememberUser(strUser, strPass, ckbSavepass.isChecked());
             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
@@ -100,13 +109,6 @@ public class Login_Activity extends AppCompatActivity {
             startActivity(intent);
             finish();
 
-        } else if ((userDAO.checkLogin(strUser, strPass) > 0)) {
-            Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
-            rememberUser(strUser, strPass, ckbSavepass.isChecked());
-            Intent mIntent = new Intent(Login_Activity.this, KhachHang_Activity.class);
-            mIntent.putExtra("nameUser", strUser);
-            startActivity(mIntent);
-            finish();
         } else {
             Toast.makeText(this, "Tên đăng nhập hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
         }
