@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Gravity;
@@ -72,6 +73,16 @@ public class Fragment_QuanlyKhachHang extends Fragment {
     }
 
     public void fillListKH(){
+        userDAO = new UserDAO(getContext());
+        arr = userDAO.getAllUser();
+        adapter = new Adapter_KhachHang(getContext(),arr);
+        adapter.setData(arr);
+        recyclerListKH.setAdapter(adapter);
+    }
+
+    public void LoadDataGridlayout(RecyclerView recyclerView){
+        int colums = 2;
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),colums));
         userDAO = new UserDAO(getContext());
         arr = userDAO.getAllUser();
         adapter = new Adapter_KhachHang(getContext(),arr);

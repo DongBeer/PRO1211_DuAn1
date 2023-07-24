@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.GioHang_Activity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:cardElevation="10dp"
+        >
+
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:src="@drawable/back_icon1"
+            android:id="@+id/imgbackGH"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giỏ hàng"
+            android:fontFamily="@font/arbutus_slab"
+            android:textSize="25dp"
+            android:textColor="#00BCD4"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_above="@+id/cardViewBottom"
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/recyclerGioHang"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewBottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:backgroundTint="#F6F4F4">
+
+        <TextView
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tổng thanh toán: "
+            android:fontFamily="@font/arbutus_slab"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvTongthanhtoan"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="170dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 "
+            android:fontFamily="@font/arbutus_slab"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColor="#FB0D0D"/>
+
+        <LinearLayout
+            android:layout_marginLeft="310dp"
+            android:layout_width="100dp"
+            android:background="#FF5722"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvMuaHang"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mua Hàng"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="#fff"
+                android:fontFamily="@font/arbutus_slab"/>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

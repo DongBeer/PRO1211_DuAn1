@@ -8,8 +8,13 @@
 
     <item
         android:id="@+id/ic_search_bottonnav"
-        android:icon="@drawable/ic_search"
-        android:title="Tìm kiếm"/>
+        android:icon="@drawable/laptop_bottomnav"
+        android:title="Laptop"/>
+    <item
+        android:id="@+id/ic_cart_bottonnav"
+        android:icon="@drawable/cart_icon1"
+        android:title="Giỏ hàng"/>
+
     <item
         android:id="@+id/ic_like_product"
         android:icon="@drawable/heart_icon"

@@ -18,53 +18,54 @@ import dongnvph30597.fpoly.app_labtopstore.R;
 import dongnvph30597.fpoly.app_labtopstore.adapter.Adapter_DonHang;
 import dongnvph30597.fpoly.app_labtopstore.model.DonHang;
 
+public class Fragment_DHdanggiao extends Fragment implements Adapter_DonHang.OnTrangThaiChangeListener{
 
-public class Fragment_DHdahoanthanh extends Fragment implements Adapter_DonHang.OnTrangThaiChangeListener {
-
-    private RecyclerView recyclerDHdahoanthanh;
+    private RecyclerView recyclerDHdangGiao;
     private DonHangDAO donHangDAO;
     private ArrayList<DonHang> arr = new ArrayList<>();
     private Adapter_DonHang adapter;
 
-    public Fragment_DHdahoanthanh() {
+
+
+    public Fragment_DHdanggiao() {
         // Required empty public constructor
     }
 
 
-    // TODO: Rename and change types and number of parameters
-    public static Fragment_DHdahoanthanh newInstance(String param1, String param2) {
-        Fragment_DHdahoanthanh fragment = new Fragment_DHdahoanthanh();
+    public static Fragment_DHdanggiao newInstance() {
+        Fragment_DHdanggiao fragment = new Fragment_DHdanggiao();
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__donhang_dahoanthanh, container, false);
+        return inflater.inflate(R.layout.fragment__dh_danggiao, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        recyclerDHdahoanthanh = view.findViewById(R.id.recyclerDHdahoanthanh);
-
+        recyclerDHdangGiao = view.findViewById(R.id.recyclerDHdanggiao);
         FilltoRecyclerDHdaxuly();
-        adapter.setOnTrangThaiChangeListener(this::onTrangThaiChanged);
+
+        adapter.setOnTrangThaiChangeListener(this);
     }
 
     public void FilltoRecyclerDHdaxuly(){
         donHangDAO = new DonHangDAO(getContext());
-        arr = donHangDAO.getDHdahoanthanh();
+        arr = donHangDAO.getDHdangGiao();
         adapter = new Adapter_DonHang(getContext(), arr);
         adapter.setData(arr);
-        recyclerDHdahoanthanh.setAdapter(adapter);
+        recyclerDHdangGiao.setAdapter(adapter);
     }
 
     @Override
