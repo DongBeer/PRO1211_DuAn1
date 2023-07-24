@@ -2,6 +2,7 @@ package dongnvph30597.fpoly.app_labtopstore.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -13,10 +14,12 @@ import dongnvph30597.fpoly.app_labtopstore.model.Admin;
 
 public class AdminDAO {
     private SQLiteDatabase db;
+    SharedPreferences sharedPreferences1;
 
     public AdminDAO(Context context) {
         DB_Store db_store = new DB_Store(context);
         db = db_store.getWritableDatabase();
+        sharedPreferences1 = context.getSharedPreferences("AdminShared",context.MODE_PRIVATE);
     }
 
     public long insertadmin(){
@@ -68,5 +71,20 @@ public class AdminDAO {
             return -1;
         }
         return 1;
+    }
+
+    public int kiemTraDangNhap(String taikhoan, String matkhau) {
+        Cursor cursor = db.rawQuery("select * from Admin where maAdmin = ? and mkAdmin = ?", new String[]{taikhoan, matkhau});
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
+            SharedPreferences.Editor editor = sharedPreferences1.edit();
+            editor.putString("maAdmin", cursor.getString(0));
+            editor.putString("hoTen", cursor.getString(1));
+            editor.putString("mkAdmin", cursor.getString(2));
+            editor.commit();
+            return 1;
+        }else {
+            return -1;
+        }
     }
 }

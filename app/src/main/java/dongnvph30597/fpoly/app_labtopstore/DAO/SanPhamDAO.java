@@ -41,7 +41,7 @@ public class SanPhamDAO {
         values.put("loaiSP", sp.loaiSP);
         values.put("soLuong", sp.soLuong);
         values.put("imgSP", sp.imgSP);
-        return db.update("SanPham",values,"maUser=?",new String[]{String.valueOf(sp.maSP)});
+        return db.update("SanPham",values,"maSP=?",new String[]{String.valueOf(sp.maSP)});
     }
 
     public int delete(String id){
@@ -78,5 +78,11 @@ public class SanPhamDAO {
         String sql = "SELECT * FROM SanPham WHERE maSP=?";
         List<SanPham> list = getData(sql,id);
         return list.get(0);
+    }
+
+    public ArrayList<SanPham> searchSanPham(String keyword) {
+        String sql = "SELECT * FROM SanPham WHERE tenSP LIKE ? OR giaSP LIKE ?";
+        String[] selectionArgs = new String[]{"%" + keyword + "%", "%" + keyword + "%"};
+        return getData(sql, selectionArgs);
     }
 }

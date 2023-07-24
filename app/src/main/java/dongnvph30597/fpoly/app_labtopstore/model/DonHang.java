@@ -7,6 +7,7 @@ public class DonHang {
     public String ngay;
     public int tongTien;
     public int trangThai;
+    public String ghiChu;
 
     public DonHang(int maHD, int maUser, String maAdmin, String ngay, int tongTien, int trangThai) {
         this.maHD = maHD;
@@ -15,6 +16,14 @@ public class DonHang {
         this.ngay = ngay;
         this.tongTien = tongTien;
         this.trangThai = trangThai;
+    }
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
     }
 
     public DonHang() {
