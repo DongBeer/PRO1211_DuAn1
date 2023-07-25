@@ -159,7 +159,7 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
             }
         });
 
-
+        //sửa
         adapter.setOnItemClickSelected(new LoaiSanPhamAdapter.onItemClickSelected() {
             @Override
             public void onItemClick(int position) {
@@ -243,7 +243,8 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
                 dialog.show();
             }
         });
-
+        //sửa
+        //---------------copy-------------------
     }
 
     @Override
