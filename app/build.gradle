@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "dongnvph30597.fpoly.app_labtopstore"
         minSdk 22
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
