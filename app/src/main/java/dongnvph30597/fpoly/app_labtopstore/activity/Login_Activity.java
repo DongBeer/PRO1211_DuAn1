@@ -89,7 +89,6 @@ public class Login_Activity extends AppCompatActivity {
             Toast.makeText(this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_SHORT).show();
             return;
         }
-<<<<<<<<< Temporary merge branch 1
         User user = userDAO.getUserByCredentials(strUser);
         if (user != null) {
             UserDAO.idUser = user.getMaUser();
@@ -102,11 +101,7 @@ public class Login_Activity extends AppCompatActivity {
                 startActivity(mIntent);
                 finish();
             }
-        } else if ((adminDAO.checkLogin(strUser, strPass) > 0)) {
-=========
-
-        if ((adminDAO.kiemTraDangNhap(strUser, strPass) > 0) ) {
->>>>>>>>> Temporary merge branch 2
+        } else if ((adminDAO.kiemTraDangNhap(strUser, strPass) > 0)) {
             Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
             rememberUser(strUser, strPass, ckbSavepass.isChecked());
             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
@@ -114,17 +109,7 @@ public class Login_Activity extends AppCompatActivity {
             startActivity(intent);
             finish();
 
-<<<<<<<<< Temporary merge branch 1
         } else {
-=========
-        }else if((userDAO.kiemTraDangNhap(strUser,strPass) > 0)){
-            Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
-            rememberUser(strUser, strPass, ckbSavepass.isChecked());
-            Intent mIntent = new Intent(Login_Activity.this,KhachHang_Activity.class);
-            startActivity(mIntent);
-            finish();
-        }else {
->>>>>>>>> Temporary merge branch 2
             Toast.makeText(this, "Tên đăng nhập hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
         }
     }

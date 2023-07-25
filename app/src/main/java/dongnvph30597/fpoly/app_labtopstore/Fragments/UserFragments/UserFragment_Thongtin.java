@@ -1,12 +1,16 @@
 package dongnvph30597.fpoly.app_labtopstore.Fragments.UserFragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +26,7 @@ import dongnvph30597.fpoly.app_labtopstore.DAO.UserDAO;
 import dongnvph30597.fpoly.app_labtopstore.R;
 import dongnvph30597.fpoly.app_labtopstore.activity.ChangePasswordActivity;
 import dongnvph30597.fpoly.app_labtopstore.activity.ChangeProfileActivity;
+import dongnvph30597.fpoly.app_labtopstore.activity.KhachHang_Activity;
 import dongnvph30597.fpoly.app_labtopstore.activity.Login_Activity;
 import dongnvph30597.fpoly.app_labtopstore.model.User;
 
@@ -76,8 +81,19 @@ public class UserFragment_Thongtin extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finishAffinity();
-                startActivity(new Intent(getActivity(), Login_Activity.class));
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.apply();
+                        Intent mIntent = new Intent(getContext(), Login_Activity.class);
+                        mIntent.putExtra("RESET_LOGIN_STATE", true);
+                        startActivity(mIntent);
+                        getActivity().finishAffinity();
+                    }
+                },1000);
             }
         });
 

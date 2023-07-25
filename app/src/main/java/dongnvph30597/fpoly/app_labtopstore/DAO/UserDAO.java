@@ -16,11 +16,11 @@ import dongnvph30597.fpoly.app_labtopstore.model.User;
 
 public class UserDAO {
     private SQLiteDatabase db;
-<<<<<<<<< Temporary merge branch 1
+
     public static int idUser;
-=========
+
     SharedPreferences sharedPreferences;
->>>>>>>>> Temporary merge branch 2
+
 
     public UserDAO(Context context) {
         DB_Store db_store = new DB_Store(context);
@@ -90,7 +90,7 @@ public class UserDAO {
         return list.get(0);
     }
 
-<<<<<<<<< Temporary merge branch 1
+
     public User getUserByCredentials(String username) {
         String sql = "SELECT * FROM User WHERE tkUser=?";
         Cursor cursor = db.rawQuery(sql, new String[]{username});
@@ -134,7 +134,7 @@ public class UserDAO {
         return null;
     }
 
-=========
+
     @SuppressLint("Range")
     public int getUserIdByUserName(String tkUser) {
         String[] projection = { "maUser" };
@@ -171,5 +171,5 @@ public class UserDAO {
             }
         }
 
->>>>>>>>> Temporary merge branch 2
+
 }
