@@ -141,7 +141,7 @@ public class DatHang_Activity extends AppCompatActivity {
         edGhichu = findViewById(R.id.edNhapghichu);
         recyclerHDCT = findViewById(R.id.recycleDathang);
         tvDatHang = findViewById(R.id.tvDatHang);
-        imgbackDH = findViewById(R.id.imgbackGH);
+        imgbackDH = findViewById(R.id.imgbackDH);
         donHangDAO = new DonHangDAO(DatHang_Activity.this);
         hoaDonChiTietDAO = new HoaDonChiTietDAO(DatHang_Activity.this);
     }
