@@ -86,7 +86,7 @@ public class Login_Activity extends AppCompatActivity {
             return;
         }
 
-        if ((adminDAO.checkLogin(strUser, strPass) > 0) ) {
+        if ((adminDAO.kiemTraDangNhap(strUser, strPass) > 0) ) {
             Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
             rememberUser(strUser, strPass, ckbSavepass.isChecked());
             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
@@ -94,11 +94,10 @@ public class Login_Activity extends AppCompatActivity {
             startActivity(intent);
             finish();
 
-        }else if((userDAO.checkLogin(strUser,strPass) > 0)){
+        }else if((userDAO.kiemTraDangNhap(strUser,strPass) > 0)){
             Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
             rememberUser(strUser, strPass, ckbSavepass.isChecked());
             Intent mIntent = new Intent(Login_Activity.this,KhachHang_Activity.class);
-            mIntent.putExtra("nameUser",strUser);
             startActivity(mIntent);
             finish();
         }else {
