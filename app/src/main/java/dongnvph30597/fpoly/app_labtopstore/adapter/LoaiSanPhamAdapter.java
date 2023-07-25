@@ -79,9 +79,12 @@ public class LoaiSanPhamAdapter extends RecyclerView.Adapter<LoaiSanPhamAdapter.
         holder.layoutSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(context, ""+mListener, Toast.LENGTH_SHORT).show();
                 if (mListener != null) {
                     mListener.onItemClick(position);
+
                 }
+
             }
         });
 

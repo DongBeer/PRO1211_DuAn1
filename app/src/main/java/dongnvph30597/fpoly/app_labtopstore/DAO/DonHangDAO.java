@@ -26,6 +26,7 @@ public class DonHangDAO {
         values.put("ngay",donHang.ngay);
         values.put("tongTien",donHang.tongTien);
         values.put("trangThai",donHang.trangThai);
+        values.put("ghiChu",donHang.ghiChu);
         return db.insert("HoaDon",null, values);
     }
 
@@ -36,6 +37,7 @@ public class DonHangDAO {
         values.put("ngay",donHang.ngay);
         values.put("tongTien",donHang.tongTien);
         values.put("trangThai",donHang.trangThai);
+        values.put("ghiChu",donHang.ghiChu);
         return db.update("HoaDon",values,"maHD=?",new String[]{String.valueOf(donHang.maHD)});
     }
 
@@ -60,6 +62,7 @@ public class DonHangDAO {
                 donHang.setNgay(String.valueOf(cursor.getString(3)));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
+                donHang.setGhiChu(cursor.getString(6));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -80,6 +83,7 @@ public class DonHangDAO {
                 donHang.setNgay(cursor.getString(3));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
+                donHang.setGhiChu(cursor.getString(6));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -87,7 +91,7 @@ public class DonHangDAO {
         return arr;
     }
 
-    public ArrayList<DonHang> getDHdahoanthanh() {
+    public ArrayList<DonHang> getDHdangGiao() {
         String sqlDH = "SELECT * FROM HoaDon WHERE trangThai = 1";
         Cursor cursor = db.rawQuery(sqlDH,null);
         ArrayList<DonHang> arr = new ArrayList<>();
@@ -100,11 +104,39 @@ public class DonHangDAO {
                 donHang.setNgay(cursor.getString(3));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
+                donHang.setGhiChu(cursor.getString(6));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
         }
         return arr;
+    }
+
+    public ArrayList<DonHang> getDHdahoanthanh() {
+        String sqlDH = "SELECT * FROM HoaDon WHERE trangThai = 2";
+        Cursor cursor = db.rawQuery(sqlDH,null);
+        ArrayList<DonHang> arr = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()){
+                DonHang donHang = new DonHang();
+                donHang.setMaHD(cursor.getInt(0));
+                donHang.setMaUser(cursor.getInt(1));
+                donHang.setMaAdmin(cursor.getString(2));
+                donHang.setNgay(cursor.getString(3));
+                donHang.setTongTien(cursor.getInt(4));
+                donHang.setTrangThai(cursor.getInt(5));
+                donHang.setGhiChu(cursor.getString(6));
+                arr.add(donHang);
+                cursor.moveToNext();
+            }
+        }
+        return arr;
+    }
+
+    public long updateTrangThaiDonHang(int maHD, int newTrangThai) {
+        ContentValues values = new ContentValues();
+        values.put("trangThai", newTrangThai);
+        return db.update("HoaDon", values, "maHD=?", new String[]{String.valueOf(maHD)});
     }
 
 }

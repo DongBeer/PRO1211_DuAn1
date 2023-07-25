@@ -10,6 +10,7 @@
 
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thêm sản phẩm"
@@ -183,12 +184,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearSoluong"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/tvSoluongspKH"
             android:layout_width="82dp"
             android:layout_height="wrap_content"
             android:text="Số lượng: "
