@@ -102,7 +102,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
                 return;
             }
             if(dao.update(user) > 0){
-                Toast.makeText(this, "thay đổi thông tin thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "update user information successfully", Toast.LENGTH_SHORT).show();
                 finish();
             }else {
                 Toast.makeText(this, "false " , Toast.LENGTH_SHORT).show();

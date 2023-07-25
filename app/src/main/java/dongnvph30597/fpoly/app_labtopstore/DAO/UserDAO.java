@@ -1,9 +1,12 @@
 package dongnvph30597.fpoly.app_labtopstore.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +16,16 @@ import dongnvph30597.fpoly.app_labtopstore.model.User;
 
 public class UserDAO {
     private SQLiteDatabase db;
+<<<<<<<<< Temporary merge branch 1
+    public static int idUser;
+=========
+    SharedPreferences sharedPreferences;
+>>>>>>>>> Temporary merge branch 2
 
     public UserDAO(Context context) {
         DB_Store db_store = new DB_Store(context);
         db = db_store.getWritableDatabase();
+        sharedPreferences = context.getSharedPreferences("MyPrefs",context.MODE_PRIVATE);
     }
 
     public long insert(User user){
@@ -69,6 +78,7 @@ public class UserDAO {
         String sql = "SELECT * FROM User WHERE tkUser=? AND mkUser=?";
         List<User> list = getData(sql,tk,password);
         if (list.size()==0){
+
             return -1;
         }
         return 1;
@@ -80,4 +90,86 @@ public class UserDAO {
         return list.get(0);
     }
 
+<<<<<<<<< Temporary merge branch 1
+    public User getUserByCredentials(String username) {
+        String sql = "SELECT * FROM User WHERE tkUser=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            User user = new User();
+            user.setMaUser(cursor.getInt(0));
+            user.setHoTen(cursor.getString(1));
+            user.setTenDangnhap(cursor.getString(2));
+            user.setMatkhau(cursor.getString(3));
+            user.setSoDT(cursor.getString(4));
+            user.setDiaChi(cursor.getString(5));
+            user.setImgUser(cursor.getString(6));
+            cursor.close();
+            return user;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM User WHERE maUser=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            User user = new User();
+            user.setMaUser(cursor.getInt(0));
+            user.setHoTen(cursor.getString(1));
+            user.setTenDangnhap(cursor.getString(2));
+            user.setMatkhau(cursor.getString(3));
+            user.setSoDT(cursor.getString(4));
+            user.setDiaChi(cursor.getString(5));
+            user.setImgUser(cursor.getString(6));
+            cursor.close();
+            cursor.close();
+            return user;
+        }
+
+        cursor.close();
+        return null;
+    }
+
+=========
+    @SuppressLint("Range")
+    public int getUserIdByUserName(String tkUser) {
+        String[] projection = { "maUser" };
+        String selection = "tkUser = ?";
+        String[] selectionArgs = { tkUser };
+        Cursor cursor = db.query("User", projection, selection, selectionArgs, null, null, null);
+        int maUser = -1; // Giá trị mặc định nếu không tìm thấy
+
+        if (cursor.moveToFirst()) {
+            maUser = cursor.getInt(cursor.getColumnIndex("maUser"));
+        }
+
+        cursor.close();
+        return maUser;
+    }
+
+    public int kiemTraDangNhap(String taikhoan, String matkhau) {
+        Cursor cursor = db.rawQuery("select * from User where tkUser = ? and mkUser = ?", new String[]{taikhoan, matkhau});
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("maUser", cursor.getInt(0));
+                editor.putString("hoTen", cursor.getString(1));
+                editor.putString("tkUser", cursor.getString(2));
+                editor.putString("mkUser", cursor.getString(3));
+                editor.putString("soDT", cursor.getString(4));
+                editor.putString("diaChi", cursor.getString(5));
+                editor.putString("imgUser", cursor.getString(6));
+                editor.commit();
+                return 1;
+            }else {
+                return -1;
+            }
+        }
+
+>>>>>>>>> Temporary merge branch 2
 }

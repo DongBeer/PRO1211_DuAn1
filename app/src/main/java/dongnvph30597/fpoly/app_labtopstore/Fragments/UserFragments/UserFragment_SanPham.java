@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import dongnvph30597.fpoly.app_labtopstore.DAO.SanPhamDAO;
+import dongnvph30597.fpoly.app_labtopstore.DAO.ThongKeDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.UserDAO;
 import dongnvph30597.fpoly.app_labtopstore.R;
 import dongnvph30597.fpoly.app_labtopstore.activity.GioHang_Activity;
@@ -32,7 +33,8 @@ public class UserFragment_SanPham extends Fragment {
     private RecyclerView recyclerSPKh;
     private ImageView imgGotoCart;
     private EditText edSearchSP;
-    private TextView tvSearch;
+    private TextView tvSearch, tvTotalSP;
+    private ThongKeDAO thongKeDAO;
 
     private SanPhamDAO sanPhamDAO;
     private Adapter_SanPham2 adapter;
@@ -66,6 +68,11 @@ public class UserFragment_SanPham extends Fragment {
         imgGotoCart = view.findViewById(R.id.gotoCart);
         edSearchSP = view.findViewById(R.id.edSearchSP);
         tvSearch = view.findViewById(R.id.tvSearch);
+        tvTotalSP = view.findViewById(R.id.tvtotalsp);
+        thongKeDAO = new ThongKeDAO(getContext());
+        int total = thongKeDAO.getTotalProduct();
+        tvTotalSP.setText("("+total+" sản phẩm)");
+
 
         sanPhamDAO = new SanPhamDAO(getContext());
         tvSearch.setOnClickListener(new View.OnClickListener() {

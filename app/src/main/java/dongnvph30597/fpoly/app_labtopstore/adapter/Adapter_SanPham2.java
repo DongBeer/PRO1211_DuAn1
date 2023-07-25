@@ -27,18 +27,18 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import dongnvph30597.fpoly.app_labtopstore.DAO.GioHangDAO;
+import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
 import dongnvph30597.fpoly.app_labtopstore.DAO.UserDAO;
 import dongnvph30597.fpoly.app_labtopstore.R;
 import dongnvph30597.fpoly.app_labtopstore.model.GioHang;
 import dongnvph30597.fpoly.app_labtopstore.model.SanPham;
+import dongnvph30597.fpoly.app_labtopstore.model.ThuongHieu;
 
 public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2ViewHolder>{
 
-    private ImageView addimgSP;
-    private TextInputEditText edTensp, edMotasp, edgiaSP, edLoaisp, edSoluongSP;
-    private Spinner spnTH;
-    private TextView tvAddSp, tvCanclerAddSp, tvTitle;
-    private LinearLayout linearLayoutSoluong;
+    private ImageView imgBackCTSP, imgSPCT;
+    private TextView tvtenSPCT, tvMotaSPCT, tvTHSPCT, tvGiaSPCT;
+
 
     private Context context;
     private ArrayList<SanPham> arr = new ArrayList<>();
@@ -68,41 +68,32 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
             public void onClick(View v) {
                 int index = holder.getAdapterPosition();
                 Dialog mDialog = new Dialog(context);
-                mDialog.setContentView(R.layout.layout_dialog_add_sanpham);
+                mDialog.setContentView(R.layout.layout_dialog_chitietsanpham);
                 mDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                linearLayoutSoluong = mDialog.findViewById(R.id.linearSoluong);
-                tvTitle = mDialog.findViewById(R.id.tvTitle);
-                addimgSP = mDialog.findViewById(R.id.AddimgSP);
-                edTensp = mDialog.findViewById(R.id.edTenSP);
-                edMotasp = mDialog.findViewById(R.id.edMotaSP);
-                spnTH = mDialog.findViewById(R.id.spnTH);
-                edgiaSP = mDialog.findViewById(R.id.edGiaSP);
-                edLoaisp = mDialog.findViewById(R.id.edLoaiSP);
-                edSoluongSP = mDialog.findViewById(R.id.edSoluongSP);
-                tvAddSp = mDialog.findViewById(R.id.tvAddSP);
-                tvCanclerAddSp = mDialog.findViewById(R.id.tvCanclerAdd);
-
-                tvAddSp.setVisibility(View.GONE);
-                tvTitle.setText("Chi tiết sản phẩm");
-                linearLayoutSoluong.setVisibility(View.GONE);
-                tvCanclerAddSp.setText("  ← Trờ lại  ");
-                tvCanclerAddSp.setOnClickListener(new View.OnClickListener() {
+                imgBackCTSP = mDialog.findViewById(R.id.imgbackCTSP);
+                imgBackCTSP.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mDialog.dismiss();
                     }
                 });
-
+                imgSPCT = mDialog.findViewById(R.id.imgSPCT);
+                tvtenSPCT = mDialog.findViewById(R.id.tvTenspCT);
+                tvMotaSPCT = mDialog.findViewById(R.id.tvMotaspCT);
+                tvTHSPCT = mDialog.findViewById(R.id.tvTHspCT);
+                tvGiaSPCT = mDialog.findViewById(R.id.tvGiaspCT);
 
                 SanPham sp = arr.get(index);
-                Glide.with(context).load(sp.getImgSP()).error(R.drawable.laptop1).into(addimgSP);
-                edTensp.setText(arr.get(index).getTenSP());
-                edMotasp.setText(arr.get(index).getMoTa());
-                edgiaSP.setText(arr.get(index).getGiaSP() + " ₫");
-                edLoaisp.setText(arr.get(index).getLoaiSP());
-
+                Glide.with(context).load(sp.getImgSP()).into(imgSPCT);
+                tvtenSPCT.setText(sp.getTenSP());
+                tvMotaSPCT.setText(sp.getMoTa());
+                ThuongHieuDao thuongHieuDao = new ThuongHieuDao(context);
+                ThuongHieu th = thuongHieuDao.getID(String.valueOf(sp.getMaTH()));
+                tvTHSPCT.setText(th.getTenTH());
+                String formattedPrice1 = decimalFormat.format(sp.getGiaSP());
+                tvGiaSPCT.setText(formattedPrice1 + " ₫");
                 mDialog.show();
             }
         });
