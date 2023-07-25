@@ -1,28 +1,15 @@
 package dongnvph30597.fpoly.app_labtopstore.adapter;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -31,7 +18,6 @@ import java.util.List;
 
 import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
 import dongnvph30597.fpoly.app_labtopstore.R;
-import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
 import dongnvph30597.fpoly.app_labtopstore.model.ThuongHieu;
 
 public class LoaiSanPhamAdapter extends RecyclerView.Adapter<LoaiSanPhamAdapter.LoaiSanPhamViewHolder> {
@@ -53,6 +39,12 @@ public class LoaiSanPhamAdapter extends RecyclerView.Adapter<LoaiSanPhamAdapter.
 
     public void setData(List<ThuongHieu> list){
         this.list = list;
+        notifyDataSetChanged();
+    }
+
+    public void updateList(List<ThuongHieu> newList) {
+        list.clear();
+        list.addAll(newList);
         notifyDataSetChanged();
     }
 
@@ -79,12 +71,9 @@ public class LoaiSanPhamAdapter extends RecyclerView.Adapter<LoaiSanPhamAdapter.
         holder.layoutSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, ""+mListener, Toast.LENGTH_SHORT).show();
                 if (mListener != null) {
                     mListener.onItemClick(position);
-
                 }
-
             }
         });
 
