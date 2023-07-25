@@ -19,7 +19,7 @@ import dongnvph30597.fpoly.app_labtopstore.adapter.Adapter_DonHang;
 import dongnvph30597.fpoly.app_labtopstore.model.DonHang;
 
 
-public class Fragment_DHchoxuly extends Fragment {
+public class Fragment_DHchoxuly extends Fragment implements Adapter_DonHang.OnTrangThaiChangeListener{
 
     private RecyclerView recyclerDHchoxuly;
     private DonHangDAO donHangDAO;
@@ -54,6 +54,8 @@ public class Fragment_DHchoxuly extends Fragment {
         recyclerDHchoxuly = view.findViewById(R.id.recyclerDHchoxyly);
 
         FilltoRecyclerDHchoxuly();
+
+        adapter.setOnTrangThaiChangeListener(this);
     }
 
     public void FilltoRecyclerDHchoxuly(){
@@ -62,11 +64,11 @@ public class Fragment_DHchoxuly extends Fragment {
         adapter = new Adapter_DonHang(getContext(),arr);
         adapter.setData(arr);
         recyclerDHchoxuly.setAdapter(adapter);
+
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onTrangThaiChanged(int position, int newTrangThai) {
         FilltoRecyclerDHchoxuly();
     }
 }

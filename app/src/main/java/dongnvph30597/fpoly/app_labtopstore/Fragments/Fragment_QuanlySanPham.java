@@ -26,6 +26,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -39,6 +40,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 
 import dongnvph30597.fpoly.app_labtopstore.DAO.SanPhamDAO;
+import dongnvph30597.fpoly.app_labtopstore.DAO.ThongKeDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
 import dongnvph30597.fpoly.app_labtopstore.MainActivity;
 import dongnvph30597.fpoly.app_labtopstore.R;
@@ -57,6 +59,8 @@ public class Fragment_QuanlySanPham extends Fragment {
     private SanPhamDAO sanPhamDAO;
     private Adapter_SanPham adapter;
     private ArrayList<SanPham> arr = new ArrayList<>();
+    private TextView tvTongSP;
+    private ThongKeDAO thongKeDAO;
 
     private ThuongHieuDao thuongHieuDao;
     private ArrayList<ThuongHieu> arrTH = new ArrayList<>();
@@ -76,8 +80,7 @@ public class Fragment_QuanlySanPham extends Fragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static Fragment_QuanlySanPham newInstance(String param1, String param2) {
+    public static Fragment_QuanlySanPham newInstance() {
         Fragment_QuanlySanPham fragment = new Fragment_QuanlySanPham();
         return fragment;
     }
@@ -106,8 +109,6 @@ public class Fragment_QuanlySanPham extends Fragment {
         });
 
         recyclerviewSP = view.findViewById(R.id.recyclerListSP);
-        recyclerviewSP.setFocusable(true);
-        recyclerviewSP.setClickable(true);
 
 
         floatAddSP = view.findViewById(R.id.floatAddSP);
@@ -117,12 +118,21 @@ public class Fragment_QuanlySanPham extends Fragment {
                 checkAddsp();
             }
         });
-        FilltoRecyclerSP();
-        adapter.setOnclick(new Adapter_SanPham.Onclick() {
-            @Override
-            public void onItemClick(int position) {
 
-                Toast.makeText(getContext(), "aa", Toast.LENGTH_SHORT).show();
+        FilltoRecyclerSP();
+
+        tvTongSP =view.findViewById(R.id.tvTongsanpham);
+        thongKeDAO = new ThongKeDAO(getContext());
+        int total = thongKeDAO.getTotalProduct();
+        tvTongSP.setText("Laptop(" + total + " sản phẩm)" );
+
+    }
+
+    public void FilltoRecyclerSP(){
+        sanPhamDAO = new SanPhamDAO(getContext());
+        adapter = new Adapter_SanPham(getContext(), sanPhamDAO, new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Dialog mDialog = new Dialog(getContext());
                 mDialog.setContentView(R.layout.layout_dialog_add_sanpham);
                 mDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -167,7 +177,7 @@ public class Fragment_QuanlySanPham extends Fragment {
                         String tensp = edTensp.getText().toString().trim();
                         String motasp = edMotasp.getText().toString().trim();
                         String giasp = edgiaSP.getText().toString().trim();
-                        String loaisp = edSoluongSP.getText().toString().trim();
+                        String loaisp = edLoaisp.getText().toString().trim();
                         String slsp = edSoluongSP.getText().toString().trim();
                         int id = arr.get(position).getMaSP();
 
@@ -231,14 +241,10 @@ public class Fragment_QuanlySanPham extends Fragment {
                     }
                 });
                 mDialog.show();
+
             }
         });
-    }
-
-    public void FilltoRecyclerSP(){
-        sanPhamDAO = new SanPhamDAO(getContext());
         arr = sanPhamDAO.getAllSP();
-        adapter = new Adapter_SanPham(getContext(),arr);
         adapter.setData(arr);
         recyclerviewSP.setAdapter(adapter);
     }
@@ -337,7 +343,7 @@ public class Fragment_QuanlySanPham extends Fragment {
                 String tensp = edTensp.getText().toString().trim();
                 String motasp = edMotasp.getText().toString().trim();
                 String giasp = edgiaSP.getText().toString().trim();
-                String loaisp = edSoluongSP.getText().toString().trim();
+                String loaisp = edLoaisp.getText().toString().trim();
                 String slsp = edSoluongSP.getText().toString().trim();
 
                 if (validateInput(tensp, "Vui lòng nhập tên sp", edTensp)) {
@@ -381,6 +387,7 @@ public class Fragment_QuanlySanPham extends Fragment {
     }
 
     public void spnTH(){
+        thuongHieuDao = new ThuongHieuDao(getContext());
         arrTH = thuongHieuDao.selectAll();
         adapterSpinerTH = new Adapter_SpinerTH(getContext(),arrTH);
         spnTH.setAdapter(adapterSpinerTH);
@@ -390,6 +397,7 @@ public class Fragment_QuanlySanPham extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 maTH = String.valueOf(arrTH.get(position).getMaTH());
+                //gọi từ private xuống
             }
 
             @Override

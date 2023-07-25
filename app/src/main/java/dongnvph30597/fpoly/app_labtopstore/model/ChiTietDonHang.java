@@ -5,14 +5,12 @@ public class ChiTietDonHang {
     public int maDonHang;
     public int maSanPham;
     public int soLuong;
-    public String ghiChu;
 
-    public ChiTietDonHang(int maDHCT, int maDonHang, int maSanPham, int soLuong, String ghiChu) {
+    public ChiTietDonHang(int maDHCT, int maDonHang, int maSanPham, int soLuong) {
         this.maDHCT = maDHCT;
         this.maDonHang = maDonHang;
         this.maSanPham = maSanPham;
         this.soLuong = soLuong;
-        this.ghiChu = ghiChu;
     }
 
     public ChiTietDonHang() {
@@ -50,11 +48,4 @@ public class ChiTietDonHang {
         this.soLuong = soLuong;
     }
 
-    public String getGhiChu() {
-        return ghiChu;
-    }
-
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
-    }
 }

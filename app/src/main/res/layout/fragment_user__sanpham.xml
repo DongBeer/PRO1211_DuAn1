@@ -1,14 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".Fragments.UserFragments.UserFragment_SanPham">
 
-    <!-- TODO: Update blank fragment layout -->
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv1"
+        android:layout_width="match_parent"
+        android:backgroundTint="#F15353"
+        android:layout_height="90dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:background="#fff"
+                android:layout_width="190dp"
+                android:layout_height="40dp">
+                <EditText
+                    android:id="@+id/edSearchSP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Bạn muốn mua gì?"
+                    android:textSize="13dp"
+                    android:fontFamily="@font/arbutus_slab"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="#323131"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvSearch"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tìm kiếm"
+                    android:textColor="#FFF"
+                    android:fontFamily="@font/arbutus_slab"/>
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:layout_marginTop="23dp"
+            android:layout_marginLeft="350dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/cart_icon1"
+            android:id="@+id/gotoCart"
+            />
+    </androidx.cardview.widget.CardView>
+
     <TextView
+        android:id="@+id/tvlt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Laptop"
+        android:fontFamily="@font/mali"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/cv1"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/tvtotalsp"
+        android:layout_marginTop="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(243 sản phẩm)"
+        android:fontFamily="@font/arbutus_slab"
+        android:layout_marginLeft="75dp"
+        android:layout_below="@+id/cv1"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/tvlt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Sản phẩm" />
+        android:orientation="vertical"
+        android:id="@+id/recyclerSPKH"
+        android:layout_above="@+id/cardViewBottomm"
+        />
 
-</FrameLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/cardViewBottomm"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
