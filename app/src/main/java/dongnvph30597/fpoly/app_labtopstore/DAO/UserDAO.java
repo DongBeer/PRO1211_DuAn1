@@ -155,7 +155,6 @@ public class UserDAO {
         Cursor cursor = db.rawQuery("select * from User where tkUser = ? and mkUser = ?", new String[]{taikhoan, matkhau});
         if (cursor.getCount() != 0) {
             cursor.moveToFirst();
-
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("maUser", cursor.getInt(0));
                 editor.putString("hoTen", cursor.getString(1));

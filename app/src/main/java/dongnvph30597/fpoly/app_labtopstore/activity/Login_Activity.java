@@ -93,7 +93,7 @@ public class Login_Activity extends AppCompatActivity {
         if (user != null) {
             UserDAO.idUser = user.getMaUser();
             Log.d("AAA", "" + UserDAO.idUser);
-            if ((userDAO.checkLogin(strUser, strPass) > 0)) {
+            if ((userDAO.kiemTraDangNhap(strUser, strPass) > 0)) {
                 Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
                 rememberUser(strUser, strPass, ckbSavepass.isChecked());
                 Intent mIntent = new Intent(Login_Activity.this, KhachHang_Activity.class);
