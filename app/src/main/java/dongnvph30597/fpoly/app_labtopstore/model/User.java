@@ -88,4 +88,17 @@ public class User {
     public void setImgUser(String imgUser) {
         this.imgUser = imgUser;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "maUser=" + maUser +
+                ", hoTen='" + hoTen + '\'' +
+                ", tenDangnhap='" + tenDangnhap + '\'' +
+                ", matkhau='" + matkhau + '\'' +
+                ", soDT='" + soDT + '\'' +
+                ", diaChi='" + diaChi + '\'' +
+                ", imgUser='" + imgUser + '\'' +
+                '}';
+    }
 }

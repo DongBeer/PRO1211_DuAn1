@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -54,6 +55,7 @@ public class KhachHang_Activity extends AppCompatActivity {
                 else if(it == R.id.ic_person_bottonnav){
                     getSupportFragmentManager().beginTransaction().replace(R.id.user_container,new UserFragment_Thongtin()).commit();
 
+//                    Logout();
                 }
                 return true;
             }

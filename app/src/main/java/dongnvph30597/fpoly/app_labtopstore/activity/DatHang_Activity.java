@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class DatHang_Activity extends AppCompatActivity {
     private TextView tvHotenSDT , tvDiachidathang, tvTongtienHD, tvTongThanhToan, tvDatHang;
     private EditText edGhichu;
     private RecyclerView recyclerHDCT;
+    private ImageView imgbackDH;
 
     private GioHangDAO gioHangDAO;
     private ArrayList<GioHang> arr = new ArrayList<>();
@@ -54,6 +56,13 @@ public class DatHang_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_dathang);
         FillbyID();
         FilltoRecycleDH();
+
+        imgbackDH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         preferencesHelper = new SharedPreferencesHelper(DatHang_Activity.this);
 
         int Total = getIntent().getIntExtra("tongtien",-1);
@@ -132,7 +141,7 @@ public class DatHang_Activity extends AppCompatActivity {
         edGhichu = findViewById(R.id.edNhapghichu);
         recyclerHDCT = findViewById(R.id.recycleDathang);
         tvDatHang = findViewById(R.id.tvDatHang);
-
+        imgbackDH = findViewById(R.id.imgbackDH);
         donHangDAO = new DonHangDAO(DatHang_Activity.this);
         hoaDonChiTietDAO = new HoaDonChiTietDAO(DatHang_Activity.this);
     }

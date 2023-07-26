@@ -53,8 +53,8 @@
             </LinearLayout>
         </LinearLayout>
         <ImageView
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="330dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginLeft="350dp"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/cart_icon1"
@@ -62,8 +62,28 @@
             />
     </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
+        android:id="@+id/tvlt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Laptop"
+        android:fontFamily="@font/mali"
+        android:layout_marginLeft="20dp"
         android:layout_below="@+id/cv1"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/tvtotalsp"
+        android:layout_marginTop="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(243 sản phẩm)"
+        android:fontFamily="@font/arbutus_slab"
+        android:layout_marginLeft="75dp"
+        android:layout_below="@+id/cv1"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/tvlt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

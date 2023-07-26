@@ -32,6 +32,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/tvTongsanpham"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Laptop (243 sản phẩm)"
+            android:fontFamily="@font/mali"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="20dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
