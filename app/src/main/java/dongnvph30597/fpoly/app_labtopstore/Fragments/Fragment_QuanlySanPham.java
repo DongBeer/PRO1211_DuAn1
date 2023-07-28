@@ -68,7 +68,7 @@ public class Fragment_QuanlySanPham extends Fragment {
     private String maTH;
 
     private ImageView addimgSP;
-    private TextInputEditText edTensp, edMotasp, edgiaSP, edLoaisp, edSoluongSP;
+    private TextInputEditText edTensp, edMotasp, edgiaSP, edSoluongSP;
     private Spinner spnTH;
     private TextView tvAddSp, tvCanclerAddSp;
 
@@ -143,7 +143,6 @@ public class Fragment_QuanlySanPham extends Fragment {
                 edMotasp = mDialog.findViewById(R.id.edMotaSP);
                 spnTH = mDialog.findViewById(R.id.spnTH);
                 edgiaSP = mDialog.findViewById(R.id.edGiaSP);
-                edLoaisp = mDialog.findViewById(R.id.edLoaiSP);
                 edSoluongSP = mDialog.findViewById(R.id.edSoluongSP);
                 tvAddSp = mDialog.findViewById(R.id.tvAddSP);
                 tvCanclerAddSp = mDialog.findViewById(R.id.tvCanclerAdd);
@@ -165,7 +164,6 @@ public class Fragment_QuanlySanPham extends Fragment {
                 edTensp.setText(sp.getTenSP());
                 edMotasp.setText(sp.getMoTa());
                 edgiaSP.setText(String.valueOf(sp.getGiaSP()));
-                edLoaisp.setText(sp.getLoaiSP());
                 edSoluongSP.setText(String.valueOf(sp.getSoLuong()));
                 Glide.with(getContext())
                         .load(sp.getImgSP())
@@ -177,7 +175,6 @@ public class Fragment_QuanlySanPham extends Fragment {
                         String tensp = edTensp.getText().toString().trim();
                         String motasp = edMotasp.getText().toString().trim();
                         String giasp = edgiaSP.getText().toString().trim();
-                        String loaisp = edLoaisp.getText().toString().trim();
                         String slsp = edSoluongSP.getText().toString().trim();
                         int id = arr.get(position).getMaSP();
 
@@ -190,9 +187,6 @@ public class Fragment_QuanlySanPham extends Fragment {
                         }
 
                         if (validateInput(giasp, "Vui lòng nhập mật khẩu", edgiaSP)) {
-                            return;
-                        }
-                        if (validateInput(loaisp, "Vui lòng nhập số điện thoại", edLoaisp)) {
                             return;
                         }
 
@@ -210,7 +204,6 @@ public class Fragment_QuanlySanPham extends Fragment {
                         sanPham.setMoTa(motasp);
                         sanPham.setMaTH(Integer.valueOf(maTH));
                         sanPham.setGiaSP(Integer.valueOf(giasp));
-                        sanPham.setLoaiSP(loaisp);
                         sanPham.setSoLuong(Integer.valueOf(slsp));
                         sanPhamDAO.update(sanPham);
                         FilltoRecyclerSP();
@@ -321,7 +314,6 @@ public class Fragment_QuanlySanPham extends Fragment {
         edMotasp = dialog.findViewById(R.id.edMotaSP);
         spnTH = dialog.findViewById(R.id.spnTH);
         edgiaSP = dialog.findViewById(R.id.edGiaSP);
-        edLoaisp = dialog.findViewById(R.id.edLoaiSP);
         edSoluongSP = dialog.findViewById(R.id.edSoluongSP);
         tvAddSp = dialog.findViewById(R.id.tvAddSP);
         tvCanclerAddSp = dialog.findViewById(R.id.tvCanclerAdd);
@@ -343,7 +335,6 @@ public class Fragment_QuanlySanPham extends Fragment {
                 String tensp = edTensp.getText().toString().trim();
                 String motasp = edMotasp.getText().toString().trim();
                 String giasp = edgiaSP.getText().toString().trim();
-                String loaisp = edLoaisp.getText().toString().trim();
                 String slsp = edSoluongSP.getText().toString().trim();
 
                 if (validateInput(tensp, "Vui lòng nhập tên sp", edTensp)) {
@@ -355,9 +346,6 @@ public class Fragment_QuanlySanPham extends Fragment {
                 }
 
                 if (validateInput(giasp, "Vui lòng nhập mật khẩu", edgiaSP)) {
-                    return;
-                }
-                if (validateInput(loaisp, "Vui lòng nhập số điện thoại", edLoaisp)) {
                     return;
                 }
 
@@ -374,8 +362,8 @@ public class Fragment_QuanlySanPham extends Fragment {
                 sanPham.setMoTa(motasp);
                 sanPham.setMaTH(Integer.valueOf(maTH));
                 sanPham.setGiaSP(Integer.valueOf(giasp));
-                sanPham.setLoaiSP(loaisp);
                 sanPham.setSoLuong(Integer.valueOf(slsp));
+                sanPham.setTrangThai(0);
 
                 sanPhamDAO.insert(sanPham);
                 FilltoRecyclerSP();

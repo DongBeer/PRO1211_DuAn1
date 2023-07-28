@@ -83,8 +83,8 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     public void checkLogin() {
-        String strUser = edTendangnhap.getText().toString();
-        String strPass = edPass.getText().toString();
+        String strUser = edTendangnhap.getText().toString().trim();
+        String strPass = edPass.getText().toString().trim();
         if (strUser.isEmpty() || strPass.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_SHORT).show();
             return;
@@ -100,6 +100,8 @@ public class Login_Activity extends AppCompatActivity {
                 mIntent.putExtra("nameUser", strUser);
                 startActivity(mIntent);
                 finish();
+            }else {
+                Toast.makeText(this, "Tên đăng nhập hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
             }
         } else if ((adminDAO.kiemTraDangNhap(strUser, strPass) > 0)) {
             Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();

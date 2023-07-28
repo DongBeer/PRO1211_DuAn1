@@ -48,9 +48,9 @@ public class DB_Store extends SQLiteOpenHelper {
                 "moTa text NOT NULL,"+
                 "maTH INTEGER REFERENCES ThuongHieu(maTH),"+
                 "giaSP INTEGER NOT NULL,"+
-                "loaiSP text NOT NULL, " +  //ví dụ như: Gaming, Sinh Viên - Văn Phòng, Đồ Họa ....
                 "soLuong INTEGER NOT NULL, " +
-                "imgSP Text NOT NULL)";
+                "imgSP Text NOT NULL, " +
+                "trangThaiSP INTEGER NOT NULL)";
         sqLiteDatabase.execSQL(createTableSP);
 
         String createTableHD = "create table HoaDon (" +

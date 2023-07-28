@@ -70,4 +70,24 @@ public class HoaDonChiTietDAO {
         cursor.close();
         return arr;
     }
+
+    @SuppressLint("Range")
+    public ArrayList<ChiTietDonHang> getHoaDonChiTietByMaSP(int maSP) {
+        String sql = "SELECT * FROM HoaDonChiTiet WHERE maSP = ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maSP)});
+        ArrayList<ChiTietDonHang> arr = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                ChiTietDonHang ctdh = new ChiTietDonHang();
+                ctdh.setMaDHCT(cursor.getInt(cursor.getColumnIndex("maHDCT")));
+                ctdh.setMaDonHang(cursor.getInt(cursor.getColumnIndex("maHD")));
+                ctdh.setMaSanPham(cursor.getInt(cursor.getColumnIndex("maSP")));
+                ctdh.setSoLuong(cursor.getInt(cursor.getColumnIndex("soLuong")));
+                arr.add(ctdh);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        return arr;
+    }
 }

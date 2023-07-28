@@ -26,9 +26,9 @@ public class SanPhamDAO {
         values.put("moTa", sp.moTa);
         values.put("maTH", sp.maTH);
         values.put("giaSP", sp.giaSP);
-        values.put("loaiSP", sp.loaiSP);
         values.put("soLuong", sp.soLuong);
         values.put("imgSP", sp.imgSP);
+        values.put("trangThaiSP",sp.trangThai);
         return db.insert("SanPham", null, values);
     }
 
@@ -38,9 +38,9 @@ public class SanPhamDAO {
         values.put("moTa", sp.moTa);
         values.put("maTH", sp.maTH);
         values.put("giaSP", sp.giaSP);
-        values.put("loaiSP", sp.loaiSP);
         values.put("soLuong", sp.soLuong);
         values.put("imgSP", sp.imgSP);
+        values.put("trangThaiSP",sp.trangThai);
         return db.update("SanPham",values,"maSP=?",new String[]{String.valueOf(sp.maSP)});
     }
 
@@ -64,9 +64,31 @@ public class SanPhamDAO {
                 sp.setMoTa(cursor.getString(2));
                 sp.setMaTH(cursor.getInt(3));
                 sp.setGiaSP(cursor.getInt(4));
-                sp.setLoaiSP(cursor.getString(5));
-                sp.setSoLuong(cursor.getInt(6));
-                sp.setImgSP(cursor.getString(7));
+                sp.setSoLuong(cursor.getInt(5));
+                sp.setImgSP(cursor.getString(6));
+                sp.setTrangThai(cursor.getInt(7));
+                arr.add(sp);
+                cursor.moveToNext();
+            }
+        }
+        return arr;
+    }
+
+    public ArrayList<SanPham> getSPYeuthich(){
+        ArrayList<SanPham> arr = new ArrayList<>();
+        String sql = "select * from SanPham where trangThaiSP = 1 ";
+        Cursor cursor = db.rawQuery(sql,null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()){
+                SanPham sp = new SanPham();
+                sp.setMaSP(cursor.getInt(0));
+                sp.setTenSP(cursor.getString(1));
+                sp.setMoTa(cursor.getString(2));
+                sp.setMaTH(cursor.getInt(3));
+                sp.setGiaSP(cursor.getInt(4));
+                sp.setSoLuong(cursor.getInt(5));
+                sp.setImgSP(cursor.getString(6));
+                sp.setTrangThai(cursor.getInt(7));
                 arr.add(sp);
                 cursor.moveToNext();
             }

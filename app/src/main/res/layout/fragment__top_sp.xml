@@ -5,12 +5,20 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_register"
-    tools:context=".Fragments.UserFragments.UserFragment_Yeuthich">
+    tools:context=".Fragments.Fragment_TopSP">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_menu"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/imgHome_Top"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sản phẩm yêu thích ♥"
+        android:text="Top 5 sản phẩm bán chạy nhất"
         android:fontFamily="@font/mali"
         android:textSize="20dp"
         android:textColor="@color/black"
@@ -27,7 +35,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recyclerListSPYeuthich"
+            android:id="@+id/recyclerListTop"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:padding="5dp"/>

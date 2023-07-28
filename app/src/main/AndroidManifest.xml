@@ -16,6 +16,13 @@
         android:theme="@style/Theme.App_LabtopStore"
         tools:targetApi="31">
         <activity
+            android:name=".activity.UserActivity_TrangThaiDonHang"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.ChangeProfileActivity"
             android:exported="false" />
         <activity
@@ -23,8 +30,8 @@
             android:exported="false" />
         <activity
             android:name=".activity.DatHang_Activity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -36,7 +43,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".activity.KhachHang_Activity"
             android:exported="false">

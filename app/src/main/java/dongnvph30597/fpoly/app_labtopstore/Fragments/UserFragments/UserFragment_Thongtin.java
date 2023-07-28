@@ -28,11 +28,12 @@ import dongnvph30597.fpoly.app_labtopstore.activity.ChangePasswordActivity;
 import dongnvph30597.fpoly.app_labtopstore.activity.ChangeProfileActivity;
 import dongnvph30597.fpoly.app_labtopstore.activity.KhachHang_Activity;
 import dongnvph30597.fpoly.app_labtopstore.activity.Login_Activity;
+import dongnvph30597.fpoly.app_labtopstore.activity.UserActivity_TrangThaiDonHang;
 import dongnvph30597.fpoly.app_labtopstore.model.User;
 
 public class UserFragment_Thongtin extends Fragment {
 
-    private LinearLayout btnChangePassword, btnChangeProfile;
+    private LinearLayout btnChangePassword, btnChangeProfile, btnTTDH;
     private Button btnLogout;
     private ImageView img;
     private TextView tvName;
@@ -71,6 +72,7 @@ public class UserFragment_Thongtin extends Fragment {
         img = view.findViewById(R.id.img_avatar);
         tvName = view.findViewById(R.id.tv_name_user);
 
+        btnTTDH = view.findViewById(R.id.linear_btn_DHUser);
         dao = new UserDAO(getContext());
         user = dao.getUserById(UserDAO.idUser);
 
@@ -108,6 +110,13 @@ public class UserFragment_Thongtin extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), ChangeProfileActivity.class));
+            }
+        });
+
+        btnTTDH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), UserActivity_TrangThaiDonHang.class));
             }
         });
 

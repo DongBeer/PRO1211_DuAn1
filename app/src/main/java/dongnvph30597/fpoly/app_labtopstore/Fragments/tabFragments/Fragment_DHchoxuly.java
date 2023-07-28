@@ -1,5 +1,7 @@
 package dongnvph30597.fpoly.app_labtopstore.Fragments.tabFragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,12 +28,14 @@ public class Fragment_DHchoxuly extends Fragment implements Adapter_DonHang.OnTr
     private ArrayList<DonHang> arr = new ArrayList<>();
     private Adapter_DonHang adapter;
 
+    int maUser;
+
     public Fragment_DHchoxuly() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
-    public static Fragment_DHchoxuly newInstance(String param1, String param2) {
+    public static Fragment_DHchoxuly newInstance() {
         Fragment_DHchoxuly fragment = new Fragment_DHchoxuly();
         return fragment;
     }
@@ -59,11 +63,22 @@ public class Fragment_DHchoxuly extends Fragment implements Adapter_DonHang.OnTr
     }
 
     public void FilltoRecyclerDHchoxuly(){
-        donHangDAO = new DonHangDAO(getContext());
-        arr = donHangDAO.getDHchoxuly();
-        adapter = new Adapter_DonHang(getContext(),arr);
-        adapter.setData(arr);
-        recyclerDHchoxuly.setAdapter(adapter);
+        SharedPreferences preferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        maUser = preferences.getInt("maUser", -1);
+
+        if(maUser != -1){
+            donHangDAO = new DonHangDAO(getContext());
+            arr = donHangDAO.getDHchoxulyByIDUser(maUser);
+            adapter = new Adapter_DonHang(getContext(),arr);
+            adapter.setData(arr);
+            recyclerDHchoxuly.setAdapter(adapter);
+        }else {
+            donHangDAO = new DonHangDAO(getContext());
+            arr = donHangDAO.getDHchoxuly();
+            adapter = new Adapter_DonHang(getContext(), arr);
+            adapter.setData(arr);
+            recyclerDHchoxuly.setAdapter(adapter);
+        }
 
     }
 

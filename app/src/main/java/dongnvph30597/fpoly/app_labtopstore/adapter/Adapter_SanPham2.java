@@ -26,18 +26,22 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import dongnvph30597.fpoly.app_labtopstore.DAO.DanhGiaDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.GioHangDAO;
+import dongnvph30597.fpoly.app_labtopstore.DAO.SanPhamDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
 import dongnvph30597.fpoly.app_labtopstore.DAO.UserDAO;
 import dongnvph30597.fpoly.app_labtopstore.R;
+import dongnvph30597.fpoly.app_labtopstore.model.DanhGia;
 import dongnvph30597.fpoly.app_labtopstore.model.GioHang;
 import dongnvph30597.fpoly.app_labtopstore.model.SanPham;
 import dongnvph30597.fpoly.app_labtopstore.model.ThuongHieu;
 
 public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2ViewHolder>{
 
-    private ImageView imgBackCTSP, imgSPCT;
-    private TextView tvtenSPCT, tvMotaSPCT, tvTHSPCT, tvGiaSPCT;
+    private ImageView imgBackCTSP, imgSPCT, imgtrangThaiSP;
+    private TextView tvtenSPCT, tvMotaSPCT, tvTHSPCT, tvGiaSPCT, tvTBCdanhgia, tvsldaban;
+    private int trangThai = 0;
 
 
     private Context context;
@@ -45,14 +49,27 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
 
     private GioHangDAO gioHangDAO;
     private UserDAO userDAO;
+    private SanPhamDAO sanPhamDAO;
+    private DanhGiaDAO danhGiaDAO;
 
     private DecimalFormat decimalFormat = new DecimalFormat("#,###,###");
 
+
+    public interface ChangeTrangThai {
+        void trangThaiChanged(int position, int newTrangThai);
+    }
+
+    private ChangeTrangThai trangThaiListener;
 
     public Adapter_SanPham2(Context context, ArrayList<SanPham> arr) {
         this.context = context;
         this.arr = arr;
     }
+
+    public void setTrangThaiListener(ChangeTrangThai listener) {
+        this.trangThaiListener = listener;
+    }
+
 
     public void setData(ArrayList<SanPham> arrSP){
         this.arr = arrSP;
@@ -84,6 +101,9 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
                 tvMotaSPCT = mDialog.findViewById(R.id.tvMotaspCT);
                 tvTHSPCT = mDialog.findViewById(R.id.tvTHspCT);
                 tvGiaSPCT = mDialog.findViewById(R.id.tvGiaspCT);
+                imgtrangThaiSP = mDialog.findViewById(R.id.imgtrangthaisp);
+                tvTBCdanhgia = mDialog.findViewById(R.id.tvTBCdanhgia);
+                tvsldaban = mDialog.findViewById(R.id.tvsldaban);
 
                 SanPham sp = arr.get(index);
                 Glide.with(context).load(sp.getImgSP()).into(imgSPCT);
@@ -94,6 +114,53 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
                 tvTHSPCT.setText(th.getTenTH());
                 String formattedPrice1 = decimalFormat.format(sp.getGiaSP());
                 tvGiaSPCT.setText(formattedPrice1 + " ₫");
+                danhGiaDAO = new DanhGiaDAO(context);
+                tvTBCdanhgia.setText(danhGiaDAO.getAverageDanhGiaByMaSP(sp.getMaSP())+"");
+                tvsldaban.setText(danhGiaDAO.getTongSoLuongDaBan(sp.getMaSP())+"");
+
+                imgtrangThaiSP.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (trangThai == 0) {
+                            trangThai = 1;
+                            Toast.makeText(context, "Đã thêm vào danh mục yêu thích ♥", Toast.LENGTH_SHORT).show();
+                            imgtrangThaiSP.setImageResource(R.drawable.heart_icon1); // Nếu trạng thái = 1 (đã yêu thích)
+                            sp.setTrangThai(trangThai);
+                            sanPhamDAO = new SanPhamDAO(context);
+                            sanPhamDAO.update(sp);
+                            notifyDataSetChanged();
+
+                        } else {
+                            trangThai = 0;
+                            Toast.makeText(context, "Đã bỏ yêu thích!", Toast.LENGTH_SHORT).show();
+                            imgtrangThaiSP.setImageResource(R.drawable.heart_icon); // Nếu trạng thái = 0 (chưa yêu thích)
+                            sp.setTrangThai(trangThai);
+                            sanPhamDAO = new SanPhamDAO(context);
+                            sanPhamDAO.update(sp);
+                            notifyDataSetChanged();
+
+                        }
+                        if (trangThaiListener != null) {
+                            trangThaiListener.trangThaiChanged(index, trangThai); // Thông báo về sự thay đổi trạng thái
+                        }
+                    }
+
+                });
+                // Nếu sản phẩm đã được yêu thích, set trạng thái và hình ảnh tương ứng
+                if (sp.getTrangThai() == 1) {
+                    trangThai = 1;
+                    imgtrangThaiSP.setImageResource(R.drawable.heart_icon1);
+                } else {
+                    trangThai = 0;
+                    imgtrangThaiSP.setImageResource(R.drawable.heart_icon);
+                }
+
+                RecyclerView recyclerDanhgia = mDialog.findViewById(R.id.recyclerDanhGia);
+                danhGiaDAO = new DanhGiaDAO(context);
+                ArrayList<DanhGia> arrDG = new ArrayList<>();
+                arrDG = danhGiaDAO.getDanhGiaBymaSP(sp.getMaSP());
+                Adapter_DanhGia adapter = new Adapter_DanhGia(context,arrDG);
+                recyclerDanhgia.setAdapter(adapter);
                 mDialog.show();
             }
         });

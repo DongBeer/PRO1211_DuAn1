@@ -38,7 +38,7 @@
         android:layout_margin="15dp"
         android:layout_below="@+id/cv"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="100dp"
         android:orientation="vertical">
 
             <LinearLayout
@@ -137,7 +137,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="200dp"
         android:orientation="vertical"
         android:layout_below="@+id/tvsp1"
         android:layout_margin="15dp"
@@ -262,5 +262,38 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_below="@+id/linea2"
+        android:id="@+id/cvbtnxacnhan1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="230dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:backgroundTint="#FF9800"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xác nhận"
+            android:textSize="20dp"
+            android:fontFamily="@font/mali"
+            android:layout_gravity="center"/>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/tvXacnhanhang"
+        android:layout_below="@+id/linea2"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bạn đã nhận được hàng?"
+        android:fontFamily="@font/arbutus_slab"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:visibility="gone"/>
+
 
 </RelativeLayout>

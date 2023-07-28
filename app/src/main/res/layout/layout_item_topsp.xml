@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="#CCE2EC"
+    android:layout_margin="3dp"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/onclick_linearSP">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTop"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top"
+                android:fontFamily="@font/arbutus_slab"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="#FF5722"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp">
+                <ImageView
+                    android:id="@+id/imgSPtop"
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/laptop1"/>
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/tvtenSPTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arbutus_slab"
+                    android:text=" Laptop Acer "
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"/>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:textColor="#706F6F"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Số lượng đã bán: "
+                            android:fontFamily="@font/mali"
+                            android:textSize="14dp"/>
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="15"
+                            android:id="@+id/tvsoluongTopsp"
+                            android:fontFamily="@font/arbutus_slab"
+                            android:textStyle="bold"
+                            android:textSize="17dp"/>
+
+                    </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

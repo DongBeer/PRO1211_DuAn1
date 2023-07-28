@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:background="#EDEBEB">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đánh giá"
+        android:textSize="20dp"
+        android:fontFamily="@font/arbutus_slab"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="15dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_margin="4dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_star0"
+            android:id="@+id/imgstar1"/>
+        <ImageView
+            android:layout_margin="4dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_star0"
+            android:id="@+id/imgstar2"/>
+        <ImageView
+            android:layout_margin="4dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_star0"
+            android:id="@+id/imgstar3"/>
+        <ImageView
+            android:layout_margin="4dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_star0"
+            android:id="@+id/imgstar4"/>
+        <ImageView
+            android:layout_margin="4dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_star0"
+            android:id="@+id/imgstar5"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm bình luận"
+        android:textColor="@color/black"
+        android:fontFamily="@font/arbutus_slab"/>
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/custom_boder_linear"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/edBinhluan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Bình luận"
+            android:fontFamily="@font/arbutus_slab"/>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvguidanhgia"
+        android:layout_marginTop="10dp"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="15dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="  Gửi đánh giá →"
+            android:background="@drawable/custom_bgr_login"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/mali"
+            android:textColor="#777272"
+            android:textSize="17dp"/>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

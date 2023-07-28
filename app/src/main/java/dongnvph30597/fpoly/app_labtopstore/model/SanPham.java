@@ -6,22 +6,21 @@ public class SanPham {
     public String moTa;
     public int maTH;
     public int giaSP;
-    public String loaiSP;
     public int soLuong;
     public String imgSP;
-
+    public int trangThai;
     public SanPham() {
     }
 
-    public SanPham(int maSP, String tenSP, String moTa, int maTH, int giaSP, String loaiSP, int soLuong, String imgSP) {
+    public SanPham(int maSP, String tenSP, String moTa, int maTH, int giaSP, int soLuong, String imgSP, int trangThai) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.moTa = moTa;
         this.maTH = maTH;
         this.giaSP = giaSP;
-        this.loaiSP = loaiSP;
         this.soLuong = soLuong;
         this.imgSP = imgSP;
+        this.trangThai = trangThai;
     }
 
     public int getMaSP() {
@@ -64,14 +63,6 @@ public class SanPham {
         this.giaSP = giaSP;
     }
 
-    public String getLoaiSP() {
-        return loaiSP;
-    }
-
-    public void setLoaiSP(String loaiSP) {
-        this.loaiSP = loaiSP;
-    }
-
     public int getSoLuong() {
         return soLuong;
     }
@@ -86,5 +77,13 @@ public class SanPham {
 
     public void setImgSP(String imgSP) {
         this.imgSP = imgSP;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 }

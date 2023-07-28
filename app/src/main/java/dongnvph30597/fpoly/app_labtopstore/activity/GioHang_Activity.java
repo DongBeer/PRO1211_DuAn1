@@ -25,6 +25,7 @@ import dongnvph30597.fpoly.app_labtopstore.MainActivity;
 import dongnvph30597.fpoly.app_labtopstore.R;
 import dongnvph30597.fpoly.app_labtopstore.adapter.Adapter_GioHang;
 import dongnvph30597.fpoly.app_labtopstore.model.GioHang;
+import dongnvph30597.fpoly.app_labtopstore.model.SharedPreferencesHelper;
 import dongnvph30597.fpoly.app_labtopstore.tools.DeleteItemGioHang;
 
 public class GioHang_Activity extends AppCompatActivity {
@@ -34,10 +35,13 @@ public class GioHang_Activity extends AppCompatActivity {
     private Adapter_GioHang adapter;
     private ArrayList<GioHang> arr = new ArrayList<>();
 
+    private SharedPreferencesHelper preferencesHelper;
+
     private ImageView imgbackGH;
     private TextView tvTongthanhtoan;
     private TextView tvMuaHang;
-    int Tongtien = 0;
+    private int Tongtien = 0;
+    private int maUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class GioHang_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_gio_hang);
         recyclerGioHang = findViewById(R.id.recyclerGioHang);
         tvTongthanhtoan = findViewById(R.id.tvTongthanhtoan);
+        preferencesHelper = new SharedPreferencesHelper(GioHang_Activity.this);
         imgbackGH  = findViewById(R.id.imgbackGH);
         imgbackGH.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +73,15 @@ public class GioHang_Activity extends AppCompatActivity {
         });
         FilltoRecyclerGH();
 
+        Toast.makeText(this, ""+ arr.size(), Toast.LENGTH_SHORT).show();
+
 
 
     }
 
     public void FilltoRecyclerGH(){
         SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int maUser = preferences.getInt("maUser", -1);
+         maUser = preferences.getInt("maUser", -1);
         gioHangDAO = new GioHangDAO(GioHang_Activity.this);
         arr = gioHangDAO.getGioHangbyIdUser(maUser);
         adapter = new Adapter_GioHang(GioHang_Activity.this, arr);
@@ -96,7 +103,23 @@ public class GioHang_Activity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        preferencesHelper.clearCheckedItems();
+        Tongtien = 0;
+        tvTongthanhtoan.setText(0 + " ₫");
 
+        gioHangDAO = new GioHangDAO(GioHang_Activity.this);
+        arr = gioHangDAO.getGioHangbyIdUser(maUser);
+        adapter = new Adapter_GioHang(GioHang_Activity.this, arr);
+        DecimalFormat decimalFormat = new DecimalFormat("#,###,###");
+        adapter.setOnTotalPriceChangeListener(new Adapter_GioHang.OnTotalPriceChangeListener() {
+            @Override
+            public void onTotalPriceChange(int totalPrice) {
+                tvTongthanhtoan.setText(decimalFormat.format(totalPrice) + " ₫");
+                Tongtien = totalPrice;
+            }
+        });
+        adapter.setData(arr);
+        recyclerGioHang.setAdapter(adapter);
     }
 
 

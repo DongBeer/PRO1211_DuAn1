@@ -21,6 +21,8 @@ import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanLyLoaiSp;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanlyDonHang;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanlyKhachHang;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanlySanPham;
+import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_ThongKe;
+import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_TopSP;
 import dongnvph30597.fpoly.app_labtopstore.activity.Login_Activity;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_layout);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main,new Fragment_QuanlyKhachHang()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main,new Fragment_QuanlyDonHang()).commit();
         navigationView.setItemIconTintList(null);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -56,7 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 }else if(it == R.id.ic_client){
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_main,new Fragment_QuanlyKhachHang()).commit();
                     drawerLayout.close();
-                }else if(it == R.id.ic_exit){
+                }else if(it == R.id.ic_top){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container_main,new Fragment_TopSP()).commit();
+                    drawerLayout.close();
+                }else if(it == R.id.ic_revenue){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container_main,new Fragment_ThongKe()).commit();
+                    drawerLayout.close();
+                }
+                else if(it == R.id.ic_exit){
                     drawerLayout.close();
                     new Handler().postDelayed(new Runnable() {
                         @Override

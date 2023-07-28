@@ -1,5 +1,7 @@
 package dongnvph30597.fpoly.app_labtopstore.Fragments.tabFragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ public class Fragment_DHdahoanthanh extends Fragment implements Adapter_DonHang.
     private DonHangDAO donHangDAO;
     private ArrayList<DonHang> arr = new ArrayList<>();
     private Adapter_DonHang adapter;
+    int maUser;
 
     public Fragment_DHdahoanthanh() {
         // Required empty public constructor
@@ -60,11 +63,22 @@ public class Fragment_DHdahoanthanh extends Fragment implements Adapter_DonHang.
     }
 
     public void FilltoRecyclerDHdaxuly(){
-        donHangDAO = new DonHangDAO(getContext());
-        arr = donHangDAO.getDHdahoanthanh();
-        adapter = new Adapter_DonHang(getContext(), arr);
-        adapter.setData(arr);
-        recyclerDHdahoanthanh.setAdapter(adapter);
+        SharedPreferences preferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        maUser = preferences.getInt("maUser", -1);
+        if(maUser != -1){
+            donHangDAO = new DonHangDAO(getContext());
+            arr = donHangDAO.getDHDagoanthanhByIDUser(maUser);
+            adapter = new Adapter_DonHang(getContext(), arr);
+            adapter.setData(arr);
+            recyclerDHdahoanthanh.setAdapter(adapter);
+        }else {
+            donHangDAO = new DonHangDAO(getContext());
+            arr = donHangDAO.getDHdahoanthanh();
+            adapter = new Adapter_DonHang(getContext(), arr);
+            adapter.setData(arr);
+            recyclerDHdahoanthanh.setAdapter(adapter);
+        }
+
     }
 
     @Override

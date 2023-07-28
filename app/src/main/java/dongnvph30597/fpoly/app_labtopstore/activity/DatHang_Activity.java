@@ -104,9 +104,10 @@ public class DatHang_Activity extends AppCompatActivity {
 
                             if(hoaDonChiTietDAO.insert(chiTietDonHang) > 0){
                                 Toast.makeText(DatHang_Activity.this, "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
-                                preferencesHelper.clearCheckedItems();
                                 gioHangDAO.deleteGioHangByTrangThaiAndMaUser(maUser);
-                                Intent intent = new Intent(DatHang_Activity.this, KhachHang_Activity.class);
+                                preferencesHelper.clearCheckedItems();
+                                finish();
+                                Intent intent = new Intent(DatHang_Activity.this, UserActivity_TrangThaiDonHang.class);
                                 startActivity(intent);
                             }else {
                                 Toast.makeText(DatHang_Activity.this, "Đặt hàng thất bại! + chi tiết", Toast.LENGTH_SHORT).show();
