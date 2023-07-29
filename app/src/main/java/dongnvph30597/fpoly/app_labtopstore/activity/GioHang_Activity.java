@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class GioHang_Activity extends AppCompatActivity {
 
     private ImageView imgbackGH;
     private TextView tvTongthanhtoan;
-    private TextView tvMuaHang;
+    private LinearLayout lnbtnmuahang;
     private int Tongtien = 0;
     private int maUser;
 
@@ -57,8 +58,8 @@ public class GioHang_Activity extends AppCompatActivity {
                 finish();
             }
         });
-        tvMuaHang = findViewById(R.id.tvMuaHang);
-        tvMuaHang.setOnClickListener(new View.OnClickListener() {
+        lnbtnmuahang = findViewById(R.id.lnbtnMuahang);
+        lnbtnmuahang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(Tongtien != 0){

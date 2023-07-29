@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,10 +33,11 @@ import dongnvph30597.fpoly.app_labtopstore.model.SharedPreferencesHelper;
 
 public class DatHang_Activity extends AppCompatActivity {
 
-    private TextView tvHotenSDT , tvDiachidathang, tvTongtienHD, tvTongThanhToan, tvDatHang;
+    private TextView tvHotenSDT , tvDiachidathang, tvTongtienHD, tvTongThanhToan;
     private EditText edGhichu;
     private RecyclerView recyclerHDCT;
     private ImageView imgbackDH;
+    private LinearLayout lnbtnDathang;
 
     private GioHangDAO gioHangDAO;
     private ArrayList<GioHang> arr = new ArrayList<>();
@@ -70,7 +72,7 @@ public class DatHang_Activity extends AppCompatActivity {
         tvTongtienHD.setText(decimalFormat.format(Total)+ " ₫");
         tvTongThanhToan.setText(decimalFormat.format(Total)+ " ₫");
 
-        tvDatHang.setOnClickListener(new View.OnClickListener() {
+        lnbtnDathang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences preferences1 = getSharedPreferences("AdminShared", Context.MODE_PRIVATE);
@@ -141,7 +143,7 @@ public class DatHang_Activity extends AppCompatActivity {
         tvTongThanhToan = findViewById(R.id.tvTongthanhtoan);
         edGhichu = findViewById(R.id.edNhapghichu);
         recyclerHDCT = findViewById(R.id.recycleDathang);
-        tvDatHang = findViewById(R.id.tvDatHang);
+        lnbtnDathang = findViewById(R.id.lnbtnDathang);
         imgbackDH = findViewById(R.id.imgbackDH);
         donHangDAO = new DonHangDAO(DatHang_Activity.this);
         hoaDonChiTietDAO = new HoaDonChiTietDAO(DatHang_Activity.this);

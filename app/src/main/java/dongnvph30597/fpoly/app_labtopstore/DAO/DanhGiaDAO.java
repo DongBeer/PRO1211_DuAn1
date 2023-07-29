@@ -82,24 +82,44 @@ public class DanhGiaDAO {
         return tongSoLuongDaBan;
     }
 
-//    public ArrayList<DanhGia> getDanhGiaBymaSP1(int maSP) {
-//        String sqlGH = "SELECT * FROM DanhGia WHERE maSP = ?";
-//        Cursor cursor = db.rawQuery(sqlGH, new String[]{String.valueOf(maSP)});
-//        ArrayList<DanhGia> arr = new ArrayList<>();
-//        if (cursor.moveToFirst()) {
-//            while (!cursor.isAfterLast()) {
-//                DanhGia danhGia = new DanhGia();
-//                danhGia.setMaDG(cursor.getInt(0));
-//                danhGia.setMaUser(cursor.getInt(1));
-//                danhGia.setMaSP(cursor.getInt(2));
-//                danhGia.setDangGia(cursor.getInt(3));
-//                danhGia.setNhanXet(cursor.getString(4));
-//                arr.add(danhGia);
-//                cursor.moveToNext();
-//            }
-//        }
-//        cursor.close();
-//        return arr;
-//    }
+    public ArrayList<DanhGia> getDanhGiaBymaSP1(int maSP) {
+        String sqlGH = "SELECT * FROM DanhGia WHERE maSP = ?";
+        Cursor cursor = db.rawQuery(sqlGH, new String[]{String.valueOf(maSP)});
+        ArrayList<DanhGia> arr = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                DanhGia danhGia = new DanhGia();
+                danhGia.setMaDG(cursor.getInt(0));
+                danhGia.setMaUser(cursor.getInt(1));
+                danhGia.setMaSP(cursor.getInt(2));
+                danhGia.setDangGia(cursor.getInt(3));
+                danhGia.setNhanXet(cursor.getString(4));
+                arr.add(danhGia);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        return arr;
+    }
+
+    public ArrayList<DanhGia> getDanhGiaByUser(int maUser) {
+        String sqlGH = "SELECT * FROM DanhGia WHERE maUser = ?";
+        Cursor cursor = db.rawQuery(sqlGH, new String[]{String.valueOf(maUser)});
+        ArrayList<DanhGia> arr = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                DanhGia danhGia = new DanhGia();
+                danhGia.setMaDG(cursor.getInt(0));
+                danhGia.setMaUser(cursor.getInt(1));
+                danhGia.setMaSP(cursor.getInt(2));
+                danhGia.setDangGia(cursor.getInt(3));
+                danhGia.setNhanXet(cursor.getString(4));
+                arr.add(danhGia);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        return arr;
+    }
 
 }

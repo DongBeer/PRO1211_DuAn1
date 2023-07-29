@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Top 5 sản phẩm bán chạy nhất"
+        android:text="Thông kê doanh thu"
         android:fontFamily="@font/mali"
         android:textSize="20dp"
         android:textColor="@color/black"
@@ -32,6 +32,12 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:layout_marginLeft="50dp"
+            android:id="@+id/barChart"
+            android:layout_width="300dp"
+            android:layout_height="300dp" />
 
     </LinearLayout>
 

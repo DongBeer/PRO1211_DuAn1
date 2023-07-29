@@ -230,13 +230,21 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
             int maHD = arr.get(index).getMaHD();
             hoaDonChiTietDAO = new HoaDonChiTietDAO(context);
             arrCTDH = hoaDonChiTietDAO.getHDCTbyIDmaHD(maHD);
-            int maSP = arrCTDH.get(index).getMaSanPham();
-            DanhGiaDAO danhGiaDAO = new DanhGiaDAO(context);
-            ArrayList<DanhGia> danhGias = danhGiaDAO.getDanhGiaBymaSP(maSP);
 
+// Lấy danh sách mã sản phẩm trong hóa đơn
+            ArrayList<Integer> maSanPhamTrongHoaDon = new ArrayList<>();
+            for (ChiTietDonHang hdt : arrCTDH) {
+                maSanPhamTrongHoaDon.add(hdt.getMaSanPham());
+            }
+
+// Lấy danh sách các đánh giá của người dùng
+            DanhGiaDAO danhGiaDAO = new DanhGiaDAO(context);
+            ArrayList<DanhGia> danhSachDanhGiaCuaNguoiDung = danhGiaDAO.getDanhGiaByUser(maUser);
+
+// Kiểm tra xem người dùng đã đánh giá sản phẩm hay chưa
             boolean userReviewed = false;
-            for (DanhGia danhGia : danhGias) {
-                if (danhGia.getMaUser() == maUser) {
+            for (DanhGia danhGia : danhSachDanhGiaCuaNguoiDung) {
+                if (maSanPhamTrongHoaDon.contains(danhGia.getMaSP())) {
                     userReviewed = true;
                     break;
                 }
@@ -312,12 +320,17 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
                                 if (bl.isEmpty()) {
                                     bl = "Nothing";
                                 }
-                                int maSP = arrCTDH.get(index).getMaSanPham();
+                                ArrayList<Integer> maSanPhamTrongHoaDon = new ArrayList<>();
+                                for (ChiTietDonHang hdt : arrCTDH) {
+                                    maSanPhamTrongHoaDon.add(hdt.getMaSanPham());
+                                    addDanhGiaToHoaDonChiTiet(hdt.getMaSanPham(), rating, bl);
+                                    tvXacnhanhang.setText("Bạn đã đánh giá sản phẩm này");
+                                    cvbtnXacnhan.setVisibility(View.GONE);
+                                    adialog.dismiss();
+                                }
+
                                 // Thêm đánh giá vào các sản phẩm trong cùng một đơn hàng
-                                addDanhGiaToHoaDonChiTiet(maSP, rating, bl);
-                                tvXacnhanhang.setText("Bạn đã đánh giá sản phẩm này");
-                                cvbtnXacnhan.setVisibility(View.GONE);
-                                adialog.dismiss();
+
                             }
                         });
 
