@@ -70,9 +70,11 @@
         android:background="@drawable/custom_boder_linear"
         android:orientation="vertical">
         <EditText
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/custom_bg_edittext"
             android:id="@+id/edBinhluan"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:hint="Bình luận"
             android:fontFamily="@font/arbutus_slab"/>
     </LinearLayout>

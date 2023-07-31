@@ -87,4 +87,12 @@ public class GioHangDAO {
         return arr;
     }
 
+    public void updateTrangThaiByMaUser(int maUser) {
+        ContentValues values = new ContentValues();
+        values.put("trangThai", 0); // Giá trị 0 sẽ thay thế giá trị trạng thái cũ (1)
+
+        db.update("GioHang", values, "maUser = ?", new String[]{String.valueOf(maUser)});
+        db.close();
+    }
+
 }

@@ -13,6 +13,7 @@ import dongnvph30597.fpoly.app_labtopstore.Fragments.UserFragments.UserFragment_
 import dongnvph30597.fpoly.app_labtopstore.Fragments.tabFragments.Fragment_DHchoxuly;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.tabFragments.Fragment_DHdahoanthanh;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.tabFragments.Fragment_DHdanggiao;
+import dongnvph30597.fpoly.app_labtopstore.Fragments.tabFragments.Fragment_DHxacnhan;
 import dongnvph30597.fpoly.app_labtopstore.R;
 
 public class UserActivity_TrangThaiDonHang extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class UserActivity_TrangThaiDonHang extends AppCompatActivity {
 
         tabLayout_DHUser = findViewById(R.id.tab_layout_User);
         tabLayout_DHUser.addTab(tabLayout_DHUser.newTab().setText("Chờ xử lý"));
+        tabLayout_DHUser.addTab(tabLayout_DHUser.newTab().setText("Đã xác nhận"));
         tabLayout_DHUser.addTab(tabLayout_DHUser.newTab().setText("Đang vẩn chuyển"));
         tabLayout_DHUser.addTab(tabLayout_DHUser.newTab().setText("Đã giao"));
 
@@ -45,8 +47,11 @@ public class UserActivity_TrangThaiDonHang extends AppCompatActivity {
                 if(tab.getPosition() == 0){
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_fragDH_User, new Fragment_DHchoxuly()).commit();
                 }else if(tab.getPosition() == 1){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container_fragDH_User, new Fragment_DHxacnhan()).commit();
+                }else if(tab.getPosition() == 2){
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_fragDH_User, new Fragment_DHdanggiao()).commit();
-                }else {
+                }
+                else {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_fragDH_User, new Fragment_DHdahoanthanh()).commit();
                 }
             }

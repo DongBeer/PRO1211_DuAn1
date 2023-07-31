@@ -50,6 +50,7 @@ public class KhachHang_Activity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.user_container,new UserFragment_Yeuthich()).commit();
                 }else if(it == R.id.ic_cart_bottonnav){
                     Intent aIntent = new Intent(KhachHang_Activity.this,GioHang_Activity.class);
+                    aIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(aIntent);
                 }
                 else if(it == R.id.ic_person_bottonnav){
@@ -92,13 +93,5 @@ public class KhachHang_Activity extends AppCompatActivity {
         },1000);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
-    }
 
 }

@@ -10,6 +10,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -32,6 +35,8 @@ import dongnvph30597.fpoly.app_labtopstore.DAO.SanPhamDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
 import dongnvph30597.fpoly.app_labtopstore.DAO.UserDAO;
 import dongnvph30597.fpoly.app_labtopstore.R;
+import dongnvph30597.fpoly.app_labtopstore.activity.DatHang_Activity;
+import dongnvph30597.fpoly.app_labtopstore.activity.GioHang_Activity;
 import dongnvph30597.fpoly.app_labtopstore.model.DanhGia;
 import dongnvph30597.fpoly.app_labtopstore.model.GioHang;
 import dongnvph30597.fpoly.app_labtopstore.model.SanPham;
@@ -41,8 +46,11 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
 
     private ImageView imgBackCTSP, imgSPCT, imgtrangThaiSP;
     private TextView tvtenSPCT, tvMotaSPCT, tvTHSPCT, tvGiaSPCT, tvTBCdanhgia, tvsldaban;
+    private EditText edAddbl;
+    private Button btnGui;
     private int trangThai = 0;
-
+    private ArrayList<DanhGia> arrDG = new ArrayList<>();
+    private LinearLayout lnbtnThemvaoGH, lnbtnMuangay;
 
     private Context context;
     private ArrayList<SanPham> arr = new ArrayList<>();
@@ -86,6 +94,7 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
                 int index = holder.getAdapterPosition();
                 Dialog mDialog = new Dialog(context);
                 mDialog.setContentView(R.layout.layout_dialog_chitietsanpham);
+                mDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                 mDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -104,6 +113,10 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
                 imgtrangThaiSP = mDialog.findViewById(R.id.imgtrangthaisp);
                 tvTBCdanhgia = mDialog.findViewById(R.id.tvTBCdanhgia);
                 tvsldaban = mDialog.findViewById(R.id.tvsldaban);
+                edAddbl = mDialog.findViewById(R.id.edaddBL);
+                btnGui = mDialog.findViewById(R.id.btnGui);
+                lnbtnThemvaoGH = mDialog.findViewById(R.id.lnbtnthemvaogiohang);
+                lnbtnMuangay = mDialog.findViewById(R.id.lnbtnmuangay);
 
                 SanPham sp = arr.get(index);
                 Glide.with(context).load(sp.getImgSP()).into(imgSPCT);
@@ -116,6 +129,9 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
                 tvGiaSPCT.setText(formattedPrice1 + " ₫");
                 danhGiaDAO = new DanhGiaDAO(context);
                 tvTBCdanhgia.setText(danhGiaDAO.getAverageDanhGiaByMaSP(sp.getMaSP())+"");
+                if(danhGiaDAO.getAverageDanhGiaByMaSP(sp.getMaSP()) == 0){
+                    tvTBCdanhgia.setText("5.0");
+                }
                 tvsldaban.setText(danhGiaDAO.getTongSoLuongDaBan(sp.getMaSP())+"");
 
                 imgtrangThaiSP.setOnClickListener(new View.OnClickListener() {
@@ -157,10 +173,101 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
 
                 RecyclerView recyclerDanhgia = mDialog.findViewById(R.id.recyclerDanhGia);
                 danhGiaDAO = new DanhGiaDAO(context);
-                ArrayList<DanhGia> arrDG = new ArrayList<>();
-                arrDG = danhGiaDAO.getDanhGiaBymaSP(sp.getMaSP());
+                arrDG = danhGiaDAO.getDanhGiaBymaSP1(sp.getMaSP());
                 Adapter_DanhGia adapter = new Adapter_DanhGia(context,arrDG);
                 recyclerDanhgia.setAdapter(adapter);
+
+
+                btnGui.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String bl = edAddbl.getText().toString().trim();
+                        if(bl.isEmpty()){
+                            Toast.makeText(context, "Hãy nhập bình luận...", Toast.LENGTH_SHORT).show();
+                            edAddbl.requestFocus();
+                            return;
+                        }else {
+                            SharedPreferences preferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                            int maUser = preferences.getInt("maUser", -1);
+                            DanhGia dg = new DanhGia();
+                            dg.setNhanXet(bl);
+                            dg.setMaSP(sp.getMaSP());
+                            dg.setMaUser(maUser);
+                            dg.setDangGia(5);
+
+                            if(danhGiaDAO.insert(dg) > 0 ){
+                                notifyDataSetChanged();
+                                Toast.makeText(context, "Đã gửi bình luận!", Toast.LENGTH_SHORT).show();
+                                edAddbl.setText("");
+                                arrDG = danhGiaDAO.getDanhGiaBymaSP1(sp.getMaSP());
+                                Adapter_DanhGia adapter = new Adapter_DanhGia(context,arrDG);
+                                recyclerDanhgia.setAdapter(adapter);
+                            }
+                        }
+                    }
+                });
+
+                lnbtnThemvaoGH.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gioHangDAO = new GioHangDAO(context);
+
+                        SharedPreferences preferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                        int maUser = preferences.getInt("maUser", -1);
+                        int maSP = sp.getMaSP();
+                        int soluong = 1;
+                        int gia = sp.getGiaSP();
+                        GioHang gioHang = new GioHang();
+                        gioHang.setMaUser(maUser);
+                        gioHang.setMaSP(maSP);
+                        gioHang.setSoLuong(soluong);
+                        gioHang.setGiaSP(gia);
+                        gioHang.setTrangThai(0);
+                        for (GioHang gioHang1 : gioHangDAO.getGioHangbyIdUser(maUser)) {
+                            if (gioHang1.getMaSP() == maSP) {
+                                Toast.makeText(context, "Bạn đã thêm sản phẩm bên giỏ hàng!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+
+                        if (gioHangDAO.insert(gioHang) > 0){
+                            Toast.makeText(context, "Thêm vào giỏ hàng thành công!", Toast.LENGTH_SHORT).show();
+
+                        }else {
+                            Toast.makeText(context, "Thêm vào giỏ hàng thất bại!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                lnbtnMuangay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gioHangDAO = new GioHangDAO(context);
+
+                        SharedPreferences preferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                        int maUser = preferences.getInt("maUser", -1);
+                        int maSP = sp.getMaSP();
+                        int soluong = 1;
+                        int gia = sp.getGiaSP();
+                        GioHang gioHang = new GioHang();
+                        gioHang.setMaUser(maUser);
+                        gioHang.setMaSP(maSP);
+                        gioHang.setSoLuong(soluong);
+                        gioHang.setGiaSP(gia);
+                        gioHang.setTrangThai(1);
+                        if (gioHangDAO.insert(gioHang) > 0){
+//                            Toast.makeText(context, "Thêm vào giỏ hàng thành công!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context,DatHang_Activity.class);
+                            intent.putExtra("tongtien",gia);
+                            intent.putExtra("check", 5);
+                            context.startActivity(intent);
+
+                        }else {
+                            Toast.makeText(context, "Thêm vào giỏ hàng thất bại!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
                 mDialog.show();
             }
         });

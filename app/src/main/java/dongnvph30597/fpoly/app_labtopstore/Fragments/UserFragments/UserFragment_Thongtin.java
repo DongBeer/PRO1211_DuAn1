@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ import dongnvph30597.fpoly.app_labtopstore.model.User;
 
 public class UserFragment_Thongtin extends Fragment {
 
-    private LinearLayout btnChangePassword, btnChangeProfile, btnTTDH;
+    private LinearLayout btnChangePassword, btnChangeProfile, btnTTDH, lnbtnDathich;
     private Button btnLogout;
     private ImageView img;
     private TextView tvName;
@@ -76,6 +77,7 @@ public class UserFragment_Thongtin extends Fragment {
         dao = new UserDAO(getContext());
         user = dao.getUserById(UserDAO.idUser);
 
+
         if (user.getImgUser() != null ){
             Glide.with(this).load(user.getImgUser()).error(R.drawable.signup).into(img);
         }
@@ -117,6 +119,19 @@ public class UserFragment_Thongtin extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), UserActivity_TrangThaiDonHang.class));
+            }
+        });
+
+        lnbtnDathich = view.findViewById(R.id.lnbtnDathich);
+        lnbtnDathich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getParentFragmentManager(); // Sử dụng getParentFragmentManager() trong Fragment.
+                fragmentManager.beginTransaction()
+                        .replace(R.id.user_container, new UserFragment_Yeuthich())
+                        .addToBackStack(null) // Thêm Fragment hiện tại vào BackStack để có thể quay lại khi nhấn nút back.
+                        .commit();
+
             }
         });
 

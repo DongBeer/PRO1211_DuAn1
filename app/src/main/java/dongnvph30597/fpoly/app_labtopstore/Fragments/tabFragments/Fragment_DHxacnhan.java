@@ -21,22 +21,22 @@ import dongnvph30597.fpoly.app_labtopstore.adapter.Adapter_DonHang;
 import dongnvph30597.fpoly.app_labtopstore.model.DonHang;
 
 
-public class Fragment_DHdahoanthanh extends Fragment implements Adapter_DonHang.OnTrangThaiChangeListener {
+public class Fragment_DHxacnhan extends Fragment implements Adapter_DonHang.OnTrangThaiChangeListener{
 
-    private RecyclerView recyclerDHdahoanthanh;
+    private RecyclerView recyclerDHXacnhan;
     private DonHangDAO donHangDAO;
     private ArrayList<DonHang> arr = new ArrayList<>();
     private Adapter_DonHang adapter;
     int maUser;
 
-    public Fragment_DHdahoanthanh() {
+    public Fragment_DHxacnhan() {
         // Required empty public constructor
     }
 
 
-    // TODO: Rename and change types and number of parameters
-    public static Fragment_DHdahoanthanh newInstance(String param1, String param2) {
-        Fragment_DHdahoanthanh fragment = new Fragment_DHdahoanthanh();
+    public static Fragment_DHxacnhan newInstance() {
+        Fragment_DHxacnhan fragment = new Fragment_DHxacnhan();
+        Bundle args = new Bundle();
         return fragment;
     }
 
@@ -49,40 +49,40 @@ public class Fragment_DHdahoanthanh extends Fragment implements Adapter_DonHang.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__donhang_dahoanthanh, container, false);
+        return inflater.inflate(R.layout.fragment_frangment_dh_xacnhan, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        recyclerDHXacnhan = view.findViewById(R.id.recyclerDHXacnhan);
 
-        recyclerDHdahoanthanh = view.findViewById(R.id.recyclerDHdahoanthanh);
-
-        FilltoRecyclerDHdaxuly();
+        FilltolistDHxacnhan();
         adapter.setOnTrangThaiChangeListener(this);
     }
 
-    public void FilltoRecyclerDHdaxuly(){
+    public void FilltolistDHxacnhan(){
         SharedPreferences preferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         maUser = preferences.getInt("maUser", -1);
+
         if(maUser != -1){
             donHangDAO = new DonHangDAO(getContext());
-            arr = donHangDAO.getDHDagoanthanhByIDUser(maUser);
+            arr = donHangDAO.getDHXacnhanbyUser(maUser);
             adapter = new Adapter_DonHang(getContext(), arr);
             adapter.setData(arr);
-            recyclerDHdahoanthanh.setAdapter(adapter);
+            recyclerDHXacnhan.setAdapter(adapter);
         }else {
             donHangDAO = new DonHangDAO(getContext());
-            arr = donHangDAO.getDHdahoanthanh();
+            arr = donHangDAO.getDHXacnhan();
             adapter = new Adapter_DonHang(getContext(), arr);
             adapter.setData(arr);
-            recyclerDHdahoanthanh.setAdapter(adapter);
+            recyclerDHXacnhan.setAdapter(adapter);
         }
 
     }
 
     @Override
     public void onTrangThaiChanged(int position, int newTrangThai) {
-        FilltoRecyclerDHdaxuly();
+        FilltolistDHxacnhan();
     }
 }

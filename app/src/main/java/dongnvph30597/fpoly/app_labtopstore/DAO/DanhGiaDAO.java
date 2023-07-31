@@ -30,6 +30,10 @@ public class DanhGiaDAO {
         return db.insert("DanhGia", null, values);
     }
 
+    public int delete(String id){
+        return db.delete("DanhGia","maDG=?", new String[]{id});
+    }
+
     public ArrayList<DanhGia> getDanhGiaBymaSP(int maSP) {
         String sqlGH = "SELECT * FROM DanhGia WHERE maSP = ?";
         Cursor cursor = db.rawQuery(sqlGH, new String[]{String.valueOf(maSP)});
@@ -88,13 +92,23 @@ public class DanhGiaDAO {
         ArrayList<DanhGia> arr = new ArrayList<>();
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                DanhGia danhGia = new DanhGia();
-                danhGia.setMaDG(cursor.getInt(0));
-                danhGia.setMaUser(cursor.getInt(1));
-                danhGia.setMaSP(cursor.getInt(2));
-                danhGia.setDangGia(cursor.getInt(3));
-                danhGia.setNhanXet(cursor.getString(4));
-                arr.add(danhGia);
+                int maDG = cursor.getInt(0);
+                int maUser = cursor.getInt(1);
+                int maSanPham = cursor.getInt(2);
+                int danhG = cursor.getInt(3);
+                String nhanXet = cursor.getString(4);
+
+                // Kiểm tra nhanXet có khác "Nothing" hay không
+                if (!"Nothing".equalsIgnoreCase(nhanXet)) {
+                    DanhGia danhGia = new DanhGia();
+                    danhGia.setMaDG(maDG);
+                    danhGia.setMaUser(maUser);
+                    danhGia.setMaSP(maSanPham);
+                    danhGia.setDangGia(danhG);
+                    danhGia.setNhanXet(nhanXet);
+                    arr.add(danhGia);
+                }
+
                 cursor.moveToNext();
             }
         }

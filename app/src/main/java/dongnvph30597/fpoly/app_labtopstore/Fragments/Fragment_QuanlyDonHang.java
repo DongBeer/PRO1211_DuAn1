@@ -17,6 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.tabFragments.Fragment_DHchoxuly;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.tabFragments.Fragment_DHdahoanthanh;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.tabFragments.Fragment_DHdanggiao;
+import dongnvph30597.fpoly.app_labtopstore.Fragments.tabFragments.Fragment_DHxacnhan;
 import dongnvph30597.fpoly.app_labtopstore.MainActivity;
 import dongnvph30597.fpoly.app_labtopstore.R;
 
@@ -63,6 +64,7 @@ public class Fragment_QuanlyDonHang extends Fragment {
 
         tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Chờ xử lý"));
+        tabLayout.addTab(tabLayout.newTab().setText("Đã xác nhận"));
         tabLayout.addTab(tabLayout.newTab().setText("Đang giao"));
         tabLayout.addTab(tabLayout.newTab().setText("Đã giao"));
 
@@ -76,6 +78,9 @@ public class Fragment_QuanlyDonHang extends Fragment {
                 if(tab.getPosition() == 0){
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container_fragDH, new Fragment_DHchoxuly()).commit();
                 }else if(tab.getPosition() == 1){
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container_fragDH, new Fragment_DHxacnhan()).commit();
+                }
+                else if(tab.getPosition() == 2){
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container_fragDH, new Fragment_DHdanggiao()).commit();
                 }else {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container_fragDH, new Fragment_DHdahoanthanh()).commit();

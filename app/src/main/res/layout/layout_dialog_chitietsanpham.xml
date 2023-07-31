@@ -33,18 +33,18 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/linearctsp"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="300dp"
         android:orientation="vertical"
         android:layout_below="@+id/cvctsp">
 
         <ImageView
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:layout_width="250dp"
-            android:layout_height="150dp"
+            android:layout_width="230dp"
+            android:layout_height="120dp"
             android:id="@+id/imgSPCT"
             android:background="@drawable/custom_boder_linear"
             android:src="@drawable/add_imgsp"/>
@@ -147,7 +147,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/linearctsp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:cardElevation="5dp">
 
 
@@ -210,18 +210,58 @@
         android:text="Đánh giá khách hàng"
         android:fontFamily="@font/arbutus_slab"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerDanhGia"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    <LinearLayout
+        android:layout_above="@+id/cardViewBottom"
         android:layout_margin="10dp"
         android:background="@drawable/custom_boder_linear"
-        android:layout_below="@+id/tvdg"
-        android:layout_above="@+id/cardViewBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@+id/tvdg">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_margin="5dp"
+            android:id="@+id/recyclerDanhGia"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="vertical">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edaddBL"
+                android:background="@drawable/custom_boder_linear"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="30dp"
+                android:hint="Thêm bình luận.."
+                android:textSize="15dp"
+                android:fontFamily="@font/arbutus_slab"/>
+            <Button
+                android:layout_marginLeft="5dp"
+                android:backgroundTint="#D3CFCF"
+                android:layout_weight="0"
+                android:id="@+id/btnGui"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Gửi"
+                android:fontFamily="@font/arbutus_slab"
+                android:textColor="@color/black"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/cardViewBottom"
@@ -240,7 +280,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvThemvaogiohang"
                 android:layout_marginTop="15dp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"

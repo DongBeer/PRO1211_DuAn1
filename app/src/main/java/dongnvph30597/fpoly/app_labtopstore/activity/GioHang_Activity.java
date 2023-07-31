@@ -37,6 +37,7 @@ public class GioHang_Activity extends AppCompatActivity {
     private ArrayList<GioHang> arr = new ArrayList<>();
 
     private SharedPreferencesHelper preferencesHelper;
+    private DecimalFormat decimalFormat = new DecimalFormat("#,###,###");
 
     private ImageView imgbackGH;
     private TextView tvTongthanhtoan;
@@ -89,7 +90,7 @@ public class GioHang_Activity extends AppCompatActivity {
         DeleteItemGioHang deleteItemGioHang = new DeleteItemGioHang(GioHang_Activity.this,adapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(deleteItemGioHang);
         itemTouchHelper.attachToRecyclerView(recyclerGioHang);
-        DecimalFormat decimalFormat = new DecimalFormat("#,###,###");
+
         adapter.setOnTotalPriceChangeListener(new Adapter_GioHang.OnTotalPriceChangeListener() {
             @Override
             public void onTotalPriceChange(int totalPrice) {
@@ -105,22 +106,17 @@ public class GioHang_Activity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         preferencesHelper.clearCheckedItems();
-        Tongtien = 0;
-        tvTongthanhtoan.setText(0 + " ₫");
 
-        gioHangDAO = new GioHangDAO(GioHang_Activity.this);
+        // Lấy lại dữ liệu giỏ hàng từ cơ sở dữ liệu
         arr = gioHangDAO.getGioHangbyIdUser(maUser);
-        adapter = new Adapter_GioHang(GioHang_Activity.this, arr);
-        DecimalFormat decimalFormat = new DecimalFormat("#,###,###");
-        adapter.setOnTotalPriceChangeListener(new Adapter_GioHang.OnTotalPriceChangeListener() {
-            @Override
-            public void onTotalPriceChange(int totalPrice) {
-                tvTongthanhtoan.setText(decimalFormat.format(totalPrice) + " ₫");
-                Tongtien = totalPrice;
-            }
-        });
+
+        // Cập nhật danh sách sản phẩm trong adapter và RecyclerView
         adapter.setData(arr);
-        recyclerGioHang.setAdapter(adapter);
+
+        // Cập nhật lại tổng giá tiền
+        int total = adapter.calculateTotal();
+        tvTongthanhtoan.setText(decimalFormat.format(total) + " ₫");
+        Tongtien = total;
     }
 
 

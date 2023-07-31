@@ -24,11 +24,13 @@ import java.util.Locale;
 import dongnvph30597.fpoly.app_labtopstore.DAO.DonHangDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.GioHangDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.HoaDonChiTietDAO;
+import dongnvph30597.fpoly.app_labtopstore.DAO.SanPhamDAO;
 import dongnvph30597.fpoly.app_labtopstore.R;
 import dongnvph30597.fpoly.app_labtopstore.adapter.Adapter_Hoadonchitiet;
 import dongnvph30597.fpoly.app_labtopstore.model.ChiTietDonHang;
 import dongnvph30597.fpoly.app_labtopstore.model.DonHang;
 import dongnvph30597.fpoly.app_labtopstore.model.GioHang;
+import dongnvph30597.fpoly.app_labtopstore.model.SanPham;
 import dongnvph30597.fpoly.app_labtopstore.model.SharedPreferencesHelper;
 
 public class DatHang_Activity extends AppCompatActivity {
@@ -62,6 +64,12 @@ public class DatHang_Activity extends AppCompatActivity {
         imgbackDH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int check = getIntent().getIntExtra("check",-1);
+                if(check == 5){
+                    gioHangDAO.deleteGioHangByTrangThaiAndMaUser(maUser);
+                }else {
+                    gioHangDAO.updateTrangThaiByMaUser(maUser);
+                }
                 finish();
             }
         });
@@ -106,6 +114,14 @@ public class DatHang_Activity extends AppCompatActivity {
 
                             if(hoaDonChiTietDAO.insert(chiTietDonHang) > 0){
                                 Toast.makeText(DatHang_Activity.this, "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                                SanPhamDAO sanPhamDAO = new SanPhamDAO(DatHang_Activity.this);
+                                int slbd = sanPhamDAO.getSoLuongByMaSP(maSP);
+                                int updatesl = slbd - soLuong;
+
+                                SanPham sanPham = new SanPham();
+                                sanPham.setMaSP(maSP);
+                                sanPham.setSoLuong(updatesl);
+                                sanPhamDAO.updateSoLuong(sanPham);
                                 gioHangDAO.deleteGioHangByTrangThaiAndMaUser(maUser);
                                 preferencesHelper.clearCheckedItems();
                                 finish();
@@ -152,6 +168,5 @@ public class DatHang_Activity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        FilltoRecycleDH();
     }
 }

@@ -145,7 +145,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
 
 
         holder.ckbTrangthai.setOnCheckedChangeListener(null); // Bỏ bỏ lắng nghe sự kiện trước tiên để tránh lỗi vòng lặp không mong muốn.
-        if (dh.getTrangThai() == 2) {
+        if (dh.getTrangThai() == 3) {
             holder.ckbTrangthai.setChecked(true);
             holder.ckbTrangthai.setFocusable(false);
             holder.ckbTrangthai.setText("Đã giao");
@@ -156,7 +156,10 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
 
         if(dh.getTrangThai() == 1){
             holder.ckbTrangthai.setChecked(false);
-            holder.ckbTrangthai.setText("Đang giao");
+            holder.ckbTrangthai.setText("Giao hàng");
+        }
+        if(dh.getTrangThai() == 2){
+            holder.ckbTrangthai.setText("Đã giao");
         }
 
         holder.ckbTrangthai.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -166,11 +169,11 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
                 int index = holder.getAdapterPosition();
                 DonHang dh = arr.get(index);
                 trangThai = dh.getTrangThai();
-                if (trangThai == 2) {
+                if (trangThai == 3) {
                     // Đã giao hàng, không làm gì nữa nếu click vào checkbox.
                     return;
                 }
-                if (trangThai < 2 && isChecked) {
+                if (trangThai < 3 && isChecked) {
                     // Chỉ tăng trạng thái khi trạng thái chưa đạt 2 và checkbox được chọn.
                     trangThai++;
                     arr.get(index).setTrangThai(trangThai);
@@ -226,7 +229,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
         cvbtnXacnhan = dialog.findViewById(R.id.cvbtnxacnhan1);
         tvXacnhanhang = dialog.findViewById(R.id.tvXacnhanhang);
 
-        if(maUser != -1 && arr.get(index).getTrangThai() == 2) {
+        if(maUser != -1 && arr.get(index).getTrangThai() == 3) {
             int maHD = arr.get(index).getMaHD();
             hoaDonChiTietDAO = new HoaDonChiTietDAO(context);
             arrCTDH = hoaDonChiTietDAO.getHDCTbyIDmaHD(maHD);
@@ -334,7 +337,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
                             }
                         });
 
-
+                        adialog.setCancelable(false);
                         adialog.show();
                     }
                 });

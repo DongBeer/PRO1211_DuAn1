@@ -198,14 +198,20 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.CartVi
 
             // Xóa item tại vị trí position trong arr
             arr.remove(position);
-            Toast.makeText(context, "Xóa thành công!", Toast.LENGTH_SHORT).show();
-            // Cập nhật RecyclerView sau khi xóa thành công
-            notifyDataSetChanged();
 
+            // Xóa chỉ số tương ứng trong selectedPositions (nếu có)
+            selectedPositions.remove((Integer) position);
+
+            Toast.makeText(context, "Xóa thành công!", Toast.LENGTH_SHORT).show();
+
+            // Cập nhật tổng giá tiền sau khi xóa thành công
+            int total = calculateTotal();
             // Thông báo cho Activity về sự thay đổi tổng giá tiền
             if (onTotalPriceChangeListener != null) {
-                onTotalPriceChangeListener.onTotalPriceChange(calculateTotal());
+                onTotalPriceChangeListener.onTotalPriceChange(total);
             }
+            // Cập nhật RecyclerView sau khi xóa thành công và cập nhật tổng giá tiền
+            notifyDataSetChanged();
         }
     }
 }

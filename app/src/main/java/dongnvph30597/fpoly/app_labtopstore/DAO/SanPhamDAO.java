@@ -1,5 +1,6 @@
 package dongnvph30597.fpoly.app_labtopstore.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -106,5 +107,30 @@ public class SanPhamDAO {
         String sql = "SELECT * FROM SanPham WHERE tenSP LIKE ? OR giaSP LIKE ?";
         String[] selectionArgs = new String[]{"%" + keyword + "%", "%" + keyword + "%"};
         return getData(sql, selectionArgs);
+    }
+    @SuppressLint("Range")
+    public int getSoLuongByMaSP(int maSP) {
+        int soLuong = -1; // Giá trị mặc định nếu không tìm thấy mã sản phẩm
+
+        String[] columns = {"soLuong"};
+        String selection = "maSP = ?";
+        String[] selectionArgs = {String.valueOf(maSP)};
+
+        Cursor cursor = db.query("SanPham", columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            soLuong = cursor.getInt(cursor.getColumnIndex("soLuong"));
+        }
+
+        cursor.close();
+        return soLuong;
+    }
+
+    public int updateSoLuong(SanPham sanPham) {
+
+        ContentValues values = new ContentValues();
+        values.put("soLuong", sanPham.getSoLuong());
+
+        return db.update("SanPham", values, "maSP = ?", new String[] { String.valueOf(sanPham.getMaSP()) });
     }
 }

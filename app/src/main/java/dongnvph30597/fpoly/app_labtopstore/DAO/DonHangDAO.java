@@ -91,7 +91,7 @@ public class DonHangDAO {
         return arr;
     }
 
-    public ArrayList<DonHang> getDHdangGiao() {
+    public ArrayList<DonHang> getDHXacnhan() {
         String sqlDH = "SELECT * FROM HoaDon WHERE trangThai = 1";
         Cursor cursor = db.rawQuery(sqlDH,null);
         ArrayList<DonHang> arr = new ArrayList<>();
@@ -112,8 +112,29 @@ public class DonHangDAO {
         return arr;
     }
 
-    public ArrayList<DonHang> getDHdahoanthanh() {
+    public ArrayList<DonHang> getDHdangGiao() {
         String sqlDH = "SELECT * FROM HoaDon WHERE trangThai = 2";
+        Cursor cursor = db.rawQuery(sqlDH,null);
+        ArrayList<DonHang> arr = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()){
+                DonHang donHang = new DonHang();
+                donHang.setMaHD(cursor.getInt(0));
+                donHang.setMaUser(cursor.getInt(1));
+                donHang.setMaAdmin(cursor.getString(2));
+                donHang.setNgay(cursor.getString(3));
+                donHang.setTongTien(cursor.getInt(4));
+                donHang.setTrangThai(cursor.getInt(5));
+                donHang.setGhiChu(cursor.getString(6));
+                arr.add(donHang);
+                cursor.moveToNext();
+            }
+        }
+        return arr;
+    }
+
+    public ArrayList<DonHang> getDHdahoanthanh() {
+        String sqlDH = "SELECT * FROM HoaDon WHERE trangThai = 3";
         Cursor cursor = db.rawQuery(sqlDH,null);
         ArrayList<DonHang> arr = new ArrayList<>();
         if (cursor.moveToFirst()) {
@@ -161,7 +182,7 @@ public class DonHangDAO {
     }
 
     public ArrayList<DonHang> getDHDanggiaoByIDUser( int maUser) {
-        String sqlDH = "SELECT * FROM HoaDon WHERE maUser = ? and trangThai = 1";
+        String sqlDH = "SELECT * FROM HoaDon WHERE maUser = ? and trangThai = 2";
         Cursor cursor = db.rawQuery(sqlDH,new String[]{String.valueOf(maUser)});
         ArrayList<DonHang> arr = new ArrayList<>();
         if (cursor.moveToFirst()) {
@@ -182,7 +203,27 @@ public class DonHangDAO {
     }
 
     public ArrayList<DonHang> getDHDagoanthanhByIDUser( int maUser) {
-        String sqlDH = "SELECT * FROM HoaDon WHERE maUser = ? and trangThai = 2";
+        String sqlDH = "SELECT * FROM HoaDon WHERE maUser = ? and trangThai = 3";
+        Cursor cursor = db.rawQuery(sqlDH,new String[]{String.valueOf(maUser)});
+        ArrayList<DonHang> arr = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()){
+                DonHang donHang = new DonHang();
+                donHang.setMaHD(cursor.getInt(0));
+                donHang.setMaUser(cursor.getInt(1));
+                donHang.setMaAdmin(cursor.getString(2));
+                donHang.setNgay(cursor.getString(3));
+                donHang.setTongTien(cursor.getInt(4));
+                donHang.setTrangThai(cursor.getInt(5));
+                donHang.setGhiChu(cursor.getString(6));
+                arr.add(donHang);
+                cursor.moveToNext();
+            }
+        }
+        return arr;
+    }
+    public ArrayList<DonHang> getDHXacnhanbyUser( int maUser) {
+        String sqlDH = "SELECT * FROM HoaDon WHERE maUser = ? and trangThai = 1";
         Cursor cursor = db.rawQuery(sqlDH,new String[]{String.valueOf(maUser)});
         ArrayList<DonHang> arr = new ArrayList<>();
         if (cursor.moveToFirst()) {
