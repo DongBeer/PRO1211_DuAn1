@@ -14,7 +14,7 @@
         android:src="@drawable/ic_menu"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
-        android:id="@+id/imgHome_Top"/>
+        android:id="@+id/imgHome_DT"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -38,6 +38,84 @@
             android:id="@+id/barChart"
             android:layout_width="300dp"
             android:layout_height="300dp" />
+
+
+
+
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_calandar"
+                android:id="@+id/imgTungay"/>
+            <EditText
+                android:layout_marginLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/edTungay"
+                android:hint="Từ ngày"
+                android:fontFamily="@font/arbutus_slab"
+                android:background="@drawable/custom_boder_linear"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_calandar"
+                android:id="@+id/imgDenngay"/>
+            <EditText
+                android:layout_marginLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/edDenngay"
+                android:hint="Đến ngày"
+                android:fontFamily="@font/arbutus_slab"
+                android:background="@drawable/custom_boder_linear"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:text="→→"
+                android:textSize="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#A5A1A1"
+                android:id="@+id/btnDoanhThu"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doanh thu: "
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/arbutus_slab"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/tvDoanhthu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100000000"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/arbutus_slab"
+                android:textColor="#FB0D0D"/>
+        </LinearLayout>
 
     </LinearLayout>
 

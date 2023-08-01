@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import dongnvph30597.fpoly.app_labtopstore.database.DB_Store;
 import dongnvph30597.fpoly.app_labtopstore.model.SanPham;
@@ -71,6 +74,26 @@ public class ThongKeDAO {
 
         return arr;
     }
+
+
+
+    @SuppressLint("Range")
+    public int getThongke(String startDate, String endDate) {
+        int totalRevenue = 0;
+
+        String sql = "SELECT SUM(tongTien) FROM HoaDon WHERE ngay BETWEEN ? AND ?";
+        String[] selectionArgs = new String[]{startDate, endDate};
+
+        Cursor cursor = db.rawQuery(sql, selectionArgs);
+        if (cursor.moveToFirst()) {
+            totalRevenue = cursor.getInt(0);
+        }
+
+        cursor.close();
+        return totalRevenue;
+    }
+
+
 
 
 

@@ -50,7 +50,7 @@ public class DatHang_Activity extends AppCompatActivity {
     private ArrayList<ChiTietDonHang> arrct = new ArrayList<>();
 
     private Calendar calendar = Calendar.getInstance();
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
     private SharedPreferencesHelper preferencesHelper;
     int maUser;
 
