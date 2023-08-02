@@ -35,7 +35,7 @@ public class AdminDAO {
         values.put("maAdmin",admin.maAdmin);
         values.put("hoTen",admin.hoTen);
         values.put("mkAdmin",admin.mkAdmin);
-        return db.update("ThuThu",values,"maAdmin=?",new String[]{String.valueOf(admin.maAdmin)});
+        return db.update("Admin",values,"maAdmin=?",new String[]{String.valueOf(admin.maAdmin)});
     }
 
     public ArrayList<Admin> getData(String sql, String...selectionArgs) {

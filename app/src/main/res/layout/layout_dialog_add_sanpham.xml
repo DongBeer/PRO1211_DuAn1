@@ -42,28 +42,24 @@
             android:textSize="18sp"
             android:textColor="@color/black"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutTensp"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="10dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:errorEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/custom_boder_linear"
                 android:id="@+id/edTenSP"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:inputType="text"
                 android:fontFamily="@font/arbutus_slab"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textStyle="bold"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
@@ -71,39 +67,36 @@
         android:orientation="horizontal">
         <TextView
             android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:text="Mô tả: "
             android:fontFamily="@font/mali"
             android:textSize="18sp"
             android:textColor="@color/black"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutmoTaSP"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:errorEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/custom_boder_linear"
                 android:id="@+id/edMotaSP"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:inputType="text"
                 android:fontFamily="@font/arbutus_slab"
                 android:maxLines="3"
                 android:singleLine="true"
                 android:textStyle="bold"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
     <TextView
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="270dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Thương hiệu"
-        android:fontFamily="@font/mali"
+        android:fontFamily="@font/arbutus_slab"
         android:textSize="18sp"
         android:textColor="@color/black"/>
     <Spinner
@@ -114,6 +107,7 @@
         />
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
@@ -121,35 +115,32 @@
         android:orientation="horizontal">
         <TextView
             android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:text="Giá SP: "
             android:fontFamily="@font/mali"
             android:textSize="18sp"
             android:textColor="@color/black"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutGiasp"
-            android:layout_width="300dp"
-            android:layout_height="65dp"
-            android:layout_marginLeft="10dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:errorEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/custom_boder_linear"
                 android:id="@+id/edGiaSP"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:inputType="number"
                 android:fontFamily="@font/arbutus_slab"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textStyle="bold"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:id="@+id/linearSoluong"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -165,31 +156,28 @@
             android:textSize="18sp"
             android:textColor="@color/black"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutSLsp"
-            android:layout_width="300dp"
-            android:layout_height="65dp"
-            android:layout_marginLeft="10dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:errorEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
+
+            <EditText
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/custom_boder_linear"
                 android:id="@+id/edSoluongSP"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:inputType="number"
                 android:fontFamily="@font/arbutus_slab"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textStyle="bold"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
 
 
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -214,5 +202,30 @@
             android:fontFamily="@font/mali"
             />
     </LinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvQLDG"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đánh giá khách hàng"
+        android:fontFamily="@font/arbutus_slab"
+        android:textColor="@color/black"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="10dp"
+        android:background="@drawable/custom_boder_linear"
+        android:visibility="gone"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/recycleQLDG"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

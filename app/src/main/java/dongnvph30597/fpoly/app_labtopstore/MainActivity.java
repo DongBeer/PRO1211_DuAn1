@@ -11,12 +11,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_DangXuat;
+import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_DoiMatKhau;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanLyLoaiSp;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanlyDonHang;
 import dongnvph30597.fpoly.app_labtopstore.Fragments.Fragment_QuanlyKhachHang;
@@ -64,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
                 }else if(it == R.id.ic_revenue){
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_main,new Fragment_ThongKe()).commit();
                     drawerLayout.close();
+                }else if(it == R.id.ic_change_pass){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new Fragment_DoiMatKhau()).commit();
+                    drawerLayout.close();
                 }
                 else if(it == R.id.ic_exit){
                     drawerLayout.close();
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             Intent mIntent = new Intent(MainActivity.this, Login_Activity.class);
                             mIntent.putExtra("RESET_LOGIN_STATE", true);
+                            mIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             startActivity(mIntent);
                         }
                     },1000);

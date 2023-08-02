@@ -142,10 +142,6 @@ public class Fragment_ThongKe extends Fragment {
                 }
             }
         });
-        String a = "2023/07/30";
-        String b = "2023/07/31";
-        thongKeDAO = new ThongKeDAO(getContext());
-        Toast.makeText(getContext(), ""+thongKeDAO.getThongke(a,b), Toast.LENGTH_SHORT).show();
 
 
         // Tạo dữ liệu cột

@@ -98,6 +98,7 @@ public class Login_Activity extends AppCompatActivity {
                 rememberUser(strUser, strPass, ckbSavepass.isChecked());
                 Intent mIntent = new Intent(Login_Activity.this, KhachHang_Activity.class);
                 mIntent.putExtra("nameUser", strUser);
+                mIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(mIntent);
                 finish();
             }else {
@@ -108,6 +109,8 @@ public class Login_Activity extends AppCompatActivity {
             rememberUser(strUser, strPass, ckbSavepass.isChecked());
             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
             intent.putExtra("maAdmin", strUser);
+            intent.putExtra("MKAdmin",strPass);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
 

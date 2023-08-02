@@ -49,6 +49,14 @@ public class UserDAO {
         return db.update("User",values,"maUser=?",new String[]{String.valueOf(user.maUser)});
     }
 
+    public long updateDC(User user){
+        ContentValues values = new ContentValues();
+        values.put("hoTen", user.hoTen);
+        values.put("soDT",user.soDT);
+        values.put("diaChi",user.diaChi);
+        return db.update("User",values,"maUser=?",new String[]{String.valueOf(user.maUser)});
+    }
+
     public ArrayList<User> getAllUser(){
         String sql = "SELECT * FROM User";
         return getData(sql);

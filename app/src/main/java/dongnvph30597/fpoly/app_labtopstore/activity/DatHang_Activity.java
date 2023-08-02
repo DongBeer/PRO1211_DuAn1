@@ -3,15 +3,21 @@ package dongnvph30597.fpoly.app_labtopstore.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +31,7 @@ import dongnvph30597.fpoly.app_labtopstore.DAO.DonHangDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.GioHangDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.HoaDonChiTietDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.SanPhamDAO;
+import dongnvph30597.fpoly.app_labtopstore.DAO.UserDAO;
 import dongnvph30597.fpoly.app_labtopstore.R;
 import dongnvph30597.fpoly.app_labtopstore.adapter.Adapter_Hoadonchitiet;
 import dongnvph30597.fpoly.app_labtopstore.model.ChiTietDonHang;
@@ -32,18 +39,25 @@ import dongnvph30597.fpoly.app_labtopstore.model.DonHang;
 import dongnvph30597.fpoly.app_labtopstore.model.GioHang;
 import dongnvph30597.fpoly.app_labtopstore.model.SanPham;
 import dongnvph30597.fpoly.app_labtopstore.model.SharedPreferencesHelper;
+import dongnvph30597.fpoly.app_labtopstore.model.User;
 
 public class DatHang_Activity extends AppCompatActivity {
 
-    private TextView tvHotenSDT , tvDiachidathang, tvTongtienHD, tvTongThanhToan;
+    private TextView tvTongtienHD, tvTongThanhToan, tvSuadc, tvHoten, tvSDTDC, tvDiachidathang ;
     private EditText edGhichu;
     private RecyclerView recyclerHDCT;
     private ImageView imgbackDH;
     private LinearLayout lnbtnDathang;
+    private Spinner spinnerPTTT;
+
+    private EditText edTenKHSuaDC, edSoDTSuaDC, edDCSuaDC;
+    private Button btnSuaDC,btnCanclerSuaDC;
 
     private GioHangDAO gioHangDAO;
     private ArrayList<GioHang> arr = new ArrayList<>();
     private Adapter_Hoadonchitiet adapter;
+
+    private UserDAO userDAO;
 
     private DonHangDAO donHangDAO;
     private HoaDonChiTietDAO hoaDonChiTietDAO;
@@ -73,6 +87,101 @@ public class DatHang_Activity extends AppCompatActivity {
                 finish();
             }
         });
+
+        User user = userDAO.getID(String.valueOf(maUser));
+        String ten = user.getHoTen();
+        String sdt = user.getSoDT();
+        String dc = user.getDiaChi();
+
+        tvHoten.setText(ten);
+        tvSDTDC.setText(sdt);
+        tvDiachidathang.setText(dc);
+
+        tvSuadc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog mdialog = new Dialog(DatHang_Activity.this);
+                mdialog.setContentView(R.layout.layout_dialog_update_diachi);
+                mdialog.getWindow().setGravity(Gravity.TOP);
+                mdialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                edTenKHSuaDC = mdialog.findViewById(R.id.edTenKHsuaDC);
+                edSoDTSuaDC = mdialog.findViewById(R.id.edSoDTKHsuaDC);
+                edDCSuaDC = mdialog.findViewById(R.id.edDCKHsuaDC);
+                btnSuaDC = mdialog.findViewById(R.id.btnSuaDC);
+                btnCanclerSuaDC = mdialog.findViewById(R.id.btnCancleSuaDC);
+
+                edTenKHSuaDC.setText(tvHoten.getText().toString());
+                edSoDTSuaDC.setText(tvSDTDC.getText().toString());
+                edDCSuaDC.setText(tvDiachidathang.getText().toString());
+
+                btnSuaDC.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String t = edTenKHSuaDC.getText().toString().trim();
+                        String s = edSoDTSuaDC.getText().toString().trim();
+                        String d = edDCSuaDC.getText().toString().trim();
+                        if(t.isEmpty() && s.isEmpty() && d.isEmpty()){
+                            Toast.makeText(DatHang_Activity.this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        String phoneNumberPattern = "^0[0-9]{9}$";
+                        if(!s.matches(phoneNumberPattern)){
+                            Toast.makeText(DatHang_Activity.this, "Nhập sai định dạng số điện thoại", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        User user1 = new User();
+                        user1.setMaUser(maUser);
+                        user1.setHoTen(t);
+                        user1.setSoDT(s);
+                        user1.setDiaChi(d);
+                        UserDAO userDAO = new UserDAO(DatHang_Activity.this);
+                        if(userDAO.updateDC(user1) > 0){
+                            Toast.makeText(DatHang_Activity.this, "Thêm địa chỉ thành công!", Toast.LENGTH_SHORT).show();
+                            tvHoten.setText(t);
+                            tvSDTDC.setText(s);
+                            tvDiachidathang.setText(d);
+                            mdialog.dismiss();
+                        }else {
+                            Toast.makeText(DatHang_Activity.this, "Fail →", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+                btnCanclerSuaDC.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mdialog.dismiss();
+                    }
+                });
+
+
+                mdialog.show();
+            }
+        });
+
+        ArrayList<String> arrPT = new ArrayList<>();
+        arrPT.add("Thanh toán khi nhận hàng");
+        arrPT.add("Thanh toán bằng ví LapStore Pay");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(DatHang_Activity.this, android.R.layout.simple_spinner_item, arrPT);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPTTT.setAdapter(adapter);
+
+        spinnerPTTT.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedPhuongThuc = arrPT.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         preferencesHelper = new SharedPreferencesHelper(DatHang_Activity.this);
 
         int Total = getIntent().getIntExtra("tongtien",-1);
@@ -153,7 +262,9 @@ public class DatHang_Activity extends AppCompatActivity {
     }
 
     public void FillbyID(){
-        tvHotenSDT = findViewById(R.id.tvhoten_sdt);
+        tvHoten = findViewById(R.id.tvhotenDC);
+        tvSDTDC = findViewById(R.id.tvsdtDC);
+        tvSuadc = findViewById(R.id.tvSuadiachidathang);
         tvDiachidathang = findViewById(R.id.tvdiachidathang);
         tvTongtienHD = findViewById(R.id.tvTongtienHD);
         tvTongThanhToan = findViewById(R.id.tvTongthanhtoan);
@@ -161,8 +272,10 @@ public class DatHang_Activity extends AppCompatActivity {
         recyclerHDCT = findViewById(R.id.recycleDathang);
         lnbtnDathang = findViewById(R.id.lnbtnDathang);
         imgbackDH = findViewById(R.id.imgbackDH);
+        spinnerPTTT = findViewById(R.id.spnPTTT);
         donHangDAO = new DonHangDAO(DatHang_Activity.this);
         hoaDonChiTietDAO = new HoaDonChiTietDAO(DatHang_Activity.this);
+        userDAO = new UserDAO(DatHang_Activity.this);
     }
 
     @Override

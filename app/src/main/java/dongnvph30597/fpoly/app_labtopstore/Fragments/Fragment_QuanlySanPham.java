@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,13 +40,16 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
+import dongnvph30597.fpoly.app_labtopstore.DAO.DanhGiaDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.SanPhamDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.ThongKeDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.ThuongHieuDao;
 import dongnvph30597.fpoly.app_labtopstore.MainActivity;
 import dongnvph30597.fpoly.app_labtopstore.R;
+import dongnvph30597.fpoly.app_labtopstore.adapter.Adapter_DanhGia;
 import dongnvph30597.fpoly.app_labtopstore.adapter.Adapter_SanPham;
 import dongnvph30597.fpoly.app_labtopstore.adapter.Adapter_SpinerTH;
+import dongnvph30597.fpoly.app_labtopstore.model.DanhGia;
 import dongnvph30597.fpoly.app_labtopstore.model.SanPham;
 import dongnvph30597.fpoly.app_labtopstore.model.ThuongHieu;
 
@@ -68,9 +72,13 @@ public class Fragment_QuanlySanPham extends Fragment {
     private String maTH;
 
     private ImageView addimgSP;
-    private TextInputEditText edTensp, edMotasp, edgiaSP, edSoluongSP;
+    private EditText edTensp, edMotasp, edgiaSP, edSoluongSP;
     private Spinner spnTH;
-    private TextView tvAddSp, tvCanclerAddSp;
+    private TextView tvAddSp, tvCanclerAddSp, tvTitle;
+
+    private Adapter_DanhGia adapterDG;
+    private DanhGiaDAO danhGiaDAO;
+    private ArrayList<DanhGia> arrDG = new ArrayList<>();
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int PERMISSION_REQUEST_CODE = 2;
@@ -146,7 +154,9 @@ public class Fragment_QuanlySanPham extends Fragment {
                 edSoluongSP = mDialog.findViewById(R.id.edSoluongSP);
                 tvAddSp = mDialog.findViewById(R.id.tvAddSP);
                 tvCanclerAddSp = mDialog.findViewById(R.id.tvCanclerAdd);
+                tvTitle = mDialog.findViewById(R.id.tvTitle);
 
+                tvTitle.setText("Cập nhật sản phẩm");
                 tvAddSp.setText("    Sửa → ");
                 tvCanclerAddSp.setText("   - Xóa  ");
 
@@ -233,6 +243,16 @@ public class Fragment_QuanlySanPham extends Fragment {
                         builder.show();
                     }
                 });
+
+                TextView tvQLDG = mDialog.findViewById(R.id.tvQLDG);
+                RecyclerView recyclerQLDG = mDialog.findViewById(R.id.recycleQLDG);
+                tvQLDG.setVisibility(View.VISIBLE);
+                recyclerQLDG.setVisibility(View.VISIBLE);
+                danhGiaDAO = new DanhGiaDAO(getContext());
+                arrDG = danhGiaDAO.getDanhGiaBymaSP1(arr.get(position).getMaSP());
+                adapterDG = new Adapter_DanhGia(getContext(),arrDG);
+                recyclerQLDG.setAdapter(adapterDG);
+
                 mDialog.show();
 
             }
@@ -288,7 +308,7 @@ public class Fragment_QuanlySanPham extends Fragment {
         FilltoRecyclerSP();
     }
 
-    private boolean validateInput(String input, String errorMessage, TextInputEditText editText) {
+    private boolean validateInput(String input, String errorMessage, EditText editText) {
         if (input.isEmpty()) {
             editText.setError(errorMessage);
             editText.requestFocus();

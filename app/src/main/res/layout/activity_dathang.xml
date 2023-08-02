@@ -62,23 +62,68 @@
                 android:text="Địa chỉ nhận hàng"
                 android:textColor="@color/black" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sửa"
+                android:textColor="#FF9800"
+                android:id="@+id/tvSuadiachidathang"
+                android:layout_marginLeft="200dp"
+                android:fontFamily="@font/arbutus_slab"
+                android:textSize="16dp"/>
+
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvhoten_sdt"
+        <LinearLayout
             android:layout_marginLeft="40dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đông Nguyễn  | 0878002632"
-            android:textColor="@color/black"
-            android:fontFamily="@font/arbutus_slab"/>
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:textSize="15sp"
+                android:background="@drawable/custom_bg_edittext"
+                android:id="@+id/tvhotenDC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Tên người nhận"
+                android:textColor="@color/black"
+                android:fontFamily="@font/arbutus_slab"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" | "
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/arbutus_slab"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/tvsdtDC"
+                android:background="@drawable/custom_bg_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Số điện thoại"
+                android:textColor="@color/black"
+                android:fontFamily="@font/arbutus_slab"/>
+
+        </LinearLayout>
+
+
+
+
         <TextView
+            android:textSize="15sp"
+            android:background="@drawable/custom_bg_edittext"
             android:layout_marginTop="5dp"
             android:id="@+id/tvdiachidathang"
             android:layout_marginLeft="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="21 Ngõ 59 Mễ Trì - Hà Nội"
+            android:hint="Địa chỉ nhận hàng"
             android:textColor="@color/black"
             android:fontFamily="@font/arbutus_slab"/>
 
@@ -100,7 +145,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:layout_below="@+id/tvspdachon"
         android:id="@+id/recycleDathang"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
@@ -108,11 +153,11 @@
     <LinearLayout
         android:background="#F1EEEE"
         android:id="@+id/linearGhichu"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:layout_below="@+id/recycleDathang"
         android:layout_width="match_parent"
-        android:layout_height="90dp">
+        android:layout_height="100dp">
 
         <TextView
             android:layout_marginLeft="30dp"
@@ -126,9 +171,11 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/custom_boder_linear"
             android:layout_width="280dp"
-            android:layout_height="70dp"
+            android:layout_height="80dp"
             android:orientation="vertical">
             <EditText
+                android:padding="5dp"
+                android:background="@drawable/custom_bg_edittext"
                 android:id="@+id/edNhapghichu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,11 +188,32 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tvpttt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PT Thanh toán:"
+        android:layout_below="@+id/linearGhichu"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/arbutus_slab"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"/>
+
+    <Spinner
+        android:id="@+id/spnPTTT"
+        android:layout_marginHorizontal="15sp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearGhichu"
+        android:layout_toRightOf="@+id/tvpttt"/>
+
+
     <LinearLayout
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:orientation="horizontal"
-        android:layout_below="@+id/linearGhichu"
+        android:layout_below="@+id/tvpttt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -172,7 +240,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
-        android:backgroundTint="#F6F4F4">
+        android:background="#ECE6E6">
 
         <LinearLayout
             android:layout_weight="2"
