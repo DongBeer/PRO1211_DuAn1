@@ -94,6 +94,7 @@ public class UserFragment_Thongtin extends Fragment {
                         editor.apply();
                         Intent mIntent = new Intent(getContext(), Login_Activity.class);
                         mIntent.putExtra("RESET_LOGIN_STATE", true);
+                        mIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(mIntent);
                         getActivity().finishAffinity();
                     }

@@ -82,7 +82,7 @@ public class DatHang_Activity extends AppCompatActivity {
                 if(check == 5){
                     gioHangDAO.deleteGioHangByTrangThaiAndMaUser(maUser);
                 }else {
-                    gioHangDAO.updateTrangThaiByMaUser(maUser);
+//                    gioHangDAO.updateTrangThaiByMaUser(maUser);
                 }
                 finish();
             }
@@ -206,6 +206,7 @@ public class DatHang_Activity extends AppCompatActivity {
                 dh.setNgay(ngay);
                 dh.setTongTien(Total);
                 dh.setTrangThai(0);
+                dh.setTrangThaiDG(0);
                 dh.setGhiChu(ghiChu);
                 long maHD = donHangDAO.insert(dh);
 
@@ -235,6 +236,7 @@ public class DatHang_Activity extends AppCompatActivity {
                                 preferencesHelper.clearCheckedItems();
                                 finish();
                                 Intent intent = new Intent(DatHang_Activity.this, UserActivity_TrangThaiDonHang.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(intent);
                             }else {
                                 Toast.makeText(DatHang_Activity.this, "Đặt hàng thất bại! + chi tiết", Toast.LENGTH_SHORT).show();
@@ -273,6 +275,7 @@ public class DatHang_Activity extends AppCompatActivity {
         lnbtnDathang = findViewById(R.id.lnbtnDathang);
         imgbackDH = findViewById(R.id.imgbackDH);
         spinnerPTTT = findViewById(R.id.spnPTTT);
+        preferencesHelper = new SharedPreferencesHelper(DatHang_Activity.this);
         donHangDAO = new DonHangDAO(DatHang_Activity.this);
         hoaDonChiTietDAO = new HoaDonChiTietDAO(DatHang_Activity.this);
         userDAO = new UserDAO(DatHang_Activity.this);

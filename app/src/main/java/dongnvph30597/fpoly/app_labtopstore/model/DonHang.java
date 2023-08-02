@@ -7,6 +7,7 @@ public class DonHang {
     public String ngay;
     public int tongTien;
     public int trangThai;
+    public int trangThaiDG;
     public String ghiChu;
 
     public DonHang(int maHD, int maUser, String maAdmin, String ngay, int tongTien, int trangThai) {
@@ -75,5 +76,13 @@ public class DonHang {
 
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public int getTrangThaiDG() {
+        return trangThaiDG;
+    }
+
+    public void setTrangThaiDG(int trangThaiDG) {
+        this.trangThaiDG = trangThaiDG;
     }
 }

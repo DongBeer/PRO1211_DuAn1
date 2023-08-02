@@ -1,5 +1,6 @@
 package dongnvph30597.fpoly.app_labtopstore.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -26,6 +27,7 @@ public class DonHangDAO {
         values.put("ngay",donHang.ngay);
         values.put("tongTien",donHang.tongTien);
         values.put("trangThai",donHang.trangThai);
+        values.put("trangThaiDG", donHang.trangThaiDG);
         values.put("ghiChu",donHang.ghiChu);
         return db.insert("HoaDon",null, values);
     }
@@ -37,6 +39,7 @@ public class DonHangDAO {
         values.put("ngay",donHang.ngay);
         values.put("tongTien",donHang.tongTien);
         values.put("trangThai",donHang.trangThai);
+        values.put("trangThaiDG", donHang.trangThaiDG);
         values.put("ghiChu",donHang.ghiChu);
         return db.update("HoaDon",values,"maHD=?",new String[]{String.valueOf(donHang.maHD)});
     }
@@ -62,7 +65,8 @@ public class DonHangDAO {
                 donHang.setNgay(String.valueOf(cursor.getString(3)));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
-                donHang.setGhiChu(cursor.getString(6));
+                donHang.setTrangThaiDG(cursor.getInt(6));
+                donHang.setGhiChu(cursor.getString(7));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -83,7 +87,8 @@ public class DonHangDAO {
                 donHang.setNgay(cursor.getString(3));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
-                donHang.setGhiChu(cursor.getString(6));
+                donHang.setTrangThaiDG(cursor.getInt(6));
+                donHang.setGhiChu(cursor.getString(7));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -104,7 +109,8 @@ public class DonHangDAO {
                 donHang.setNgay(cursor.getString(3));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
-                donHang.setGhiChu(cursor.getString(6));
+                donHang.setTrangThaiDG(cursor.getInt(6));
+                donHang.setGhiChu(cursor.getString(7));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -125,7 +131,8 @@ public class DonHangDAO {
                 donHang.setNgay(cursor.getString(3));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
-                donHang.setGhiChu(cursor.getString(6));
+                donHang.setTrangThaiDG(cursor.getInt(6));
+                donHang.setGhiChu(cursor.getString(7));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -146,7 +153,8 @@ public class DonHangDAO {
                 donHang.setNgay(cursor.getString(3));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
-                donHang.setGhiChu(cursor.getString(6));
+                donHang.setTrangThaiDG(cursor.getInt(6));
+                donHang.setGhiChu(cursor.getString(7));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -157,6 +165,12 @@ public class DonHangDAO {
     public long updateTrangThaiDonHang(int maHD, int newTrangThai) {
         ContentValues values = new ContentValues();
         values.put("trangThai", newTrangThai);
+        return db.update("HoaDon", values, "maHD=?", new String[]{String.valueOf(maHD)});
+    }
+
+    public long updateTrangThaiDG(int maHD, int newTrangThai) {
+        ContentValues values = new ContentValues();
+        values.put("trangThaiDG", newTrangThai);
         return db.update("HoaDon", values, "maHD=?", new String[]{String.valueOf(maHD)});
     }
 
@@ -173,7 +187,8 @@ public class DonHangDAO {
                 donHang.setNgay(cursor.getString(3));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
-                donHang.setGhiChu(cursor.getString(6));
+                donHang.setTrangThaiDG(cursor.getInt(6));
+                donHang.setGhiChu(cursor.getString(7));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -194,7 +209,8 @@ public class DonHangDAO {
                 donHang.setNgay(cursor.getString(3));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
-                donHang.setGhiChu(cursor.getString(6));
+                donHang.setTrangThaiDG(cursor.getInt(6));
+                donHang.setGhiChu(cursor.getString(7));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -215,7 +231,8 @@ public class DonHangDAO {
                 donHang.setNgay(cursor.getString(3));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
-                donHang.setGhiChu(cursor.getString(6));
+                donHang.setTrangThaiDG(cursor.getInt(6));
+                donHang.setGhiChu(cursor.getString(7));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -235,7 +252,8 @@ public class DonHangDAO {
                 donHang.setNgay(cursor.getString(3));
                 donHang.setTongTien(cursor.getInt(4));
                 donHang.setTrangThai(cursor.getInt(5));
-                donHang.setGhiChu(cursor.getString(6));
+                donHang.setTrangThaiDG(cursor.getInt(6));
+                donHang.setGhiChu(cursor.getString(7));
                 arr.add(donHang);
                 cursor.moveToNext();
             }
@@ -246,6 +264,24 @@ public class DonHangDAO {
     public void deleteHoaDonChiTietByMaHD(String maHD) {
         db.delete("HoaDonChiTiet", "maHD=?", new String[]{maHD});
         db.close();
+    }
+
+    @SuppressLint("Range")
+    public int getTrangThaiDG(int maHD) {
+        int trangThaiDG = -1; // Giá trị mặc định khi không tìm thấy mã đơn hàng
+
+        String[] columns = {"trangThaiDG"};
+        String selection = "maHD = ?";
+        String[] selectionArgs = {String.valueOf(maHD)};
+
+        Cursor cursor = db.query("HoaDon", columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            trangThaiDG = cursor.getInt(cursor.getColumnIndex("trangThaiDG"));
+        }
+
+        cursor.close();
+        return trangThaiDG;
     }
 
 }

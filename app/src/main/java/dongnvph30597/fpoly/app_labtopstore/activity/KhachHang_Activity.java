@@ -36,17 +36,16 @@ public class KhachHang_Activity extends AppCompatActivity {
 
         drawerLayoutbottonnav = findViewById(R.id.drawerlayoutbottomnav);
         bottomNavigationView = findViewById(R.id.bottonnav);
-        getSupportFragmentManager().beginTransaction().replace(R.id.user_container,new UserFragment_Home()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.user_container,new UserFragment_SanPham()).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int it = item.getItemId();
                 if(it == R.id.ic_home_bottonnav){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.user_container,new UserFragment_Home()).commit();
-                }else if(it == R.id.ic_search_bottonnav){
                     getSupportFragmentManager().beginTransaction().replace(R.id.user_container,new UserFragment_SanPham()).commit();
-                }else if(it == R.id.ic_like_product){
+                }
+                else if(it == R.id.ic_like_product){
                     getSupportFragmentManager().beginTransaction().replace(R.id.user_container,new UserFragment_Yeuthich()).commit();
                 }else if(it == R.id.ic_cart_bottonnav){
                     Intent aIntent = new Intent(KhachHang_Activity.this,GioHang_Activity.class);

@@ -193,9 +193,8 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
                             dg.setNhanXet(bl);
                             dg.setMaSP(sp.getMaSP());
                             dg.setMaUser(maUser);
-                            dg.setDangGia(5);
 
-                            if(danhGiaDAO.insert(dg) > 0 ){
+                            if(danhGiaDAO.insertBL(dg) > 0 ){
                                 notifyDataSetChanged();
                                 Toast.makeText(context, "Đã gửi bình luận!", Toast.LENGTH_SHORT).show();
                                 edAddbl.setText("");

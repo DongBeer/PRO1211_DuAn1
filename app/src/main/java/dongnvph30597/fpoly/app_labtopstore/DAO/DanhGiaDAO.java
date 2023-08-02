@@ -30,6 +30,14 @@ public class DanhGiaDAO {
         return db.insert("DanhGia", null, values);
     }
 
+    public long insertBL(DanhGia danhGia) {
+        ContentValues values = new ContentValues();
+        values.put("maUser", danhGia.getMaUser());
+        values.put("maSP", danhGia.getMaSP());
+        values.put("nhanXet", danhGia.getNhanXet());
+        return db.insert("DanhGia", null, values);
+    }
+
     public int delete(String id){
         return db.delete("DanhGia","maDG=?", new String[]{id});
     }
@@ -135,5 +143,32 @@ public class DanhGiaDAO {
         cursor.close();
         return arr;
     }
+
+    public ArrayList<DanhGia> getDanhGiaByUserDH(int maUser) {
+        String sqlGH = "SELECT * FROM DanhGia WHERE maUser = ? " +
+                "AND maDG IS NOT NULL " +
+                "AND maSP IS NOT NULL " +
+                "AND danhGia IS NOT NULL " +
+                "AND nhanXet IS NOT NULL";
+
+        Cursor cursor = db.rawQuery(sqlGH, new String[]{String.valueOf(maUser)});
+        ArrayList<DanhGia> arr = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                DanhGia danhGia = new DanhGia();
+                danhGia.setMaDG(cursor.getInt(0));
+                danhGia.setMaUser(cursor.getInt(1));
+                danhGia.setMaSP(cursor.getInt(2));
+                danhGia.setDangGia(cursor.getInt(3));
+                danhGia.setNhanXet(cursor.getString(4));
+                arr.add(danhGia);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        return arr;
+    }
+
+
 
 }

@@ -37,6 +37,7 @@ import dongnvph30597.fpoly.app_labtopstore.model.User;
 public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHviewHolder>{
     private Context context;
     private ArrayList<DonHang> arr = new ArrayList<>();
+    private boolean isConfirmed = false;
 
     private UserDAO userDAO;
     private DonHangDAO donHangDAO;
@@ -86,7 +87,8 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChiTietDHDialog(holder.getAdapterPosition(),String.valueOf(holder.ckbTrangthai.getText()));
+
+                ChiTietDHDialog(holder.getAdapterPosition());
             }
         });
         return holder;
@@ -162,6 +164,8 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
             holder.ckbTrangthai.setText("Đã giao");
         }
 
+        if(!isConfirmed){
+
         holder.ckbTrangthai.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -169,7 +173,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
                 int index = holder.getAdapterPosition();
                 DonHang dh = arr.get(index);
                 trangThai = dh.getTrangThai();
-                if (trangThai == 3) {
+                if (trangThai == 3 && !isConfirmed) {
                     // Đã giao hàng, không làm gì nữa nếu click vào checkbox.
                     return;
                 }
@@ -180,12 +184,16 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
                     donHangDAO.updateTrangThaiDonHang(arr.get(index).getMaHD(), trangThai);
                     notifyDataSetChanged();
 
+                    isConfirmed = true;
+
                     if (trangThaiChangeListener != null) {
                         trangThaiChangeListener.onTrangThaiChanged(index, trangThai);
                     }
                 }
             }
         });
+
+        }
 
 
     }
@@ -210,7 +218,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
         }
     }
 
-    public void ChiTietDHDialog(int index , String trangThai){
+    public void ChiTietDHDialog(int index){
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.layout_dialog_chitietdonhang);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -231,37 +239,21 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
 
         if(maUser != -1 && arr.get(index).getTrangThai() == 3) {
             int maHD = arr.get(index).getMaHD();
-            hoaDonChiTietDAO = new HoaDonChiTietDAO(context);
-            arrCTDH = hoaDonChiTietDAO.getHDCTbyIDmaHD(maHD);
+            int DG = donHangDAO.getTrangThaiDG(maHD);
 
-// Lấy danh sách mã sản phẩm trong hóa đơn
-            ArrayList<Integer> maSanPhamTrongHoaDon = new ArrayList<>();
-            for (ChiTietDonHang hdt : arrCTDH) {
-                maSanPhamTrongHoaDon.add(hdt.getMaSanPham());
-            }
-
-// Lấy danh sách các đánh giá của người dùng
-            DanhGiaDAO danhGiaDAO = new DanhGiaDAO(context);
-            ArrayList<DanhGia> danhSachDanhGiaCuaNguoiDung = danhGiaDAO.getDanhGiaByUser(maUser);
-
-// Kiểm tra xem người dùng đã đánh giá sản phẩm hay chưa
-            boolean userReviewed = false;
-            for (DanhGia danhGia : danhSachDanhGiaCuaNguoiDung) {
-                if (maSanPhamTrongHoaDon.contains(danhGia.getMaSP())) {
-                    userReviewed = true;
-                    break;
-                }
-            }
-            if (userReviewed) {
+            if(DG == 1 ) {
                 cvbtnXacnhan.setVisibility(View.GONE);
                 tvXacnhanhang.setVisibility(View.VISIBLE);
-                tvXacnhanhang.setText("Bạn đã đánh giá sản phẩm này");
+                tvXacnhanhang.setText("Bạn đã đánh giá đơn hàng này");
             } else {
                 cvbtnXacnhan.setVisibility(View.VISIBLE);
                 tvXacnhanhang.setVisibility(View.VISIBLE);
                 cvbtnXacnhan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        donHangDAO.updateTrangThaiDG(arr.get(index).getMaHD(),1);
+
                         BottomSheetDialog adialog = new BottomSheetDialog(context);
                         adialog.setContentView(R.layout.layout_bottomdialog_danhgia);
                         ImageView imgStar1, imgStar2, imgStar3, imgStar4, imgStar5;
@@ -327,7 +319,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
                                 for (ChiTietDonHang hdt : arrCTDH) {
                                     maSanPhamTrongHoaDon.add(hdt.getMaSanPham());
                                     addDanhGiaToHoaDonChiTiet(hdt.getMaSanPham(), rating, bl);
-                                    tvXacnhanhang.setText("Bạn đã đánh giá sản phẩm này");
+                                    tvXacnhanhang.setText("Bạn đã đánh giá đơn hàng này");
                                     cvbtnXacnhan.setVisibility(View.GONE);
                                     adialog.dismiss();
                                 }
@@ -351,7 +343,16 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
             }
         });
         tvmaDHCTDH.setText("0"+arr.get(index).getMaHD());
-        tvtrangthaiCTDH.setText(trangThai);
+        if(arr.get(index).getTrangThai() == 0){
+            tvtrangthaiCTDH.setText("Chờ xử lý");
+        }else if(arr.get(index).getTrangThai() == 1){
+            tvtrangthaiCTDH.setText("Đã xác nhận");
+        }else if(arr.get(index).getTrangThai() == 2){
+            tvtrangthaiCTDH.setText("Đang giao");
+        }else {
+            tvtrangthaiCTDH.setText("Đã giao");
+        }
+
         tvGhichuCTDH.setText(arr.get(index).getGhiChu());
         tvTGCTDH.setText(arr.get(index).getNgay());
         String formattedPrice1 = decimalFormat.format(arr.get(index).getTongTien());
@@ -387,16 +388,27 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
         HoaDonChiTietDAO hoaDonChiTietDAO = new HoaDonChiTietDAO(context);
         ArrayList<ChiTietDonHang> arrCTDH = hoaDonChiTietDAO.getHoaDonChiTietByMaSP(maSP);
 
+        // Danh sách các sản phẩm đã được đánh giá
+        ArrayList<Integer> danhSachDaDanhGia = new ArrayList<>();
+
         for (ChiTietDonHang ctdh : arrCTDH) {
-            DanhGia danhGiaMoi = new DanhGia();
-            danhGiaMoi.setMaUser(maUser); // Lấy mã người dùng từ SharedPreferences
-            danhGiaMoi.setMaSP(ctdh.getMaSanPham());
-            danhGiaMoi.setDangGia(rating);
-            danhGiaMoi.setNhanXet(binhLuan);
-            if(danhGiaDAO.insert(danhGiaMoi) > 0){
-                Toast.makeText(context, "Đánh giá thành công!", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(context, "Fail!", Toast.LENGTH_SHORT).show();
+            int maSanPham = ctdh.getMaSanPham();
+
+            // Kiểm tra xem sản phẩm đã được đánh giá hay chưa
+            if (!danhSachDaDanhGia.contains(maSanPham)) {
+                danhSachDaDanhGia.add(maSanPham);
+
+                DanhGia danhGiaMoi = new DanhGia();
+                danhGiaMoi.setMaUser(maUser); // Lấy mã người dùng từ SharedPreferences
+                danhGiaMoi.setMaSP(maSanPham);
+                danhGiaMoi.setDangGia(rating);
+                danhGiaMoi.setNhanXet(binhLuan);
+
+                if (danhGiaDAO.insert(danhGiaMoi) > 0) {
+                    Toast.makeText(context, "Đánh giá thành công!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Fail!", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }

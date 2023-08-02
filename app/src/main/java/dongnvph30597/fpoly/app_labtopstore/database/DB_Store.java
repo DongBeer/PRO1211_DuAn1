@@ -60,6 +60,7 @@ public class DB_Store extends SQLiteOpenHelper {
                 "ngay date NOT NULL," +
                 "tongTien INTEGER NOT NULL," +
                 "trangThai INTEGER NOT NULL," +
+                "trangThaiDG INTEGER NOT NULL," +
                 "ghiChu text NOT NULL)";
         sqLiteDatabase.execSQL(createTableHD);
 
@@ -83,7 +84,7 @@ public class DB_Store extends SQLiteOpenHelper {
                 "maDG INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "maUser INTEGER REFERENCES User(maUser), " +
                 "maSP INTEGER REFERENCES SanPham(maSP), " +
-                "danhGia INTEGER NOT NULL, " +
+                "danhGia INTEGER, " +
                 "nhanXet TEXT not null)";
         sqLiteDatabase.execSQL(createTableDanhGia);
 

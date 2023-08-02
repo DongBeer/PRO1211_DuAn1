@@ -54,6 +54,12 @@ public class SanPhamDAO {
         return getData(sql);
     }
 
+    public ArrayList<SanPham> getSanPhamByMaTH(int maTH) {
+        String sql = "SELECT * FROM SanPham WHERE maTH = ?";
+        String[] selectionArgs = {String.valueOf(maTH)};
+        return getData(sql, selectionArgs);
+    }
+
     public ArrayList<SanPham> getData(String sql, String...selectionArgs) {
         Cursor cursor = db.rawQuery(sql,selectionArgs);
         ArrayList<SanPham> arr = new ArrayList<>();

@@ -66,6 +66,7 @@ public class GioHang_Activity extends AppCompatActivity {
                 if(Tongtien != 0){
                     Intent intent = new Intent(GioHang_Activity.this,DatHang_Activity.class);
                     intent.putExtra("tongtien",Tongtien);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                 }else {
                     Toast.makeText(GioHang_Activity.this, "Bạn chưa chọn mặt hàng nào!", Toast.LENGTH_SHORT).show();
@@ -105,7 +106,6 @@ public class GioHang_Activity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        preferencesHelper.clearCheckedItems();
 
         // Lấy lại dữ liệu giỏ hàng từ cơ sở dữ liệu
         arr = gioHangDAO.getGioHangbyIdUser(maUser);
