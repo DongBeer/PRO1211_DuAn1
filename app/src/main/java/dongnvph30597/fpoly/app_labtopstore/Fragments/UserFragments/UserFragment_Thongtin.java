@@ -147,6 +147,5 @@ public class UserFragment_Thongtin extends Fragment {
             Glide.with(this).load(user.getImgUser()).error(R.drawable.signup).into(img);
         }
         tvName.setText(user.getHoTen());
-        Toast.makeText(getContext(), "AAAA", Toast.LENGTH_SHORT).show();
     }
 }
