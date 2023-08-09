@@ -45,17 +45,38 @@ public class SanPhamDAO {
         return db.update("SanPham",values,"maSP=?",new String[]{String.valueOf(sp.maSP)});
     }
 
+    public long updateTrangThai(SanPham sp){
+        ContentValues values = new ContentValues();
+        values.put("trangThaiSP",sp.trangThai);
+        return db.update("SanPham",values,"maSP=?",new String[]{String.valueOf(sp.maSP)});
+    }
+
+
     public int delete(String id){
-        return db.delete("SanPham","maSP=?", new String[]{id});
+        Cursor cursor = db.rawQuery("select * from HoaDonChiTiet where maSP=?", new String[]{String.valueOf(id)});
+        if (cursor.getCount() != 0) {
+            return -1;
+        }
+        int checkLoaisach = db.delete("SanPham","maSP=?", new String[]{id});
+        if (checkLoaisach == -1)
+            return 0;
+
+        return 1;
+
     }
 
     public ArrayList<SanPham> getAllSP(){
+        String sql = "SELECT * FROM SanPham where soLuong > 0";
+        return getData(sql);
+    }
+
+    public ArrayList<SanPham> getAllSPAdmin(){
         String sql = "SELECT * FROM SanPham";
         return getData(sql);
     }
 
     public ArrayList<SanPham> getSanPhamByMaTH(int maTH) {
-        String sql = "SELECT * FROM SanPham WHERE maTH = ?";
+        String sql = "SELECT * FROM SanPham WHERE maTH = ? and soLuong > 0";
         String[] selectionArgs = {String.valueOf(maTH)};
         return getData(sql, selectionArgs);
     }
@@ -110,7 +131,7 @@ public class SanPhamDAO {
     }
 
     public ArrayList<SanPham> searchSanPham(String keyword) {
-        String sql = "SELECT * FROM SanPham WHERE tenSP LIKE ? OR giaSP LIKE ?";
+        String sql = "SELECT * FROM SanPham WHERE tenSP LIKE ? OR giaSP LIKE ? and soLuong > 0 ";
         String[] selectionArgs = new String[]{"%" + keyword + "%", "%" + keyword + "%"};
         return getData(sql, selectionArgs);
     }

@@ -4,7 +4,8 @@
     android:background="#fff"
     android:layout_marginHorizontal="10dp"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/lnbgslide">
 
     <ImageView
         android:id="@+id/imgLoaiSPSilde"

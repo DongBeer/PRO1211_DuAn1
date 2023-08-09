@@ -1,11 +1,16 @@
 package dongnvph30597.fpoly.app_labtopstore.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +26,7 @@ public class Adapter_Slide_LoaiSP extends RecyclerView.Adapter<Adapter_Slide_Loa
 
     private Context context;
     private ArrayList<ThuongHieu> arr = new ArrayList<>();
+    private Animation animation;
 
     private AdapterView.OnItemClickListener mListener;
 
@@ -51,6 +57,8 @@ public class Adapter_Slide_LoaiSP extends RecyclerView.Adapter<Adapter_Slide_Loa
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                animation = AnimationUtils.loadAnimation(context, R.anim.ani_slide);
+                holder.itemView.startAnimation(animation);
                 mListener.onItemClick(null,v,holder.getAdapterPosition(),v.getId());
             }
         });
@@ -63,9 +71,11 @@ public class Adapter_Slide_LoaiSP extends RecyclerView.Adapter<Adapter_Slide_Loa
 
     public class MySlideLoaiSPViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgLoaiSPSlide;
+        private LinearLayout linearbgSlide;
         public MySlideLoaiSPViewHolder(@NonNull View itemView) {
             super(itemView);
             imgLoaiSPSlide = itemView.findViewById(R.id.imgLoaiSPSilde);
+            linearbgSlide = itemView.findViewById(R.id.lnbgslide);
         }
     }
 }

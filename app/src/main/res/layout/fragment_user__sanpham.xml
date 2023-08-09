@@ -65,7 +65,9 @@
                     android:layout_height="35dp"
                     android:hint="Bạn muốn mua gì?"
                     android:textSize="13dp"
-                    android:fontFamily="@font/arbutus_slab"/>
+                    android:fontFamily="@font/arbutus_slab"
+                    android:maxLines="1"
+                    android:singleLine="true"/>
 
             </LinearLayout>
 

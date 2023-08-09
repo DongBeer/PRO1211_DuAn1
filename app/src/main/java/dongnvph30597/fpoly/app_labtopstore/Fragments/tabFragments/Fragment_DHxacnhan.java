@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import dongnvph30597.fpoly.app_labtopstore.DAO.DonHangDAO;
 import dongnvph30597.fpoly.app_labtopstore.R;
@@ -68,12 +70,24 @@ public class Fragment_DHxacnhan extends Fragment implements Adapter_DonHang.OnTr
         if(maUser != -1){
             donHangDAO = new DonHangDAO(getContext());
             arr = donHangDAO.getDHXacnhanbyUser(maUser);
+            Collections.sort(arr, new Comparator<DonHang>() {
+                @Override
+                public int compare(DonHang dh1, DonHang dh2) {
+                    return String.valueOf(dh2.getMaHD()).compareTo(String.valueOf(dh1.getMaHD()));
+                }
+            });
             adapter = new Adapter_DonHang(getContext(), arr);
             adapter.setData(arr);
             recyclerDHXacnhan.setAdapter(adapter);
         }else {
             donHangDAO = new DonHangDAO(getContext());
             arr = donHangDAO.getDHXacnhan();
+            Collections.sort(arr, new Comparator<DonHang>() {
+                @Override
+                public int compare(DonHang dh1, DonHang dh2) {
+                    return String.valueOf(dh2.getMaHD()).compareTo(String.valueOf(dh1.getMaHD()));
+                }
+            });
             adapter = new Adapter_DonHang(getContext(), arr);
             adapter.setData(arr);
             recyclerDHXacnhan.setAdapter(adapter);

@@ -33,11 +33,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:textSize="12sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(VNĐ)"
+            android:fontFamily="@font/arbutus_slab"
+            android:textColor="@color/black"/>
+
         <com.github.mikephil.charting.charts.BarChart
-            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15sp"
             android:id="@+id/barChart"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="300dp" />
+
+
 
 
 

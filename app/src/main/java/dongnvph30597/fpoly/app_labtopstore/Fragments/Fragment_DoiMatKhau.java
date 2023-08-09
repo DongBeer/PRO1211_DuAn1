@@ -110,6 +110,10 @@ public class Fragment_DoiMatKhau extends Fragment {
                     Toast.makeText(getContext(), "Nhập sai mật khẩu cũ!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(mkmoi.equals(mkcu)){
+                    Toast.makeText(getContext(), "Vui lòng nhập mật khẩu khác!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(!mkmoi.equals(mkmoi2)){
                     Toast.makeText(getContext(), "Mật khẩu mới không trùng khớp!", Toast.LENGTH_SHORT).show();
                     return;

@@ -2,6 +2,8 @@ package dongnvph30597.fpoly.app_labtopstore.Fragments.UserFragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import dongnvph30597.fpoly.app_labtopstore.activity.ChangeProfileActivity;
 import dongnvph30597.fpoly.app_labtopstore.activity.KhachHang_Activity;
 import dongnvph30597.fpoly.app_labtopstore.activity.Login_Activity;
 import dongnvph30597.fpoly.app_labtopstore.activity.UserActivity_TrangThaiDonHang;
+import dongnvph30597.fpoly.app_labtopstore.model.SharedPreferencesHelper;
 import dongnvph30597.fpoly.app_labtopstore.model.User;
 
 public class UserFragment_Thongtin extends Fragment {
@@ -40,6 +43,7 @@ public class UserFragment_Thongtin extends Fragment {
     private TextView tvName;
     private UserDAO dao;
     private User user;
+    private SharedPreferencesHelper preferencesHelper;
 
     public UserFragment_Thongtin() {
         // Required empty public constructor
@@ -67,6 +71,7 @@ public class UserFragment_Thongtin extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        preferencesHelper = new SharedPreferencesHelper(getContext());
         btnLogout = view.findViewById(R.id.btn_logout);
         btnChangePassword = view.findViewById(R.id.layout_btn_change_password);
         btnChangeProfile = view.findViewById(R.id.btn_change_profile);
@@ -79,47 +84,67 @@ public class UserFragment_Thongtin extends Fragment {
 
 
         if (user.getImgUser() != null ){
-            Glide.with(this).load(user.getImgUser()).error(R.drawable.signup).into(img);
+            Glide.with(this).load(user.getImgUser()).error(R.drawable.user_login).into(img);
         }
         tvName.setText(user.getHoTen());
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Handler().postDelayed(new Runnable() {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("Bạn muốn đang xuất?");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
-                    public void run() {
-                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.clear();
-                        editor.apply();
-                        Intent mIntent = new Intent(getContext(), Login_Activity.class);
-                        mIntent.putExtra("RESET_LOGIN_STATE", true);
-                        mIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(mIntent);
-                        getActivity().finishAffinity();
+                    public void onClick(DialogInterface dialog, int which) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.clear();
+                                editor.apply();
+
+                                preferencesHelper.clearCheckedItems();
+
+                                Intent mIntent = new Intent(getContext(), Login_Activity.class);
+                                mIntent.putExtra("RESET_LOGIN_STATE", true);
+                                mIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                startActivity(mIntent);
+                                getActivity().finishAffinity();
+                            }
+                        },1000);
                     }
-                },1000);
+                });
+                builder.setNegativeButton("Không",null);
+
+                builder.show();
             }
         });
 
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
+                Intent intent =  new Intent(getActivity(), ChangePasswordActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
             }
         });
 
         btnChangeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ChangeProfileActivity.class));
+                Intent aIntent = new Intent(getActivity(), ChangeProfileActivity.class);
+                aIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(aIntent);
             }
         });
 
         btnTTDH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), UserActivity_TrangThaiDonHang.class));
+                Intent mIntent = new Intent(getContext(), UserActivity_TrangThaiDonHang.class);
+                mIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(mIntent);
             }
         });
 

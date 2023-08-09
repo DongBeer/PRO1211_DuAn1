@@ -81,8 +81,6 @@ public class DatHang_Activity extends AppCompatActivity {
                 int check = getIntent().getIntExtra("check",-1);
                 if(check == 5){
                     gioHangDAO.deleteGioHangByTrangThaiAndMaUser(maUser);
-                }else {
-//                    gioHangDAO.updateTrangThaiByMaUser(maUser);
                 }
                 finish();
             }
@@ -227,6 +225,13 @@ public class DatHang_Activity extends AppCompatActivity {
                                 SanPhamDAO sanPhamDAO = new SanPhamDAO(DatHang_Activity.this);
                                 int slbd = sanPhamDAO.getSoLuongByMaSP(maSP);
                                 int updatesl = slbd - soLuong;
+
+//                                if(slbd == soLuong){
+//                                    SanPham sanPham = new SanPham();
+//                                    sanPham.setMaSP(maSP);
+//                                    sanPham.setTrangThai(2);
+//                                    sanPhamDAO.updateTrangThai(sanPham);
+//                                }
 
                                 SanPham sanPham = new SanPham();
                                 sanPham.setMaSP(maSP);

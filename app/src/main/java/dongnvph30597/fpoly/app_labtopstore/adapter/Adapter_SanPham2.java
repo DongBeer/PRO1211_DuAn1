@@ -254,6 +254,7 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
                         gioHang.setSoLuong(soluong);
                         gioHang.setGiaSP(gia);
                         gioHang.setTrangThai(1);
+                        gioHangDAO.deleteGioHangByTrangThaiAndMaUser(maUser);
                         if (gioHangDAO.insert(gioHang) > 0){
 //                            Toast.makeText(context, "Thêm vào giỏ hàng thành công!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(context,DatHang_Activity.class);

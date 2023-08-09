@@ -229,9 +229,13 @@ public class Fragment_QuanLyLoaiSp extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 list.remove(obj);
-                                dao.delete(obj.getMaTH()+"");
-                                adapter.notifyDataSetChanged();
-                                Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                                if(dao.delete(obj.getMaTH()+"") > 0){
+                                    adapter.notifyDataSetChanged();
+                                    Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(getContext(), "Mã Thương hiệu còn tồn tại trong Sản phẩm", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         });
 

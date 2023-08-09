@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +130,13 @@ public class UserFragment_SanPham extends Fragment {
         tvSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String search = edSearchSP.getText().toString();
+                String search = edSearchSP.getText().toString().trim();
+                search = search.replaceAll("\\s+", "");
+                if(search.isEmpty()){
+                    edSearchSP.requestFocus();
+                    Toast.makeText(getContext(), "Vui lòng nhập tìm kiếm", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 LoadDataGridlayout(recyclerSPKh,sanPhamDAO.searchSanPham(search));
             }
         });

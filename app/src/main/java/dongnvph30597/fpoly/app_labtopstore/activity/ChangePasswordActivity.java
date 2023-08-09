@@ -2,6 +2,7 @@ package dongnvph30597.fpoly.app_labtopstore.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,6 +55,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 user.setMatkhau(newPassword);
                 dao.update(user);
                 Toast.makeText(this, "đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ChangePasswordActivity.this, Login_Activity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
             }
         });
 

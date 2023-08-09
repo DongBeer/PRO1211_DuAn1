@@ -117,6 +117,10 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.CartVi
             @Override
             public void onClick(View v) {
                 int sl = gioHang.getSoLuong() + 1;
+                if(sl == sanPhamDAO.getSoLuongByMaSP(gioHang.getMaSP())+1){
+                    sl = gioHang.getSoLuong();
+                    Toast.makeText(context, "Số lượng không được vượt quá số lượng SP trong kho", Toast.LENGTH_SHORT).show();
+                }
                 gioHang.setSoLuong(sl); // Cập nhật số lượng trong danh sách arr
                 gioHangDAO.update(gioHang); // Cập nhật số lượng trong cơ sở dữ liệu
                 notifyDataSetChanged(); // Cập nhật lại danh sách sau khi thay đổi số lượng
@@ -137,6 +141,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.CartVi
                 if (sl < 1) {
                     sl = 1;
                 }
+
                 gioHang.setSoLuong(sl); // Cập nhật số lượng trong danh sách arr
                 gioHangDAO.update(gioHang); // Cập nhật số lượng trong cơ sở dữ liệu
                 notifyDataSetChanged(); // Cập nhật lại danh sách sau khi thay đổi số lượng
@@ -182,8 +187,10 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.CartVi
         int total = 0;
         if (selectedPositions.size() > 0 && arr.size() > 0) {
             for (int position : selectedPositions) {
-                GioHang gioHang = arr.get(position);
-                total += gioHang.getGiaSP() * gioHang.getSoLuong();
+                if (position >= 0 && position < arr.size()) {
+                    GioHang gioHang = arr.get(position);
+                    total += gioHang.getGiaSP() * gioHang.getSoLuong();
+                }
             }
         }
         return total;
@@ -199,6 +206,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.CartVi
             // Xóa item tại vị trí position trong arr
             arr.remove(position);
 
+
             // Xóa chỉ số tương ứng trong selectedPositions (nếu có)
             selectedPositions.remove((Integer) position);
 
@@ -206,12 +214,13 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.CartVi
 
             // Cập nhật tổng giá tiền sau khi xóa thành công
             int total = calculateTotal();
+
+            notifyDataSetChanged();
             // Thông báo cho Activity về sự thay đổi tổng giá tiền
             if (onTotalPriceChangeListener != null) {
                 onTotalPriceChangeListener.onTotalPriceChange(total);
             }
-            // Cập nhật RecyclerView sau khi xóa thành công và cập nhật tổng giá tiền
-            notifyDataSetChanged();
+
         }
     }
 }

@@ -25,6 +25,21 @@ public class ThongKeDAO {
     public int getTotalProduct() {
         int total = 0;
 
+        String query = "SELECT COUNT(*) FROM SanPham where trangThaiSP = 0 or trangThaiSP = 1";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            total = cursor.getInt(0);
+        }
+
+        cursor.close();
+        return total;
+
+    }
+
+    public int getTotalProductAdmin() {
+        int total = 0;
+
         String query = "SELECT COUNT(*) FROM SanPham";
         Cursor cursor = db.rawQuery(query, null);
 
@@ -81,7 +96,7 @@ public class ThongKeDAO {
     public int getThongke(String startDate, String endDate) {
         int totalRevenue = 0;
 
-        String sql = "SELECT SUM(tongTien) FROM HoaDon WHERE ngay BETWEEN ? AND ?";
+        String sql = "SELECT SUM(tongTien) FROM HoaDon WHERE trangThai = 3 and ngay BETWEEN ? AND ?";
         String[] selectionArgs = new String[]{startDate, endDate};
 
         Cursor cursor = db.rawQuery(sql, selectionArgs);
@@ -94,7 +109,95 @@ public class ThongKeDAO {
     }
 
 
+    @SuppressLint("Range")
+    public int getDoanhThuT8() {
+        int tongDoanhThu = 0;
 
+        String query = "SELECT SUM(tongTien) AS tongDoanhThu FROM HoaDon WHERE trangThai = 3 " +
+                "AND ngay >= '2023/08/01' AND ngay <= '2023/08/31'";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            tongDoanhThu = cursor.getInt(cursor.getColumnIndex("tongDoanhThu"));
+        }
+
+        cursor.close();
+
+        return tongDoanhThu;
+    }
+
+    @SuppressLint("Range")
+    public int getDoanhThuT9() {
+        int tongDoanhThu = 0;
+
+        String query = "SELECT SUM(tongTien) AS tongDoanhThu FROM HoaDon WHERE trangThai = 3 " +
+                "AND ngay >= '2023/09/01' AND ngay <= '2023/09/30'";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            tongDoanhThu = cursor.getInt(cursor.getColumnIndex("tongDoanhThu"));
+        }
+
+        cursor.close();
+
+        return tongDoanhThu;
+    }
+
+    @SuppressLint("Range")
+    public int getDoanhThuT10() {
+        int tongDoanhThu = 0;
+
+        String query = "SELECT SUM(tongTien) AS tongDoanhThu FROM HoaDon WHERE trangThai = 3 " +
+                "AND ngay >= '2023/10/01' AND ngay <= '2023/10/31'";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            tongDoanhThu = cursor.getInt(cursor.getColumnIndex("tongDoanhThu"));
+        }
+
+        cursor.close();
+
+        return tongDoanhThu;
+    }
+
+    @SuppressLint("Range")
+    public int getDoanhThuT11() {
+        int tongDoanhThu = 0;
+
+        String query = "SELECT SUM(tongTien) AS tongDoanhThu FROM HoaDon WHERE trangThai = 3 " +
+                "AND ngay >= '2023/11/01' AND ngay <= '2023/11/30'";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            tongDoanhThu = cursor.getInt(cursor.getColumnIndex("tongDoanhThu"));
+        }
+
+        cursor.close();
+
+        return tongDoanhThu;
+    }
+
+    @SuppressLint("Range")
+    public int getDoanhThuT12() {
+        int tongDoanhThu = 0;
+
+        String query = "SELECT SUM(tongTien) AS tongDoanhThu FROM HoaDon WHERE trangThai = 3 " +
+                "AND ngay >= '2023/12/01' AND ngay <= '2023/12/31'";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            tongDoanhThu = cursor.getInt(cursor.getColumnIndex("tongDoanhThu"));
+        }
+
+        cursor.close();
+
+        return tongDoanhThu;
+    }
 
 
 

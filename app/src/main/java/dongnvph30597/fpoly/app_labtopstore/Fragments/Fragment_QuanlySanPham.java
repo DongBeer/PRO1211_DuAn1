@@ -79,6 +79,7 @@ public class Fragment_QuanlySanPham extends Fragment {
     private Adapter_DanhGia adapterDG;
     private DanhGiaDAO danhGiaDAO;
     private ArrayList<DanhGia> arrDG = new ArrayList<>();
+    int total;
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int PERMISSION_REQUEST_CODE = 2;
@@ -131,7 +132,7 @@ public class Fragment_QuanlySanPham extends Fragment {
 
         tvTongSP =view.findViewById(R.id.tvTongsanpham);
         thongKeDAO = new ThongKeDAO(getContext());
-        int total = thongKeDAO.getTotalProduct();
+        total = thongKeDAO.getTotalProductAdmin();
         tvTongSP.setText("Laptop(" + total + " sản phẩm)" );
 
     }
@@ -232,10 +233,14 @@ public class Fragment_QuanlySanPham extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 int id = arr.get(position).getMaSP();
-                                sanPhamDAO.delete(String.valueOf(id));
-                                FilltoRecyclerSP();
-                                Toast.makeText(getContext(), "Xóa thành công!", Toast.LENGTH_SHORT).show();
-                                mDialog.dismiss();
+                                if (sanPhamDAO.delete(String.valueOf(id)) > 0){
+                                    FilltoRecyclerSP();
+                                    Toast.makeText(getContext(), "Xóa thành công!", Toast.LENGTH_SHORT).show();
+                                    mDialog.dismiss();
+                                }else {
+                                    Toast.makeText(getContext(), "Sản phẩm đã tồn tại trong Hóa đơn, không thể xóa!", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         });
                         builder.setNegativeButton("không",null);
@@ -257,7 +262,7 @@ public class Fragment_QuanlySanPham extends Fragment {
 
             }
         });
-        arr = sanPhamDAO.getAllSP();
+        arr = sanPhamDAO.getAllSPAdmin();
         adapter.setData(arr);
         recyclerviewSP.setAdapter(adapter);
     }
@@ -388,6 +393,8 @@ public class Fragment_QuanlySanPham extends Fragment {
                 sanPhamDAO.insert(sanPham);
                 FilltoRecyclerSP();
                 Toast.makeText(getContext(), "Thêm thành công!", Toast.LENGTH_SHORT).show();
+                total = thongKeDAO.getTotalProductAdmin();
+                tvTongSP.setText("Laptop(" + total + " sản phẩm)" );
                 dialog.dismiss();
             }
         });

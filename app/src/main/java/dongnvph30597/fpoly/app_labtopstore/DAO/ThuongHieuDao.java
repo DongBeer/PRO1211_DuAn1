@@ -52,7 +52,16 @@ public class ThuongHieuDao {
     }
 
     public int delete(String id){
-        return db.delete("ThuongHieu","maTH=?", new String[]{id});
+
+        Cursor cursor = db.rawQuery("select * from SanPham where maTH=?", new String[]{String.valueOf(id)});
+        if (cursor.getCount() != 0) {
+            return -1;
+        }
+        int checkLoaisach = db.delete("ThuongHieu","maTH=?", new String[]{id});
+        if (checkLoaisach == -1)
+            return 0;
+
+        return 1;
     }
 
     public ThuongHieu getID(String id){

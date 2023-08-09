@@ -3,6 +3,7 @@ package dongnvph30597.fpoly.app_labtopstore.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,7 +29,9 @@ public class UserActivity_TrangThaiDonHang extends AppCompatActivity {
         imgbackTTDH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent mIntent = new Intent(UserActivity_TrangThaiDonHang.this, KhachHang_Activity.class);
+                mIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(mIntent);
             }
         });
 
@@ -36,7 +39,7 @@ public class UserActivity_TrangThaiDonHang extends AppCompatActivity {
         tabLayout_DHUser.addTab(tabLayout_DHUser.newTab().setText("Chờ xử lý"));
         tabLayout_DHUser.addTab(tabLayout_DHUser.newTab().setText("Đã xác nhận"));
         tabLayout_DHUser.addTab(tabLayout_DHUser.newTab().setText("Đang vẩn chuyển"));
-        tabLayout_DHUser.addTab(tabLayout_DHUser.newTab().setText("Đã giao"));
+        tabLayout_DHUser.addTab(tabLayout_DHUser.newTab().setText("Đã nhận"));
 
         if(tabLayout_DHUser.getTabAt(0).isSelected()){
             getSupportFragmentManager().beginTransaction().replace(R.id.container_fragDH_User, new Fragment_DHchoxuly()).commit();

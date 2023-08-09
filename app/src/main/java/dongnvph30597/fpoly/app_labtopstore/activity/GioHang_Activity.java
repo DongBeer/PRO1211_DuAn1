@@ -63,7 +63,7 @@ public class GioHang_Activity extends AppCompatActivity {
         lnbtnmuahang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Tongtien != 0){
+                if(Tongtien != 0 && gioHangDAO.getGioHangbyIdUserTT(maUser) != null){
                     Intent intent = new Intent(GioHang_Activity.this,DatHang_Activity.class);
                     intent.putExtra("tongtien",Tongtien);
                     intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -75,9 +75,6 @@ public class GioHang_Activity extends AppCompatActivity {
             }
         });
         FilltoRecyclerGH();
-
-        Toast.makeText(this, ""+ arr.size(), Toast.LENGTH_SHORT).show();
-
 
 
     }
@@ -106,6 +103,10 @@ public class GioHang_Activity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+//        preferencesHelper.clearCheckedItems();
+
+//        preferencesHelper.getCheckedItems();
 
         // Lấy lại dữ liệu giỏ hàng từ cơ sở dữ liệu
         arr = gioHangDAO.getGioHangbyIdUser(maUser);

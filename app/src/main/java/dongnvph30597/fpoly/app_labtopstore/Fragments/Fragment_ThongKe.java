@@ -1,5 +1,6 @@
 package dongnvph30597.fpoly.app_labtopstore.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -103,6 +104,8 @@ public class Fragment_ThongKe extends Fragment {
         btnThongke = view.findViewById(R.id.btnDoanhThu);
         edTungay.setFocusable(false);
         edDenngay.setFocusable(false);
+        thongKeDAO = new ThongKeDAO(getContext());
+
 
         imgTungay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,13 +147,33 @@ public class Fragment_ThongKe extends Fragment {
         });
 
 
+        setDoanhThuToBarChart();
+
+
+    }
+    @SuppressLint("Range")
+    private void setDoanhThuToBarChart() {
+        // Lấy doanh thu từ cơ sở dữ liệu cho từng tháng
+
+        int doanhthuT8 = thongKeDAO.getDoanhThuT8();
+        int doanhthuT9 = thongKeDAO.getDoanhThuT9();
+        int doanhthuT10 = thongKeDAO.getDoanhThuT10();
+        int doanhthuT11 = thongKeDAO.getDoanhThuT11();
+        int doanhthuT12 = thongKeDAO.getDoanhThuT12();
         // Tạo dữ liệu cột
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(1, 20f));
-        entries.add(new BarEntry(2, 35f));
-        entries.add(new BarEntry(3, 10f));
-        entries.add(new BarEntry(4, 45f));
-        entries.add(new BarEntry(5, 30f));
+        entries.add(new BarEntry(1, 0)); // Tháng 1
+        entries.add(new BarEntry(2, 0)); // Tháng 2
+        entries.add(new BarEntry(3, 0)); // Tháng 3
+        entries.add(new BarEntry(4, 0)); // Tháng 4
+        entries.add(new BarEntry(5, 0)); // Tháng 5
+        entries.add(new BarEntry(6, 0)); // Tháng 6
+        entries.add(new BarEntry(7, 0)); // Tháng 7
+        entries.add(new BarEntry(8, doanhthuT8)); // Tháng 8
+        entries.add(new BarEntry(9, doanhthuT9)); // Tháng 9
+        entries.add(new BarEntry(10, doanhthuT10)); // Tháng 10
+        entries.add(new BarEntry(11, doanhthuT11)); // Tháng 11
+        entries.add(new BarEntry(12, doanhthuT12)); // Tháng 12
 
         // Tạo dữ liệu của BarDataSet và cấu hình
         BarDataSet dataSet = new BarDataSet(entries, "Doanh thu");
@@ -158,7 +181,6 @@ public class Fragment_ThongKe extends Fragment {
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setValueTextSize(12f);
         dataSet.setBarBorderWidth(0.5f);
-
 
         // Tạo dữ liệu của BarData
         BarData barData = new BarData(dataSet);
@@ -183,27 +205,31 @@ public class Fragment_ThongKe extends Fragment {
 
         barChart.getAxisRight().setEnabled(false);
         barChart.getAxisLeft().setAxisMinimum(0);
-        barChart.getAxisLeft().setAxisMaximum(1000);
+        // Đặt giá trị tối đa cho trục y là giá trị lớn nhất trong dữ liệu doanh thu của các tháng
+        int maxYValue =  Math.max(doanhthuT8,
+                        Math.max(doanhthuT9, Math.max(doanhthuT10, Math.max(doanhthuT11, doanhthuT12))));
+        barChart.getAxisLeft().setAxisMaximum(maxYValue + 200); // Cộng thêm 200 để tránh việc các cột quá gần nhau
 
         // Cập nhật biểu đồ
         barChart.invalidate();
     }
 
-    // Giá trị trục x
+
+
     private ArrayList<String> getXAxisValues() {
         ArrayList<String> xAxisValues = new ArrayList<>();
-        xAxisValues.add("Tháng 1");
-        xAxisValues.add("Tháng 2");
-        xAxisValues.add("Tháng 3");
-        xAxisValues.add("Tháng 4");
-        xAxisValues.add("Tháng 5");
-        xAxisValues.add("Tháng 6");
-        xAxisValues.add("Tháng 7");
-        xAxisValues.add("Tháng 8");
-        xAxisValues.add("Tháng 9");
-        xAxisValues.add("Tháng 10");
-        xAxisValues.add("Tháng 11");
-        xAxisValues.add("Tháng 12");
+        xAxisValues.add("Thg 1");
+        xAxisValues.add("Thg 2");
+        xAxisValues.add("Thg 3");
+        xAxisValues.add("Thg 4");
+        xAxisValues.add("Thg 5");
+        xAxisValues.add("Thg 6");
+        xAxisValues.add("Thg 7");
+        xAxisValues.add("Thg 8");
+        xAxisValues.add("Thg 9");
+        xAxisValues.add("Thg 10");
+        xAxisValues.add("Thg 11");
+        xAxisValues.add("Thg 12");
         return xAxisValues;
     }
 

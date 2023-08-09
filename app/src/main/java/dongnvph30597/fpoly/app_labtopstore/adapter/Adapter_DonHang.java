@@ -117,7 +117,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
             holder.ckbTrangthai.setFocusable(false);
         }
 
-        if(maUser != -1 && dh.getTrangThai() == 0){
+        if(maUser != -1 && dh.getTrangThai() == 0 || dh.getTrangThai() == 1){
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -131,12 +131,13 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
                             Toast.makeText(context, "Bạn đã hủy đơn hàng thành công!"+maUser, Toast.LENGTH_SHORT).show();
                             donHangDAO.delete(String.valueOf(dh.getMaHD()));
                             donHangDAO.deleteHoaDonChiTietByMaHD(String.valueOf(dh.getMaHD()));
-                            notifyDataSetChanged();
+
                             dialog.dismiss();
 
                             if (trangThaiChangeListener != null) {
                                 trangThaiChangeListener.onTrangThaiChanged(index, trangThai);
                             }
+                            notifyDataSetChanged();
                         }
                     });
                     dialog.show();

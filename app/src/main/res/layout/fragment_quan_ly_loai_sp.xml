@@ -35,19 +35,11 @@
 
     <LinearLayout
         android:id="@+id/toolbar"
+        android:background="#F68C8C"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
         android:layout_alignParentTop="true">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/purple_500"
-            android:fontFamily="@font/mali"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="Quản lí loại sản phẩm"
-            android:textColor="@color/black"
-            android:textSize="22dp"/>
 
         <ImageView
             android:id="@+id/imgHome_qlkh"
@@ -56,6 +48,17 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/ic_menu"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mali"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Quản lí loại sản phẩm"
+            android:textColor="@color/black"
+            android:textSize="22dp"/>
+
+
     </LinearLayout>
 
 </RelativeLayout>
