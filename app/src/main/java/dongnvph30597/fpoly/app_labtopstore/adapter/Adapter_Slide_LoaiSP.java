@@ -71,11 +71,9 @@ public class Adapter_Slide_LoaiSP extends RecyclerView.Adapter<Adapter_Slide_Loa
 
     public class MySlideLoaiSPViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgLoaiSPSlide;
-        private LinearLayout linearbgSlide;
         public MySlideLoaiSPViewHolder(@NonNull View itemView) {
             super(itemView);
             imgLoaiSPSlide = itemView.findViewById(R.id.imgLoaiSPSilde);
-            linearbgSlide = itemView.findViewById(R.id.lnbgslide);
         }
     }
 }

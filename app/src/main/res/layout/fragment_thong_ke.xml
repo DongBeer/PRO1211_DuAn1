@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_register"
+    android:background="#00BCD4"
     tools:context=".Fragments.Fragment_ThongKe"
     >
 
@@ -105,26 +105,22 @@
             android:orientation="horizontal">
 
             <Button
-                android:text="→→"
-                android:textSize="15dp"
+                android:layout_marginRight="10dp"
+                android:text="Doanh thu"
+                android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#A5A1A1"
-                android:id="@+id/btnDoanhThu"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Doanh thu: "
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/arbutus_slab"
-                android:textColor="@color/black"/>
+                android:id="@+id/btnDoanhThu"
+                android:textAllCaps="false"
+                />
+
             <TextView
                 android:id="@+id/tvDoanhthu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100000000"
-                android:textSize="20dp"
+                android:text="0 đ"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/arbutus_slab"
                 android:textColor="#FB0D0D"/>

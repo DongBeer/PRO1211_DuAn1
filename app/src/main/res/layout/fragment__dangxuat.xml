@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="150dp">
+        android:layout_marginBottom="120dp">
 
         <ImageView
             android:layout_width="40dp"
@@ -21,16 +21,18 @@
             android:id="@+id/iconhomedoimk"
             android:layout_margin="5dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Đổi mật khẩu"
-            android:fontFamily="@font/mali"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            />
+
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đổi mật khẩu"
+        android:fontFamily="@font/mali"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        />
 
     <LinearLayout
         android:layout_margin="25dp"

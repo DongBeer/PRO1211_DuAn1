@@ -83,33 +83,10 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginVertical="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/border_btn"
-        android:layout_marginHorizontal="10dp"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="ĐÁNH GIÁ"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="16sp"/>
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/ic_arrow_right"/>
-
-    </LinearLayout>
 
 
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:id="@+id/lnbtnDathich"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

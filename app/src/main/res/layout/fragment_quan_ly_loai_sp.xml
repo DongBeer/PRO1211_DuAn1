@@ -35,7 +35,7 @@
 
     <LinearLayout
         android:id="@+id/toolbar"
-        android:background="#F68C8C"
+        android:background="#00BCD4"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"

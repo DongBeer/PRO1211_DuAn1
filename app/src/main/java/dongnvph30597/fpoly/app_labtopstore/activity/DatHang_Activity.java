@@ -43,7 +43,7 @@ import dongnvph30597.fpoly.app_labtopstore.model.User;
 
 public class DatHang_Activity extends AppCompatActivity {
 
-    private TextView tvTongtienHD, tvTongThanhToan, tvSuadc, tvHoten, tvSDTDC, tvDiachidathang ;
+    private TextView tvTongThanhToan, tvSuadc, tvHoten, tvSDTDC, tvDiachidathang ;
     private EditText edGhichu;
     private RecyclerView recyclerHDCT;
     private ImageView imgbackDH;
@@ -184,7 +184,6 @@ public class DatHang_Activity extends AppCompatActivity {
 
         int Total = getIntent().getIntExtra("tongtien",-1);
         DecimalFormat decimalFormat = new DecimalFormat("#,###,###");
-        tvTongtienHD.setText(decimalFormat.format(Total)+ " ₫");
         tvTongThanhToan.setText(decimalFormat.format(Total)+ " ₫");
 
         lnbtnDathang.setOnClickListener(new View.OnClickListener() {
@@ -226,12 +225,6 @@ public class DatHang_Activity extends AppCompatActivity {
                                 int slbd = sanPhamDAO.getSoLuongByMaSP(maSP);
                                 int updatesl = slbd - soLuong;
 
-//                                if(slbd == soLuong){
-//                                    SanPham sanPham = new SanPham();
-//                                    sanPham.setMaSP(maSP);
-//                                    sanPham.setTrangThai(2);
-//                                    sanPhamDAO.updateTrangThai(sanPham);
-//                                }
 
                                 SanPham sanPham = new SanPham();
                                 sanPham.setMaSP(maSP);
@@ -273,7 +266,6 @@ public class DatHang_Activity extends AppCompatActivity {
         tvSDTDC = findViewById(R.id.tvsdtDC);
         tvSuadc = findViewById(R.id.tvSuadiachidathang);
         tvDiachidathang = findViewById(R.id.tvdiachidathang);
-        tvTongtienHD = findViewById(R.id.tvTongtienHD);
         tvTongThanhToan = findViewById(R.id.tvTongthanhtoan);
         edGhichu = findViewById(R.id.edNhapghichu);
         recyclerHDCT = findViewById(R.id.recycleDathang);

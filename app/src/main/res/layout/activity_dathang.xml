@@ -194,7 +194,7 @@
         android:layout_height="wrap_content"
         android:text="PT Thanh toán:"
         android:layout_below="@+id/linearGhichu"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/arbutus_slab"
         android:textColor="@color/black"
         android:layout_marginLeft="10dp"/>
@@ -202,37 +202,13 @@
     <Spinner
         android:id="@+id/spnPTTT"
         android:layout_marginHorizontal="15sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearGhichu"
         android:layout_toRightOf="@+id/tvpttt"/>
 
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/tvpttt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tổng tiền: "
-            android:fontFamily="@font/arbutus_slab"/>
-
-        <TextView
-            android:id="@+id/tvTongtienHD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" 15000000"
-            android:textSize="17dp"
-            android:textColor="#FB0D0D"
-            android:fontFamily="@font/mali"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/cardViewBottom"

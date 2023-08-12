@@ -66,7 +66,7 @@ public class SanPhamDAO {
     }
 
     public ArrayList<SanPham> getAllSP(){
-        String sql = "SELECT * FROM SanPham where soLuong > 0";
+        String sql = "SELECT * FROM SanPham";
         return getData(sql);
     }
 
@@ -76,7 +76,7 @@ public class SanPhamDAO {
     }
 
     public ArrayList<SanPham> getSanPhamByMaTH(int maTH) {
-        String sql = "SELECT * FROM SanPham WHERE maTH = ? and soLuong > 0";
+        String sql = "SELECT * FROM SanPham WHERE maTH = ?";
         String[] selectionArgs = {String.valueOf(maTH)};
         return getData(sql, selectionArgs);
     }
@@ -131,7 +131,7 @@ public class SanPhamDAO {
     }
 
     public ArrayList<SanPham> searchSanPham(String keyword) {
-        String sql = "SELECT * FROM SanPham WHERE tenSP LIKE ? OR giaSP LIKE ? and soLuong > 0 ";
+        String sql = "SELECT * FROM SanPham WHERE tenSP LIKE ? OR giaSP LIKE ?";
         String[] selectionArgs = new String[]{"%" + keyword + "%", "%" + keyword + "%"};
         return getData(sql, selectionArgs);
     }

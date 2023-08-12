@@ -69,25 +69,15 @@ public class Fragment_DHxacnhan extends Fragment implements Adapter_DonHang.OnTr
 
         if(maUser != -1){
             donHangDAO = new DonHangDAO(getContext());
+            arr.clear();
             arr = donHangDAO.getDHXacnhanbyUser(maUser);
-            Collections.sort(arr, new Comparator<DonHang>() {
-                @Override
-                public int compare(DonHang dh1, DonHang dh2) {
-                    return String.valueOf(dh2.getMaHD()).compareTo(String.valueOf(dh1.getMaHD()));
-                }
-            });
             adapter = new Adapter_DonHang(getContext(), arr);
             adapter.setData(arr);
             recyclerDHXacnhan.setAdapter(adapter);
         }else {
             donHangDAO = new DonHangDAO(getContext());
-            arr = donHangDAO.getDHXacnhan();
-            Collections.sort(arr, new Comparator<DonHang>() {
-                @Override
-                public int compare(DonHang dh1, DonHang dh2) {
-                    return String.valueOf(dh2.getMaHD()).compareTo(String.valueOf(dh1.getMaHD()));
-                }
-            });
+            arr.clear();
+            arr = donHangDAO.getDHByTrangthai(1);
             adapter = new Adapter_DonHang(getContext(), arr);
             adapter.setData(arr);
             recyclerDHXacnhan.setAdapter(adapter);
@@ -97,6 +87,17 @@ public class Fragment_DHxacnhan extends Fragment implements Adapter_DonHang.OnTr
 
     @Override
     public void onTrangThaiChanged(int position, int newTrangThai) {
-        FilltolistDHxacnhan();
+        if(maUser != -1){
+            arr = donHangDAO.getDHXacnhanbyUser(maUser);
+            adapter.setData(arr);
+            adapter.notifyDataSetChanged();
+        }else {
+            // Cập nhật lại dữ liệu trong Adapter
+            arr = donHangDAO.getDHByTrangthai(1);
+            adapter.setData(arr);
+            // Thông báo cho Adapter biết có sự thay đổi
+            adapter.notifyDataSetChanged();
+        }
     }
+
 }

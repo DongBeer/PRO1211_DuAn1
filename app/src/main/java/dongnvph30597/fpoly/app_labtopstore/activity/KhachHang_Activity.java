@@ -69,7 +69,8 @@ public class KhachHang_Activity extends AppCompatActivity {
         builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+
+                finishAffinity();
             }
         });
         builder.setNegativeButton("Không",null);

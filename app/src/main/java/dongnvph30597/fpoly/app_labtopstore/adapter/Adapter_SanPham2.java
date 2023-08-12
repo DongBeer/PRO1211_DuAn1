@@ -211,6 +211,11 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
                     public void onClick(View v) {
                         gioHangDAO = new GioHangDAO(context);
 
+                        if(sp.getSoLuong() == 0){
+                            Toast.makeText(context, "Sản phẩm hiện đang hết!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         SharedPreferences preferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                         int maUser = preferences.getInt("maUser", -1);
                         int maSP = sp.getMaSP();
@@ -242,7 +247,10 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
                     @Override
                     public void onClick(View v) {
                         gioHangDAO = new GioHangDAO(context);
-
+                        if(sp.getSoLuong() == 0){
+                            Toast.makeText(context, "Sản phẩm hiện đang hết!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         SharedPreferences preferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                         int maUser = preferences.getInt("maUser", -1);
                         int maSP = sp.getMaSP();
@@ -288,6 +296,11 @@ public class Adapter_SanPham2 extends RecyclerView.Adapter<Adapter_SanPham2.SP2V
             public void onClick(View v) {
                 SanPham sanPham = arr.get(holder.getAdapterPosition());
                 gioHangDAO = new GioHangDAO(context);
+
+                if(sanPham.getSoLuong() == 0){
+                    Toast.makeText(context, "Sản phẩm hiện đang hết!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 SharedPreferences preferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                 int maUser = preferences.getInt("maUser", -1);

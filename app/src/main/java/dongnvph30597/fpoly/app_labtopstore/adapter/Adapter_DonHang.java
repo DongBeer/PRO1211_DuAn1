@@ -27,11 +27,14 @@ import java.util.ArrayList;
 import dongnvph30597.fpoly.app_labtopstore.DAO.DanhGiaDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.DonHangDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.HoaDonChiTietDAO;
+import dongnvph30597.fpoly.app_labtopstore.DAO.SanPhamDAO;
 import dongnvph30597.fpoly.app_labtopstore.DAO.UserDAO;
 import dongnvph30597.fpoly.app_labtopstore.R;
+import dongnvph30597.fpoly.app_labtopstore.activity.DatHang_Activity;
 import dongnvph30597.fpoly.app_labtopstore.model.ChiTietDonHang;
 import dongnvph30597.fpoly.app_labtopstore.model.DanhGia;
 import dongnvph30597.fpoly.app_labtopstore.model.DonHang;
+import dongnvph30597.fpoly.app_labtopstore.model.SanPham;
 import dongnvph30597.fpoly.app_labtopstore.model.User;
 
 public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHviewHolder>{
@@ -69,6 +72,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
         this.context = context;
         this.arr = arr;
         donHangDAO = new DonHangDAO(context);
+        hoaDonChiTietDAO = new HoaDonChiTietDAO(context);
     }
     public void setOnTrangThaiChangeListener(OnTrangThaiChangeListener listener) {
         this.trangThaiChangeListener = listener;
@@ -128,9 +132,30 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
                         @Override
                         public void onClick(View v) {
                             int index = holder.getAdapterPosition();
-                            Toast.makeText(context, "Bạn đã hủy đơn hàng thành công!"+maUser, Toast.LENGTH_SHORT).show();
+
+
+                            ArrayList<ChiTietDonHang> arrCTDH = hoaDonChiTietDAO.getHDCTbyIDmaHD(dh.getMaHD());
+
+                            for(ChiTietDonHang ctdh : arrCTDH){
+                                int maSP = ctdh.getMaSanPham();
+                                int sl = ctdh.getSoLuong();
+
+                                SanPhamDAO sanPhamDAO = new SanPhamDAO(context);
+                                int slbd = sanPhamDAO.getSoLuongByMaSP(maSP);
+                                int updatesl = slbd + sl;
+
+                                SanPham sanPham = new SanPham();
+                                sanPham.setMaSP(maSP);
+                                sanPham.setSoLuong(updatesl);
+                                sanPhamDAO.updateSoLuong(sanPham);
+
+
+                            }
+
+                            Toast.makeText(context, "Bạn đã hủy đơn hàng thành công!", Toast.LENGTH_SHORT).show();
                             donHangDAO.delete(String.valueOf(dh.getMaHD()));
                             donHangDAO.deleteHoaDonChiTietByMaHD(String.valueOf(dh.getMaHD()));
+
 
                             dialog.dismiss();
 
@@ -146,10 +171,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
             });
         }
 
-
-        holder.ckbTrangthai.setOnCheckedChangeListener(null); // Bỏ bỏ lắng nghe sự kiện trước tiên để tránh lỗi vòng lặp không mong muốn.
         if (dh.getTrangThai() == 3) {
-            holder.ckbTrangthai.setChecked(true);
             holder.ckbTrangthai.setFocusable(false);
             holder.ckbTrangthai.setText("Đã giao");
             holder.ckbTrangthai.setVisibility(View.GONE);
@@ -158,38 +180,54 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
         holder.ckbTrangthai.setFocusable(true);
 
         if(dh.getTrangThai() == 1){
-            holder.ckbTrangthai.setChecked(false);
             holder.ckbTrangthai.setText("Giao hàng");
         }
         if(dh.getTrangThai() == 2){
             holder.ckbTrangthai.setText("Đã giao");
         }
 
-        if(!isConfirmed){
 
-        holder.ckbTrangthai.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.ckbTrangthai.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+            public void onClick(View v) {
                 int index = holder.getAdapterPosition();
                 DonHang dh = arr.get(index);
                 trangThai = dh.getTrangThai();
-                if (trangThai == 3 && !isConfirmed) {
-                    // Đã giao hàng, không làm gì nữa nếu click vào checkbox.
+                if (trangThai == 3) {
                     return;
                 }
-                if (trangThai < 3 && isChecked) {
-                    // Chỉ tăng trạng thái khi trạng thái chưa đạt 2 và checkbox được chọn.
-                    trangThai++;
+                if (trangThai == 0) {
+
+                    trangThai = 1;
                     arr.get(index).setTrangThai(trangThai);
                     donHangDAO.updateTrangThaiDonHang(arr.get(index).getMaHD(), trangThai);
+                    if (trangThaiChangeListener != null) {
+                        trangThaiChangeListener.onTrangThaiChanged(index, trangThai);
+                    }
+
+
                     notifyDataSetChanged();
 
-                    isConfirmed = true;
+
+                }else if(trangThai == 1){
+                    trangThai = 2;
+                    arr.get(index).setTrangThai(trangThai);
+                    donHangDAO.updateTrangThaiDonHang(arr.get(index).getMaHD(), trangThai);
+                    if (trangThaiChangeListener != null) {
+                        trangThaiChangeListener.onTrangThaiChanged(index, trangThai);
+                    }
+                    notifyDataSetChanged();
+
+                }else if(trangThai == 2){
+                    trangThai = 3;
+                    arr.get(index).setTrangThai(trangThai);
+                    donHangDAO.updateTrangThaiDonHang(arr.get(index).getMaHD(), trangThai);
+
 
                     if (trangThaiChangeListener != null) {
                         trangThaiChangeListener.onTrangThaiChanged(index, trangThai);
                     }
+                    notifyDataSetChanged();
                 }
             }
         });
@@ -197,7 +235,6 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
         }
 
 
-    }
 
     @Override
     public int getItemCount() {
@@ -205,9 +242,8 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.MyDHvi
     }
 
     public class MyDHviewHolder extends RecyclerView.ViewHolder {
-        private TextView tvDHmaHD, tvDHtenKH, tvDHNgay, tvDHTongtien;
+        private TextView tvDHmaHD, tvDHtenKH, tvDHNgay, tvDHTongtien, ckbTrangthai;
         private ImageView imgDH;
-        private CheckBox ckbTrangthai;
         public MyDHviewHolder(@NonNull View itemView) {
             super(itemView);
             tvDHmaHD = itemView.findViewById(R.id.tvdhmaHD);

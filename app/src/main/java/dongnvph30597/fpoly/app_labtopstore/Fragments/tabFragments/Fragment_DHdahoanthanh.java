@@ -70,24 +70,24 @@ public class Fragment_DHdahoanthanh extends Fragment implements Adapter_DonHang.
         if(maUser != -1){
             donHangDAO = new DonHangDAO(getContext());
             arr = donHangDAO.getDHDagoanthanhByIDUser(maUser);
-            Collections.sort(arr, new Comparator<DonHang>() {
-                @Override
-                public int compare(DonHang dh1, DonHang dh2) {
-                    return String.valueOf(dh2.getMaHD()).compareTo(String.valueOf(dh1.getMaHD()));
-                }
-            });
+//            Collections.sort(arr, new Comparator<DonHang>() {
+//                @Override
+//                public int compare(DonHang dh1, DonHang dh2) {
+//                    return String.valueOf(dh2.getMaHD()).compareTo(String.valueOf(dh1.getMaHD()));
+//                }
+//            });
             adapter = new Adapter_DonHang(getContext(), arr);
             adapter.setData(arr);
             recyclerDHdahoanthanh.setAdapter(adapter);
         }else {
             donHangDAO = new DonHangDAO(getContext());
             arr = donHangDAO.getDHdahoanthanh();
-            Collections.sort(arr, new Comparator<DonHang>() {
-                @Override
-                public int compare(DonHang dh1, DonHang dh2) {
-                    return String.valueOf(dh2.getMaHD()).compareTo(String.valueOf(dh1.getMaHD()));
-                }
-            });
+//            Collections.sort(arr, new Comparator<DonHang>() {
+//                @Override
+//                public int compare(DonHang dh1, DonHang dh2) {
+//                    return String.valueOf(dh2.getMaHD()).compareTo(String.valueOf(dh1.getMaHD()));
+//                }
+//            });
             adapter = new Adapter_DonHang(getContext(), arr);
             adapter.setData(arr);
             recyclerDHdahoanthanh.setAdapter(adapter);
@@ -97,6 +97,16 @@ public class Fragment_DHdahoanthanh extends Fragment implements Adapter_DonHang.
 
     @Override
     public void onTrangThaiChanged(int position, int newTrangThai) {
-        FilltoRecyclerDHdaxuly();
+        if(maUser != -1){
+            arr = donHangDAO.getDHDagoanthanhByIDUser(maUser);
+            adapter.setData(arr);
+            adapter.notifyDataSetChanged();
+        }else {
+            // Cập nhật lại dữ liệu trong Adapter
+            arr = donHangDAO.getDHByTrangthai(3);
+            adapter.setData(arr);
+            // Thông báo cho Adapter biết có sự thay đổi
+            adapter.notifyDataSetChanged();
+        }
     }
 }
