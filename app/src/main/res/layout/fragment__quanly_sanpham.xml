@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#00BCD4"
+    tools:context=".Fragments.Fragment_QuanlySanPham">
+
+    <ImageView
+        android:id="@+id/icon_menuSP"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_menu"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quản lý sản phẩm"
+        android:fontFamily="@font/mali"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical|center_horizontal"/>
+
+    <LinearLayout
+        android:background="#fff"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvTongsanpham"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Laptop (243 sản phẩm)"
+            android:fontFamily="@font/mali"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="20dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerListSP"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:padding="5dp"
+            tools:listitem="@layout/layout_item_sanpham"/>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:id="@+id/floatAddSP"
+        android:src="@drawable/baseline_add_24"
+        android:backgroundTint="#03A9F4"/>
+
+</RelativeLayout>
